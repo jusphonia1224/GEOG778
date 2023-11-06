@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+ <html>
+  <head>
+    <!-- meta for browser allow mobile design -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+    
+    <title>Hong Kong Zoological and Botanical Gardens</title>
+
+    <style>
+        html,
+        body,
+        #viewDiv {
+            padding: 0;
+            margin: 0;
+            height: 95%;
+            width: 100%;
+        }
+
+        h1{
+            margin-left: 50px;
+        }
+
+        .addRecordBtn {
+            position: absolute;
+            z-index: 10;
+            top: 25px;
+            right: 50px;
+            background-color: #0079c1;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            font-size: 20px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .addRecordBtn:hover {
+            background-color: #005a87;
+        }
+
+    </style>
+
+    <!-- import css and esri.js lib -->
+    <link rel="stylesheet" href="https://js.arcgis.com/4.26/esri/themes/light/main.css" />
+    <script src="https://js.arcgis.com/4.26/"></script>
+
+    <!-- loading modules -->
+    <script>
+        require([
+            "esri/config", 
+            "esri/Map", 
+            "esri/views/MapView", 
+            "esri/widgets/Locate", 
+            "esri/widgets/Search", 
+            "esri/layers/FeatureLayer",
+            "esri/Graphic",
+            "esri/layers/GraphicsLayer",
+            "esri/widgets/Legend",
+            "esri/widgets/LayerList",
+            "esri/widgets/Expand"
+        ], (esriConfig, Map, MapView, Locate, Search, FeatureLayer, Graphic, GraphicsLayer, Legend, LayerList, Expand) => {
+            esriConfig.apiKey = "AAPK1bafb1fd1b984000a2a5ab965ed0cf111GDugMmnipDNIQH9yaN93addT3iTZzAKwGLSLBZvZJBkFTaRPkJjvEi2gCoqyJml";
+
+            const map = new Map({
+                basemap: "arcgis-topographic"
+            });
+
+            const view = new MapView({
+                container: "viewDiv", 
+                center: [114.155700, 22.277778], // Longitude, latitude of Hong Kong Zoological and Botanical Gardens
+                zoom: 12, // Zoom level
+                map: map // References the map object
+            });
+
+            const locateBtn = new Locate({
+                view: view
+            });
+
+            //const graphicsLayer = new GraphicsLayer();
+            //map.add(graphicsLayer);
+
+            // Defining popup properties
+            const zonepopupTemplate = {
+                "title": "{Name}",
+                "content": "<b>Zone Type:</b> {ZoneType}<br> \
+                            <b>Zone Code:</b> {ZoneCode}<br> \
+                            <b>Remarks:</b> {Remarks}<br> "
+            }
+
+            // ----- Settings for layer - Agency related -----
+            const animalsLayer = new FeatureLayer({
+                url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/Animals/FeatureServer",
+                /*renderer: {
+                    type: "unique-value",  // autocasts as new UniqueValueRenderer()
+                    field: "ZoneType",  // contains values referenced in uniqueValueInfos
+                    uniqueValueInfos: [
+                        {
+                            value: "Mammals", 
+                            symbol: {
+                                "type": "picture-marker",
+                                "url": "https://jusphonia1224.github.io/GEOG777Project2/logo/rbw.png",
+                                "width": "20px",
+                                "height": "20px"
+                            }
+                        }, {
+                            value: "Reptiles",  
+                            symbol: {
+                                "type": "picture-marker",
+                                "url": "https://jusphonia1224.github.io/GEOG576MidProject/logo/rbw_cafe.png",
+                                "width": "20px",
+                                "height": "20px"
+                            } 
+                        }, {
+                            value: "Birds",  
+                            symbol: {
+                                "type": "picture-marker",
+                                "url": "https://jusphonia1224.github.io/GEOG576MidProject/logo/P_Nation_logo.png",
+                                "width": "20px",
+                                "height": "20px"
+                            }
+                        }
+                    ]
+                }, */
+                //definitionExpression: "Type = 'Agency' ",
+                outFields: ["ZoneCode", "ZoneType", "Remarks"],
+                popupTemplate: zonepopupTemplate
+            });
+
+            animalsLayer_titleForLegend = animalsLayer.title = animalsLayer.name = 'Animals';
+
+            map.add(animalsLayer);
+          
+
+            // Add the locate widget to the top left corner of the view
+            view.ui.add(locateBtn, {
+                position: "top-left"
+            });
+
+            const searchWidget = new Search({
+                view: view
+            });
+
+            // Adds the search widget below other elements in the top left corner of the view
+            view.ui.add(searchWidget, {
+                position: "top-right",
+                index: 2
+            });
+
+            // Add Legend Widget
+            let legend = new Legend({
+                view: view,
+                container: document.createElement("div")
+            });
+
+            const legendExpand = new Expand({
+                view: view,
+                content: legend
+            });
+
+            view.ui.add(legendExpand, "bottom-left");
+
+            // Add Layer List Widget
+            let layerList = new LayerList({
+                view: view,
+                container: document.createElement("div")
+            });
+
+            const layerListExpand = new Expand({
+                view: view,
+                content: layerList
+            });
+                        
+            view.ui.add(layerListExpand, "bottom-left");
+        });
+    </script>
+
+  </head>
+  <body>
+    <header id="header">
+        <div id="header_title">
+            <h1 style="color: green">Hong Kong Zoological and Botanical Gardens</h1>
+        </div>
+        <a href="https://arcg.is/00iuyj"target="_blank" class="addRecordBtn">Add Record</a>
+    </header>
+    <div id="viewDiv"></div>
+    <footer style="text-align:center"> University of Wisconsin - Madison - GEOG576 Mid Project - By Jusphonia Ho</footer>
+  </body>
+</html>
+
