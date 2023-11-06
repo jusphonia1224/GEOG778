@@ -89,41 +89,9 @@
                             <b>Remarks:</b> {Remarks}<br> "
             }
 
-            // ----- Settings for layer - Agency related -----
+            // ----- Settings for layer - Animals zones -----
             const animalsLayer = new FeatureLayer({
                 url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/Animals/FeatureServer",
-                /*renderer: {
-                    type: "unique-value",  // autocasts as new UniqueValueRenderer()
-                    field: "ZoneType",  // contains values referenced in uniqueValueInfos
-                    uniqueValueInfos: [
-                        {
-                            value: "Mammals", 
-                            symbol: {
-                                "type": "picture-marker",
-                                "url": "https://jusphonia1224.github.io/GEOG777Project2/logo/rbw.png",
-                                "width": "20px",
-                                "height": "20px"
-                            }
-                        }, {
-                            value: "Reptiles",  
-                            symbol: {
-                                "type": "picture-marker",
-                                "url": "https://jusphonia1224.github.io/GEOG576MidProject/logo/rbw_cafe.png",
-                                "width": "20px",
-                                "height": "20px"
-                            } 
-                        }, {
-                            value: "Birds",  
-                            symbol: {
-                                "type": "picture-marker",
-                                "url": "https://jusphonia1224.github.io/GEOG576MidProject/logo/P_Nation_logo.png",
-                                "width": "20px",
-                                "height": "20px"
-                            }
-                        }
-                    ]
-                }, */
-                //definitionExpression: "Type = 'Agency' ",
                 outFields: ["ZoneCode", "ZoneType", "Remarks"],
                 popupTemplate: zonepopupTemplate
             });
@@ -131,7 +99,17 @@
             animalsLayer_titleForLegend = animalsLayer.title = animalsLayer.name = 'Animals';
 
             map.add(animalsLayer);
-          
+
+            // ----- Settings for layer - Gardens zones -----
+            const gardensLayer = new FeatureLayer({
+                url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/Gardens/FeatureServer",
+                outFields: ["ZoneCode", "ZoneType", "Remarks"],
+                popupTemplate: zonepopupTemplate
+            });
+
+            gardensLayer_titleForLegend = gardensLayer.title = gardensLayer.name = 'Gardens';
+
+            map.add(gardensLayer);          
 
             // Add the locate widget to the top left corner of the view
             view.ui.add(locateBtn, {
