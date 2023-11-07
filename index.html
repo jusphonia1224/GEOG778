@@ -79,8 +79,6 @@
         ], (esriConfig, Map, MapView, Locate, Search, FeatureLayer, Graphic, GraphicsLayer, Legend, LayerList, Expand) => {
             esriConfig.apiKey = "AAPK1bafb1fd1b984000a2a5ab965ed0cf111GDugMmnipDNIQH9yaN93addT3iTZzAKwGLSLBZvZJBkFTaRPkJjvEi2gCoqyJml";
 
-            let plantsLayerView;
-
             const map = new Map({
                 basemap: "arcgis-topographic"
             });
@@ -201,7 +199,29 @@
             view.ui.add(layerListExpand, "bottom-left");
 
             // Filter Widget for Plants
-            
+            // Create the filter widget
+            const filterWidget = new FeatureFilter({
+                view: view,
+                featureLayer: gardensSpeciesLayer,
+                field: "plants",
+                outFields: ["*"],
+            });
+
+            // Add the filter widget to the view
+            view.ui.add(filterWidget, "top-right");
+
+            // Listen for filter change events
+            filterWidget.on("filter-change", function (event) {
+                //const { where } = event;
+                applyFilterWithLikeOperator(event);
+                console.log("Filter expression:", where);
+            });
+
+            // Applying a filter with "LIKE" operator
+            function applyFilterWithLikeOperator(value) {
+                const expression = `plants LIKE '%${value}%'`;
+                filterWidget.applyFilter({ plants: expression });
+            }
         });
     </script>
 
