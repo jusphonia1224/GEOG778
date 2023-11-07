@@ -21,6 +21,12 @@
             margin-left: 50px;
         }
 
+        html,
+        body,
+        #buttonDiv {
+            text-align: center;
+        }
+
         .addRecordBtn {
             position: absolute;
             z-index: 10;
@@ -37,7 +43,7 @@
         }
 
         .addRecordBtn:hover {
-            background-color: #005a87;
+            background-color: #034517;
         }
 
     </style>
@@ -84,11 +90,10 @@
             //const graphicsLayer = new GraphicsLayer();
             //map.add(graphicsLayer);
 
-            // Defining popup properties
+            // Defining popup properties for zones
             const zonepopupTemplate = {
-                "title": "{Name}",
-                "content": "<b>Zone Type:</b> {ZoneType}<br> \
-                            <b>Zone Code:</b> {ZoneCode}<br> \
+                "title": "{ZoneType}",
+                "content": "<b>Zone Code:</b> {ZoneCode}<br> \
                             <b>Remarks:</b> {Remarks}<br> "
             }
 
@@ -113,6 +118,56 @@
             gardensLayer_titleForLegend = gardensLayer.title = gardensLayer.name = 'Gardens';
 
             map.add(gardensLayer);          
+
+            // Defining popup properties for species
+            const speciespopupTemplate = {
+                "title": "{species_birds}{species_mammals}{species_reptiles}{plants}",
+                "content": "<b>Type:</b> {species_birds}{species_mammals}{species_reptiles}{plants}<br> \
+                            <b>Zone:</b> {animals_type}{gardens_type} {zone_birds}{zone_mammals}{zone_reptiles}{zone_green_house}{zone_thematic_garden}<br>"
+            }
+            
+            // ----- Settings for layer - Plants Species -----
+            const gardensSpeciesLayer = new FeatureLayer({
+                url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/survey123_b49e614ee27c485e8d0d964247f00b7d_results/FeatureServer",
+                renderer: {
+                    type: "unique-value",  // autocasts as new UniqueValueRenderer()
+                    field: "plants",  // contains values referenced in uniqueValueInfos
+                    uniqueValueInfos: [
+                        {
+                            value: "Bamboo", 
+                            symbol: {
+                                "type": "picture-marker",
+                                "url": "https://jusphonia1224.github.io/GEOG576MidProject/logo/Bamboo.jpg",
+                                "width": "25px",
+                                "height": "15px"
+                            }
+                        }, {
+                            value: "Bunya-bunya",  
+                            symbol: {
+                                "type": "picture-marker",
+                                "url": "https://jusphonia1224.github.io/GEOG576MidProject/logo/Bunya-bunya.jpg",
+                                "width": "20px",
+                                "height": "20px"
+                            } 
+                        }, {
+                            value: "White_Jade_Orchid_Tree",  
+                            symbol: {
+                                "type": "picture-marker",
+                                "url": "https://jusphonia1224.github.io/GEOG576MidProject/logo/White_Jade_Orchid_Tree.jpg",
+                                "width": "20px",
+                                "height": "20px"
+                            }
+                        }
+                    ]
+                },  
+                definitionExpression: "animals_or_gardens = 'Gardens'",
+                outFields: ["plants"],
+                popupTemplate: zonepopupTemplate
+            });
+
+            gardensSpeciesLayer_titleForLegend = gardensSpeciesLayer.title = gardensSpeciesLayer.name = 'Plants Species';
+
+            map.add(gardensSpeciesLayer);  
 
             // Add the locate widget to the top left corner of the view
             view.ui.add(locateBtn, {
@@ -163,8 +218,10 @@
         <div id="header_title">
             <h1 style="color: green">Hong Kong Zoological and Botanical Gardens</h1>
         </div>
-        <a href="https://arcg.is/00iuyj"target="_blank" class="addRecordBtn">Add Record</a>
     </header>
+    <div id="buttonDiv">
+        <a href="https://arcg.is/nrKPz"target="_blank" class="addRecordBtn">Report Species</a>
+    </div>
     <div id="viewDiv"></div>
     <footer style="text-align:center"> University of Wisconsin - Madison - GEOG777 Project 2 - By Jusphonia Ho</footer>
   </body>
