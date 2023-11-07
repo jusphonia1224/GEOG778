@@ -199,20 +199,6 @@
                         
             view.ui.add(layerListExpand, "bottom-left");
 
-            // Filter Widget for Plants
-            // Create the filter widget
-            const filterWidget = new FeatureFilter({
-                view: view,
-                featureLayer: gardensSpeciesLayer,
-                field: "plants",
-                outFields: ["*"],
-            });
-
-
-            // Add the filter widget to the view
-            view.ui.add(filterWidget, {
-                position: "top-right",
-            });
         });
     </script>
 
