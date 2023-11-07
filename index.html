@@ -221,7 +221,9 @@
             filterWidget.addFilterChoices("plants", filterChoices);
 
             // Add the filter widget to the view
-            view.ui.add(filterWidget, "top-right");
+            view.ui.add(filterWidget, {
+                position: "top-right",
+            });
         });
     </script>
 
