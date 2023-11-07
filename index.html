@@ -75,9 +75,8 @@
             "esri/layers/GraphicsLayer",
             "esri/widgets/Legend",
             "esri/widgets/LayerList",
-            "esri/widgets/Expand",
-            "esri/widgets/FeatureFilter"
-        ], (esriConfig, Map, MapView, Locate, Search, FeatureLayer, Graphic, GraphicsLayer, Legend, LayerList, Expand, FeatureFilter) => {
+            "esri/widgets/Expand"
+        ], (esriConfig, Map, MapView, Locate, Search, FeatureLayer, Graphic, GraphicsLayer, Legend, LayerList, Expand) => {
             esriConfig.apiKey = "AAPK1bafb1fd1b984000a2a5ab965ed0cf111GDugMmnipDNIQH9yaN93addT3iTZzAKwGLSLBZvZJBkFTaRPkJjvEi2gCoqyJml";
 
             const map = new Map({
@@ -199,6 +198,32 @@
                         
             view.ui.add(layerListExpand, "bottom-left");
 
+            // Filter Widget for Plants
+            // Create the filter widget
+            const filterWidget = new FeatureFilter({
+                view: view,
+                featureLayer: gardensSpeciesLayer,
+                field: "plants",
+                outFields: ["*"],
+            });
+
+            // Listen for filter change events
+            filterWidget.on("filter-change", function (event) {
+                const expression = `plants LIKE '%${event}%'`;
+                filterWidget.applyFilter({ plants: expression });
+                console.log("Filter expression:", where);
+            });
+            
+            // Set the filter choices
+            const filterChoices = ["bamboo", "white flowers"];
+
+            // Add the filter choices to the filter widget
+            filterWidget.addFilterChoices("plants", filterChoices);
+
+            // Add the filter widget to the view
+            view.ui.add(filterWidget, {
+                position: "top-right",
+            });
         });
     </script>
 
