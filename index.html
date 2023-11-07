@@ -56,6 +56,29 @@
             background-color: #034517;
         }
 
+        #plants-filter {
+            height: 160px;
+            width: 100%;
+            visibility: hidden;
+        }
+
+        .plants-item {
+            width: 100%;
+            padding: 12px;
+            text-align: center;
+            vertical-align: baseline;
+            cursor: pointer;
+            height: 40px;
+        }
+
+        .plants-item:focus {
+            background-color: dimgrey;
+        }
+
+        .plants-item:hover {
+            background-color: dimgrey;
+        }
+
     </style>
 
     <!-- import css and esri.js lib -->
@@ -79,6 +102,8 @@
             "esri/core/reactiveUtils"
         ], (esriConfig, Map, MapView, Locate, Search, FeatureLayer, Graphic, GraphicsLayer, Legend, LayerList, Expand, reactiveUtils) => {
             esriConfig.apiKey = "AAPK1bafb1fd1b984000a2a5ab965ed0cf111GDugMmnipDNIQH9yaN93addT3iTZzAKwGLSLBZvZJBkFTaRPkJjvEi2gCoqyJml";
+
+            let plantsLayerView;
 
             const map = new Map({
                 basemap: "arcgis-topographic"
@@ -198,6 +223,41 @@
             });
                         
             view.ui.add(layerListExpand, "bottom-left");
+
+            // Filter Widget for Plants
+            const plantsNodes = document.querySelectorAll(`.plants-item`);
+            const plantsElement = document.getElementById("plants-filter");
+
+            // click event handler for seasons choices
+            plantsElement.addEventListener("click", filterByPlants);
+
+            function filterByPlants(event) {
+                const selectedPlants = event.target.getAttribute("data-plants");
+                plantsLayerView.filter = {
+                    where: "Plants like '%" + selectedPlants + "%'"
+                };
+            }
+
+            view.whenLayerView(layer).then((layerView) => {
+                plantsLayerView = layerView;
+
+                // set up UI items
+                plantsElement.style.visibility = "visible";
+                const plantsExpand = new Expand({
+                    view: view,
+                    content: plantsElement,
+                    expandIcon: "filter",
+                    group: "top-right"
+                });
+                //clear the filters when user closes the expand widget
+                reactiveUtils.when(
+                    () => !plantsExpand.expanded,
+                    () => {
+                        plantsLayerView.filter = null;
+                    }
+                );
+                view.ui.add(plantsExpand, "top-right");
+            });
         });
     </script>
 
@@ -211,6 +271,11 @@
     <div id="buttonDiv">
         <a href="https://arcg.is/nrKPz"target="_blank" class="addRecordBtn">Report Species</a>
     </div>
+    <div id="plants-filter" class="esri-widget">
+        <div class="plants-item visible-plants" data-season="Bamboo">Bamboo</div>
+        <div class="plants-item visible-plants" data-season="Bunya-bunya">Bunya-bunya</div>
+        <div class="plants-item visible-plants" data-season="White_Jade_Orchid_Tree">White Jade Orchid Tree</div>
+      </div>
     <div id="viewDiv"></div>
     <footer style="text-align:center"> University of Wisconsin - Madison - GEOG777 Project 2 - By Jusphonia Ho</footer>
   </body>
