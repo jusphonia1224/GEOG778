@@ -75,8 +75,9 @@
             "esri/layers/GraphicsLayer",
             "esri/widgets/Legend",
             "esri/widgets/LayerList",
-            "esri/widgets/Expand"
-        ], (esriConfig, Map, MapView, Locate, Search, FeatureLayer, Graphic, GraphicsLayer, Legend, LayerList, Expand) => {
+            "esri/widgets/Expand",
+            "esri/core/reactiveUtils"
+        ], (esriConfig, Map, MapView, Locate, Search, FeatureLayer, Graphic, GraphicsLayer, Legend, LayerList, Expand, reactiveUtils) => {
             esriConfig.apiKey = "AAPK1bafb1fd1b984000a2a5ab965ed0cf111GDugMmnipDNIQH9yaN93addT3iTZzAKwGLSLBZvZJBkFTaRPkJjvEi2gCoqyJml";
 
             const map = new Map({
@@ -140,35 +141,13 @@
             const gardensSpeciesLayer = new FeatureLayer({
                 url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/survey123_b49e614ee27c485e8d0d964247f00b7d_results/FeatureServer",
                 renderer: {
-                    type: "unique-value",  // autocasts as new UniqueValueRenderer()
-                    field: "plants",  // contains values referenced in uniqueValueInfos
-                    uniqueValueInfos: [
-                        {
-                            value: "Bamboo", 
-                            symbol: {
-                                "type": "picture-marker",
-                                "url": "https://jusphonia1224.github.io/GEOG777Project2/logo/Bamboo.jpg",
-                                "width": "25px",
-                                "height": "15px"
-                            }
-                        }, {
-                            value: "Bunya-bunya",  
-                            symbol: {
-                                "type": "picture-marker",
-                                "url": "https://jusphonia1224.github.io/GEOG777Project2/logo/Bunya-bunya.jpg",
-                                "width": "20px",
-                                "height": "20px"
-                            } 
-                        }, {
-                            value: "White_Jade_Orchid_Tree",  
-                            symbol: {
-                                "type": "picture-marker",
-                                "url": "https://jusphonia1224.github.io/GEOG777Project2/logo/White_Jade_Orchid_Tree.jpg",
-                                "width": "20px",
-                                "height": "20px"
-                            }
-                        }
-                    ]
+                    type: "simple",  // autocasts as new UniqueValueRenderer()
+                    symbol: {
+                        type: "picture-marker",
+                        url: "https://jusphonia1224.github.io/GEOG777Project2/logo/Bamboo.jpg",
+                        width: "25px",
+                        height: "15px",
+                    }
                 },  
                 definitionExpression: "animals_or_gardens = 'Gardens'",
                 outFields: ["species_birds","species_mammals","species_reptiles","plants","plants","animals_type","gardens_type","zone_birds","zone_mammals","zone_reptiles","zone_green_house","zone_thematic_garden"],
