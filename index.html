@@ -207,21 +207,21 @@
                 outFields: ["*"],
             });
 
-            // Add the filter widget to the view
-            view.ui.add(filterWidget, "top-right");
-
             // Listen for filter change events
             filterWidget.on("filter-change", function (event) {
-                //const { where } = event;
-                applyFilterWithLikeOperator(event);
+                const expression = `plants LIKE '%${event}%'`;
+                filterWidget.applyFilter({ plants: expression });
                 console.log("Filter expression:", where);
             });
+            
+            // Set the filter choices
+            const filterChoices = ["bamboo", "white flowers"];
 
-            // Applying a filter with "LIKE" operator
-            function applyFilterWithLikeOperator(value) {
-                const expression = `plants LIKE '%${value}%'`;
-                filterWidget.applyFilter({ plants: expression });
-            }
+            // Add the filter choices to the filter widget
+            filterWidget.addFilterChoices("plants", filterChoices);
+
+            // Add the filter widget to the view
+            view.ui.add(filterWidget, "top-right");
         });
     </script>
 
