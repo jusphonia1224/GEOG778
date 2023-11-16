@@ -19,48 +19,6 @@
     <link rel="stylesheet" href="https://js.arcgis.com/4.26/esri/themes/light/main.css" />
     <script src="https://js.arcgis.com/4.28/"></script>
     
-    <style>
-        html,
-        body,
-        #viewDiv {
-            padding: 0;
-            margin: 0;
-            height: 95%;
-            width: 100%;
-        }
-
-        .addBtn {
-            position: absolute;
-            z-index: 10;
-            top: 25px;
-            right: 50px;
-            background-color: #167f12;
-            color: white;
-            padding: 8px 16px;
-            border: none;
-            border-radius: 4px;
-            font-size: 20px;
-            cursor: pointer;
-            text-decoration: none;
-        }
-
-        .addRecordBtn {
-            background-color: #167f12;
-            color: white;
-            padding: 8px 16px;
-            border: none;
-            border-radius: 4px;
-            font-size: 20px;
-            cursor: pointer;
-            text-decoration: none;
-        }
-
-        .addRecordBtn:hover {
-            background-color: #034517;
-        }
-
-    </style>
-
     <!-- loading modules -->
     <script>
         require([
@@ -238,7 +196,9 @@
                 </div>	
                 
                 <div class="row">
-                    <div id="viewDiv"></div>
+                    <div class="col-lg-12 d-flex flex-column align-items-stretch">  
+                        <div id="viewDiv"></div>
+                    </div>				
                 </div>	                                
             </div>			
         </section>	
@@ -301,7 +261,7 @@
             </div>
             
             <div class="copyright">
-                &copy; Copyright <strong><span>University of Wisconsin - Madison - GEOG777 Project 2 - By Jusphonia Ho</span></strong>. All Rights Reserved
+                University of Wisconsin - Madison - GEOG777 Project 2 - &copy; Copyright <strong><span> Jusphonia Ho</span></strong>. All Rights Reserved
             </div>
         </div>
     </footer>
