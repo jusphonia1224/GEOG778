@@ -7,12 +7,56 @@
     
     <title>Hong Kong Zoological and Botanical Gardens</title>
 
-    <!-- import style for bootstrap, google font, leaflet -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/icons/bootstrap-icons.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
+    <style>
+        html,
+        body,
+        #viewDiv {
+            padding: 0;
+            margin: 0;
+            height: 95%;
+            width: 100%;
+        }
 
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Satisfy" rel="stylesheet">	
+        h1{
+            text-align: center;
+        }
+
+        #buttonDiv {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .addBtn {
+            position: absolute;
+            z-index: 10;
+            top: 25px;
+            right: 50px;
+            background-color: #167f12;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            font-size: 20px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .addRecordBtn {
+            background-color: #167f12;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            font-size: 20px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .addRecordBtn:hover {
+            background-color: #034517;
+        }
+
+    </style>
 
     <!-- import css and esri.js lib -->
     <link rel="stylesheet" href="https://js.arcgis.com/4.26/esri/themes/light/main.css" />
@@ -160,63 +204,18 @@
             // Filter
         });
     </script>
+
   </head>
   <body>
-    <header id="header" class="fixed-top d-flex justify-content-center align-items-center header-transparent">
-        <nav id="navbar" class="navbar">
-            <ul>
-                <li><a class="nav-link scrollto" href="#home">Hong Kong Zoological and Botanical Gardens</a></li>
-                <li><a class="nav-link scrollto" href="#home"><img src="logo/logo.png" width="100" height="100"></a></li>
-                <li><a class="nav-link scrollto active" href="#home">Home</a></li>
-                <li><a class="nav-link scrollto" href="#mapSection">Map</a></li>
-                <li><a class="nav-link scrollto" href="#report">Report</a></li>
-                <li><a class="nav-link scrollto" href="#about">About</a></li>
-            </ul>
-            <i class="bi bi-list mobile-nav-toggle"></i>
-        </nav>
+    <header id="header">
+        <div id="header_title">
+            <h1 style="color: green">Hong Kong Zoological and Botanical Gardens</h1>
+        </div>
     </header>
-    
-    <!-- Home Section -->
-    <section id="home">
-        <div class="home-container">
-            <h1>Hong Kong Zoological and Botanical Gardens</h1>
-            <a href="#mapSection" class="btn-scroll scrollto" title="Scroll Down"><i class="bi bi-chevron-down"></i></a>
-        </div>
-    </section>
-    
-    <main id="main">
-        
-      <header id="header">
-             <div id="header_title">
-                 <h1 style="color: green">Hong Kong Zoological and Botanical Gardens</h1>
-             </div>
-         </header>
-         <div id="buttonDiv">
-             <a href="https://arcg.is/nrKPz"target="_blank" class="addRecordBtn">Report Species</a>
-         </div>
-        
-    </main>	
-   
+    <div id="buttonDiv">
+        <a href="https://arcg.is/nrKPz"target="_blank" class="addRecordBtn">Report Species</a>
+    </div>
     <div id="viewDiv"></div>
-    
-    <footer id="footer">
-        <div class="container">
-            <div class="social-links">
-                <a href="https://www.instagram.com/jusphonia/" target="_blank" class="linkedin"><i class="bi bi-instagram"></i></a>
-                <a href="https://www.linkedin.com/in/jusphonia-ho" target="_blank" class="linkedin"><i class="bi bi-linkedin"></i></a>
-            </div>
-            
-            <div class="copyright">
-                University of Wisconsin - Madison - GEOG777 Project 2 - &copy; Copyright <strong><span> Jusphonia Ho</span></strong>. All Rights Reserved
-            </div>
-        </div>
-    </footer>
-    
-    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-    
-    <!--external script-->
-    <script src="https://code.jquery.com/jquery-3.6.1.min.js" type="text/javascript"></script>
-    <script type="text/javascript" src="lib/bootstrap.min.js"></script>	
-    <script src="js/main.js"></script>	
-    </body>
+    <footer style="text-align:center"> University of Wisconsin - Madison - GEOG777 Project 2 - By Jusphonia Ho</footer>
+  </body>
 </html>
