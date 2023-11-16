@@ -1,10 +1,12 @@
+html,
+body,
 #viewDiv {
     padding: 0;
     margin: 0;
     height: 95%;
-    width: 100%;	
-    display: inline-block;
+    width: 100%;
 }
+
 .addBtn {
     position: absolute;
     z-index: 10;
@@ -33,12 +35,6 @@
 
 .addRecordBtn:hover {
     background-color: #034517;
-}
-
-#map {
-	height: 800px;
-    width: 100%;
-    display: inline-block;
 }
 
 #panel {
