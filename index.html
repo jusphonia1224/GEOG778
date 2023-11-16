@@ -15,14 +15,7 @@
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Satisfy" rel="stylesheet">	
 
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css" integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14=" crossorigin=""/>
-    <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js" integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg=" crossorigin=""></script>
-
-    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
-    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
-    <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster-src.js"></script>
-
-    <!-- import css and esri.js lib -->
+   <!-- import css and esri.js lib -->
     <link rel="stylesheet" href="https://js.arcgis.com/4.26/esri/themes/light/main.css" />
     <script src="https://js.arcgis.com/4.28/"></script>
     
@@ -89,7 +82,7 @@
             });
 
             const view = new MapView({
-                container: "map", 
+                container: "viewDiv", 
                 center: [114.155700, 22.277778], // Longitude, latitude of Hong Kong Zoological and Botanical Gardens
                 zoom: 18, // Zoom level
                 map: map, // References the map object
@@ -244,7 +237,7 @@
                 
                 <div class="row">
                     <div class="col-lg-9 d-flex flex-column align-items-stretch">
-                        <div id='map'></div>
+                        <div id='viewDiv'></div>
                     </div>							
                 </div>	                                
             </div>			
@@ -318,7 +311,6 @@
     <!--external script-->
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" type="text/javascript"></script>
     <script type="text/javascript" src="lib/bootstrap.min.js"></script>	
-    <script type="text/javascript" src="lib/leaflet-search.min.js"></script>
     <script src="js/main.js"></script>	
     </body>
 </html>
