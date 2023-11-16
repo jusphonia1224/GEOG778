@@ -83,12 +83,12 @@ body {
 }
 
 a {
-  color: #66a6fa;
+  color: #008000;
   text-decoration: none;
 }
 
 a:hover {
-  color: #66a6fa;
+  color: #008000;
   text-decoration: none;
 }
 
@@ -120,7 +120,7 @@ table, th, tr, td {
   right: 15px;
   bottom: 15px;
   z-index: 996;
-  background: #66a6fa;
+  background: #008000;
   width: 40px;
   height: 40px;
   border-radius: 4px;
@@ -134,7 +134,7 @@ table, th, tr, td {
 }
 
 .back-to-top:hover {
-  background: #66a6fa;
+  background: #008000;
   color: #fff;
 }
 
@@ -376,7 +376,7 @@ table, th, tr, td {
 }
 
 #home .btn-scroll:hover {
-  color: #66a6fa;
+  color: #008000;
 }
 
 @media (min-width: 1024px) {
@@ -429,7 +429,7 @@ section {
 }
 
 .section-title h2 {
-  color:#4689e0;
+  color:#008000;
   padding:1em 0;
   text-align:center;
   overflow:hidden;
@@ -439,7 +439,7 @@ section {
 h2:before, h2:after {
   content:'';
   width:100%;
-  border-bottom:#b6d0f2 solid;
+  border-bottom:#008000 solid;
   display:inline-block;
   vertical-align:middle;
 }
@@ -550,7 +550,7 @@ h2:after {
 }
 
 #footer .social-links a:hover {
-  background: #66a6fa;
+  background: #008000;
   color: #fff;
   text-decoration: none;
 }
