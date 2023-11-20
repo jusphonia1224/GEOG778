@@ -71,7 +71,7 @@
                 popupTemplate: zonepopupTemplate
             });
 
-            animalsLayer_titleForLegend = animalsLayer.title = animalsLayer.name = 'Animals';
+            animalsLayer_titleForLegend = animalsLayer.title = animalsLayer.name = 'Zone - Animals';
 
             map.add(animalsLayer);
 
@@ -82,9 +82,106 @@
                 popupTemplate: zonepopupTemplate
             });
 
-            gardensLayer_titleForLegend = gardensLayer.title = gardensLayer.name = 'Gardens';
+            gardensLayer_titleForLegend = gardensLayer.title = gardensLayer.name = 'Zone - Gardens';
 
-            map.add(gardensLayer);          
+            map.add(gardensLayer);         
+            
+            // Defining popup properties for zones
+            const faciltiespopupTemplate = {
+                "title": "{FacilitiesType}",
+                "content": "<b>Code:</b> {FacilitiesCode}<br> \
+                            <b>Remarks:</b> {Remarks}<br> "
+            }
+
+            // ----- Settings for layer - Facilities -----
+            const facilitiesLayer = new FeatureLayer({
+                url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/Garden_Facilities/FeatureServer",
+                renderer: {
+                    type: "unique-value",  // autocasts as new UniqueValueRenderer()
+                    field: "FacilitiesType",  // contains values referenced in uniqueValueInfos
+                    uniqueValueInfos: [
+                        {
+                            value: "Children's Playground", 
+                            symbol: {
+                                "type": "picture-marker",
+                                "url": "https://jusphonia1224.github.io/GEOG777Project2/logo/playground.png",
+                                "width": "20px",
+                                "height": "20px"
+                            }
+                        }, {
+                            value: "Refreshment Kiosk",  
+                            symbol: {
+                                "type": "picture-marker",
+                                "url": "https://jusphonia1224.github.io/GEOG777Project2/logo/drinks-cart.png",
+                                "width": "20px",
+                                "height": "20px"
+                            } 
+                        }, {
+                            value: "Park Office",  
+                            symbol: {
+                                "type": "picture-marker",
+                                "url": "https://jusphonia1224.github.io/GEOG777Project2/logo/ticket-office.png",
+                                "width": "20px",
+                                "height": "20px"
+                            }
+                        }, {
+                            value: "Education and Exhibition Centre",  
+                            symbol: {
+                                "type": "picture-marker",
+                                "url": "https://jusphonia1224.github.io/GEOG777Project2/logo/education-center-location.png",
+                                "width": "20px",
+                                "height": "20px"
+                            }
+                        }, {
+                            value: "Rain Shelter",  
+                            symbol: {
+                                "type": "picture-marker",
+                                "url": "https://jusphonia1224.github.io/GEOG777Project2/logo/umbrella.png",
+                                "width": "20px",
+                                "height": "20px"
+                            }
+                        }, {
+                            value: "Car Parking",  
+                            symbol: {
+                                "type": "picture-marker",
+                                "url": "https://jusphonia1224.github.io/GEOG777Project2/logo/car-parking.png",
+                                "width": "20px",
+                                "height": "20px"
+                            }
+                        }, {
+                            value: "Visitor Center",  
+                            symbol: {
+                                "type": "picture-marker",
+                                "url": "https://jusphonia1224.github.io/GEOG777Project2/logo/visitor.png",
+                                "width": "20px",
+                                "height": "20px"
+                            }
+                        }, {
+                            value: "Toilet",  
+                            symbol: {
+                                "type": "picture-marker",
+                                "url": "https://jusphonia1224.github.io/GEOG777Project2/logo/toilet.png",
+                                "width": "20px",
+                                "height": "20px"
+                            }
+                        }, {
+                            value: "Accessible Toilet",  
+                            symbol: {
+                                "type": "picture-marker",
+                                "url": "https://jusphonia1224.github.io/GEOG777Project2/logo/accessible-toilet.png",
+                                "width": "20px",
+                                "height": "20px"
+                            }
+                        }
+                    ]
+                },  
+                outFields: ["FacilitiesCode", "FacilitiesType", "Remarks"],
+                popupTemplate: faciltiespopupTemplate
+            });
+
+            facilitiesLayer_titleForLegend = facilitiesLayer.title = facilitiesLayer.name = 'Facilities';
+
+            map.add(facilitiesLayer);               
 
             // Defining popup properties for species
             const speciespopupTemplate = {
@@ -95,7 +192,7 @@
             
             // ----- Settings for layer - Plants Species -----
             const gardensSpeciesLayer = new FeatureLayer({
-                url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/survey123_b49e614ee27c485e8d0d964247f00b7d_results/FeatureServer",
+                url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/survey123_cec36c129bc0459bb346ef38828664d3_results/FeatureServer",
                 renderer: {
                     type: "simple",  // autocasts as new UniqueValueRenderer()
                     symbol: {
@@ -255,7 +352,7 @@
             
         <div class="row">
             <div class="col-lg-6 d-flex flex-column align-items-stretch">                    
-                <a href="https://arcg.is/nrKPz"target="_blank" class="addRecordBtn">Report Species Location</a>
+                <a href="https://arcg.is/19meqy"target="_blank" class="addRecordBtn">Report Species Location</a>
             </div>				
         </div>
     </section>
@@ -264,7 +361,7 @@
     <section id="mapSection" class="about">
         <div class="container">
             <div class="section-title">
-                <h2> Map </h2>
+                <h2> Garden Map </h2>
             </div>			         
     </section>
    
