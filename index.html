@@ -343,7 +343,27 @@
             });
 
             const searchWidget = new Search({
-                view: view
+                view: view,
+                sources: [
+                    {
+                        layer: animalsLayer,
+                        searchFields: ["ZoneCode", "ZoneType", "Remarks"],
+                        suggestionTemplate: "{ZoneType} - {ZoneCode}",
+                        exactMatch: false,
+                        outFields: ["*"],
+                        name: "Zones - Animals",
+                        placeholder: "example: Mammals"
+                    },
+                    {
+                        layer: gardensLayer,
+                        searchFields: ["ZoneCode", "ZoneType", "Remarks"],
+                        suggestionTemplate: "{ZoneType} - {ZoneCode}: {Remarks}",
+                        exactMatch: false,
+                        outFields: ["*"],
+                        placeholder: "example: Bamboo",
+                        name: "Gardens"
+                    }
+                ]
             });
 
             // Adds the search widget below other elements in the top left corner of the view
