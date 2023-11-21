@@ -131,7 +131,8 @@
                     ]
                 },  
                 outFields: ["HeritageCode", "HeritageType", "Remarks"],
-                popupTemplate: heritagePopupTemplate
+                popupTemplate: heritagePopupTemplate,
+                visible: false
             });
 
             heritageLayer_titleForLegend = heritageLayer.title = heritageLayer.name = 'Heritage';
@@ -228,7 +229,8 @@
                     ]
                 },  
                 outFields: ["FacilitiesCode", "FacilitiesType", "Remarks"],
-                popupTemplate: faciltiesPopupTemplate
+                popupTemplate: faciltiesPopupTemplate,
+                visible: false
             });
 
             facilitiesLayer_titleForLegend = facilitiesLayer.title = facilitiesLayer.name = 'Facilities';
@@ -285,8 +287,7 @@
                 },  
                 definitionExpression: "animals_or_gardens = 'Gardens'",
                 outFields: ["species_birds","species_mammals","species_reptiles","plants","plants","animals_type","gardens_type","zone_birds","zone_mammals","zone_reptiles","zone_green_house","zone_thematic_garden"],
-                popupTemplate: speciespopupTemplate,
-                visible: false
+                popupTemplate: speciespopupTemplate
             });
 
             gardensSpeciesLayer_titleForLegend = gardensSpeciesLayer.title = gardensSpeciesLayer.name = 'Species - Plants';
@@ -329,8 +330,7 @@
                 },  
                 definitionExpression: "animals_or_gardens = 'Animals'",
                 outFields: ["species_birds","species_mammals","species_reptiles","plants","plants","animals_type","gardens_type","zone_birds","zone_mammals","zone_reptiles","zone_green_house","zone_thematic_garden"],
-                popupTemplate: speciespopupTemplate,
-                visible: false
+                popupTemplate: speciespopupTemplate
             });
 
             animalsSpeciesLayer_titleForLegend = animalsSpeciesLayer.title = animalsSpeciesLayer.name = 'Species - Animals';
