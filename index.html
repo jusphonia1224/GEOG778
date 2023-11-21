@@ -55,38 +55,9 @@
             });
 
             //const graphicsLayer = new GraphicsLayer();
-            //map.add(graphicsLayer);
-
-            // Defining popup properties for zones
-            const zonepopupTemplate = {
-                "title": "{ZoneType}",
-                "content": "<b>Zone Code:</b> {ZoneCode}<br> \
-                            <b>Remarks:</b> {Remarks}<br> "
-            }
-
-            // ----- Settings for layer - Animals zones -----
-            const animalsLayer = new FeatureLayer({
-                url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/Animals/FeatureServer",
-                outFields: ["ZoneCode", "ZoneType", "Remarks"],
-                popupTemplate: zonepopupTemplate
-            });
-
-            animalsLayer_titleForLegend = animalsLayer.title = animalsLayer.name = 'Zone - Animals';
-
-            map.add(animalsLayer);
-
-            // ----- Settings for layer - Gardens zones -----
-            const gardensLayer = new FeatureLayer({
-                url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/Gardens/FeatureServer",
-                outFields: ["ZoneCode", "ZoneType", "Remarks"],
-                popupTemplate: zonepopupTemplate
-            });
-
-            gardensLayer_titleForLegend = gardensLayer.title = gardensLayer.name = 'Zone - Gardens';
-
-            map.add(gardensLayer);         
+            //map.add(graphicsLayer);     
             
-            // Defining popup properties for zones
+            // Defining popup properties for facilities
             const faciltiespopupTemplate = {
                 "title": "{FacilitiesType}",
                 "content": "<b>Code:</b> {FacilitiesCode}<br> \
@@ -212,6 +183,35 @@
 
             map.add(gardensSpeciesLayer);  
 
+            // Defining popup properties for zones
+            const zonepopupTemplate = {
+                "title": "{ZoneType}",
+                "content": "<b>Zone Code:</b> {ZoneCode}<br> \
+                            <b>Remarks:</b> {Remarks}<br> "
+            }
+
+            // ----- Settings for layer - Animals zones -----
+            const animalsLayer = new FeatureLayer({
+                url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/Animals/FeatureServer",
+                outFields: ["ZoneCode", "ZoneType", "Remarks"],
+                popupTemplate: zonepopupTemplate
+            });
+
+            animalsLayer_titleForLegend = animalsLayer.title = animalsLayer.name = 'Zone - Animals';
+
+            map.add(animalsLayer);
+
+            // ----- Settings for layer - Gardens zones -----
+            const gardensLayer = new FeatureLayer({
+                url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/Gardens/FeatureServer",
+                outFields: ["ZoneCode", "ZoneType", "Remarks"],
+                popupTemplate: zonepopupTemplate
+            });
+
+            gardensLayer_titleForLegend = gardensLayer.title = gardensLayer.name = 'Zone - Gardens';
+
+            map.add(gardensLayer);   
+            
             // Add the locate widget to the top left corner of the view
             view.ui.add(locateBtn, {
                 position: "top-left"
