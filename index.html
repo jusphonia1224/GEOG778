@@ -267,10 +267,10 @@
                 map.add(animalsLayer);
 
                 // Defining popup properties for species
-                const speciespopupTemplate = {
-                    "title": "{species_birds}{species_mammals}{species_reptiles}{plants}",
-                    "content": "<b>Type:</b> {species_birds}{species_mammals}{species_reptiles}{plants}<br> \
-                                <b>Zone:</b> {animals_type}{gardens_type} {zone_birds}{zone_mammals}{zone_reptiles}{zone_green_house}{zone_thematic_garden}<br>"
+                const speciesPopupTemplate = {
+                    "title": "{species_birds}{species_mammals}{species_reptiles}{species_plants}",
+                    "content": "<b>Type:</b> {animals_type}{gardens_type}<br> \
+                                <b>Zone:</b> {zone_birds}{zone_mammals}{zone_reptiles}{zone_green_house}{zone_thematic_garden}<br>"
                 }
                 
                 // ----- Settings for layer - Plants Species -----
@@ -287,7 +287,7 @@
                     },  
                     definitionExpression: "animals_or_gardens = 'Gardens'",
                     outFields: ["species_birds","species_mammals","species_reptiles","plants","plants","animals_type","gardens_type","zone_birds","zone_mammals","zone_reptiles","zone_green_house","zone_thematic_garden"],
-                    popupTemplate: speciespopupTemplate
+                    popupTemplate: speciesPopupTemplate
                 });
 
                 gardensSpeciesLayer_titleForLegend = gardensSpeciesLayer.title = gardensSpeciesLayer.name = 'Plants';
@@ -330,7 +330,7 @@
                     },  
                     definitionExpression: "animals_or_gardens = 'Animals'",
                     outFields: ["species_birds","species_mammals","species_reptiles","plants","plants","animals_type","gardens_type","zone_birds","zone_mammals","zone_reptiles","zone_green_house","zone_thematic_garden"],
-                    popupTemplate: speciespopupTemplate
+                    popupTemplate: speciesPopupTemplate
                 });
 
                 animalsSpeciesLayer_titleForLegend = animalsSpeciesLayer.title = animalsSpeciesLayer.name = 'Animals';
