@@ -358,7 +358,7 @@
                             height: "20px",
                         }
                     },  
-                    definitionExpression: "EXTRACT(YEAR from report_date) = EXTRACT(MONTH FROM CURRENT_DATE())",
+                    definitionExpression: "EXTRACT(MONTH from report_date) = EXTRACT(MONTH FROM CURRENT_DATE())",
                     outFields: ["species_flowering_plants", "report_date", "photo"],
                     popupTemplate: floweringPlantsPopupTemplate
                 });
