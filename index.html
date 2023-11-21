@@ -344,7 +344,7 @@
                     "title": " {species_flowering_plants} ",
                     "content": "<b>Date Captured:</b> {report_date}<br> \
                                 <b>{ObjectID}<br> \
-                                <b>Photo:</b><img src=\"{photo}\" alt=\"{species_flowering_plants}\" />"
+                                <b>Photo:</b><img src=\"https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/survey123_999c3daaeeb54d7492476d002ef8ef39_results/FeatureServer/0/{photo}\" alt=\"{species_flowering_plants}\" />"
                 }
                 
                 // ----- Settings for layer - Flowering Plants of the Month -----
@@ -359,7 +359,7 @@
                             height: "20px",
                         }
                     },  
-                    definitionExpression: "EXTRACT(MONTH from report_date) = EXTRACT(MONTH FROM CURRENT_DATE())",
+                    definitionExpression: "EXTRACT(MONTH from report_date) = EXTRACT(MONTH FROM CURRENT_DATE()) AND EXTRACT(YEAR from report_date) = EXTRACT(YEAR FROM CURRENT_DATE())",
                     outFields: ["species_flowering_plants", "report_date", "photo", "ObjectID"],
                     popupTemplate: floweringPlantsPopupTemplate
                 });
