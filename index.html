@@ -1,628 +1,667 @@
 <!DOCTYPE html>
- <html>
-  <head>
-    <!-- meta for browser allow mobile design -->
-    <meta charset="utf-8" />
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
-    
-    <title>Hong Kong Zoological and Botanical Gardens</title>
+<html>
+    <head>
+        <!-- meta for browser allow mobile design -->
+        <meta charset="utf-8" />
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+        
+        <title>Hong Kong Zoological and Botanical Gardens</title>
 
-    <!-- import style for bootstrap, google font, leaflet -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/icons/bootstrap-icons.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
+        <!-- import style for bootstrap, google font, leaflet -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/icons/bootstrap-icons.css" rel="stylesheet">
+        <link href="css/style.css" rel="stylesheet">
 
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Satisfy" rel="stylesheet">	
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Satisfy" rel="stylesheet">	
 
-   <!-- import css and esri.js lib -->
-    <link rel="stylesheet" href="https://js.arcgis.com/4.26/esri/themes/light/main.css" />
-    <script src="https://js.arcgis.com/4.28/"></script>
-    
-    <!-- loading modules -->
-    <script>
-        require([
-            "esri/config", 
-            "esri/Map", 
-            "esri/views/MapView", 
-            "esri/widgets/Locate", 
-            "esri/widgets/Search", 
-            "esri/layers/FeatureLayer",
-            "esri/Graphic",
-            "esri/layers/GraphicsLayer",
-            "esri/widgets/Legend",
-            "esri/widgets/LayerList",
-            "esri/widgets/Expand", 
-            "esri/core/reactiveUtils"
-        ], (esriConfig, Map, MapView, Locate, Search, FeatureLayer, Graphic, GraphicsLayer, Legend, LayerList, Expand, reactiveUtils) => {
-            esriConfig.apiKey = "AAPK1bafb1fd1b984000a2a5ab965ed0cf111GDugMmnipDNIQH9yaN93addT3iTZzAKwGLSLBZvZJBkFTaRPkJjvEi2gCoqyJml";
+        <!-- import css and esri.js lib -->
+        <link rel="stylesheet" href="https://js.arcgis.com/4.26/esri/themes/light/main.css" />
+        <script src="https://js.arcgis.com/4.28/"></script>
+        
+        <!-- loading modules -->
+        <script>
+            require([
+                "esri/config", 
+                "esri/Map", 
+                "esri/views/MapView", 
+                "esri/widgets/Locate", 
+                "esri/widgets/Search", 
+                "esri/layers/FeatureLayer",
+                "esri/Graphic",
+                "esri/layers/GraphicsLayer",
+                "esri/widgets/Legend",
+                "esri/widgets/LayerList",
+                "esri/widgets/Expand", 
+                "esri/core/reactiveUtils"
+            ], (esriConfig, Map, MapView, Locate, Search, FeatureLayer, Graphic, GraphicsLayer, Legend, LayerList, Expand, reactiveUtils) => {
+                esriConfig.apiKey = "AAPK1bafb1fd1b984000a2a5ab965ed0cf111GDugMmnipDNIQH9yaN93addT3iTZzAKwGLSLBZvZJBkFTaRPkJjvEi2gCoqyJml";
 
-            const map = new Map({
-                basemap: "arcgis-topographic"
-            });
+                const map = new Map({
+                    basemap: "arcgis-topographic"
+                });
 
-            const view = new MapView({
-                container: "viewDiv", 
-                center: [114.155700, 22.277778], // Longitude, latitude of Hong Kong Zoological and Botanical Gardens
-                zoom: 18, // Zoom level
-                map: map, // References the map object
-                constraints: {
-                    minZoom: 18 //Minimum Zoom Level
-                }
-            });
-
-            const locateBtn = new Locate({
-                view: view
-            });
-
-            //const graphicsLayer = new GraphicsLayer();
-            //map.add(graphicsLayer);  
-
-            // Defining popup properties for heritage
-            const heritagePopupTemplate = {
-                "title": "{HeritageType}",
-                "content": "<b>Code:</b> {HeritageCode}<br> \
-                            <b>Remarks:</b> {Remarks}<br> "
-            }
-
-            // ----- Settings for layer - Heritage -----
-            const heritageLayer = new FeatureLayer({
-                url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/Gardens_Heritage/FeatureServer",
-                renderer: {
-                    type: "unique-value",  // autocasts as new UniqueValueRenderer()
-                    field: "HeritageType",  // contains values referenced in uniqueValueInfos
-                    uniqueValueInfos: [
-                        {
-                            value: "Fountain Terrace Garden", 
-                            symbol: {
-                                "type": "picture-marker",
-                                "url": "https://jusphonia1224.github.io/GEOG777Project2/logo/fountain.png",
-                                "width": "20px",
-                                "height": "20px"
-                            }
-                        }, {
-                            value: "Flight of Steps Leading to Fountain Terrace",  
-                            symbol: {
-                                "type": "picture-marker",
-                                "url": "https://jusphonia1224.github.io/GEOG777Project2/logo/steps_fountain.png",
-                                "width": "20px",
-                                "height": "20px"
-                            } 
-                        }, {
-                            value: "Chinese War Memorial",  
-                            symbol: {
-                                "type": "picture-marker",
-                                "url": "https://jusphonia1224.github.io/GEOG777Project2/logo/memorial.png",
-                                "width": "20px",
-                                "height": "20px"
-                            }
-                        }, {
-                            value: "Pavilion",  
-                            symbol: {
-                                "type": "picture-marker",
-                                "url": "https://jusphonia1224.github.io/GEOG777Project2/logo/pavilion.png",
-                                "width": "20px",
-                                "height": "20px"
-                            }
-                        }, {
-                            value: "Bronze Statue of King George VI",  
-                            symbol: {
-                                "type": "picture-marker",
-                                "url": "https://jusphonia1224.github.io/GEOG777Project2/logo/bronze-horseman.png",
-                                "width": "20px",
-                                "height": "20px"
-                            }
-                        }, {
-                            value: "Stone Pillars and Flight of Steps at the Former Main Entrance",  
-                            symbol: {
-                                "type": "picture-marker",
-                                "url": "https://jusphonia1224.github.io/GEOG777Project2/logo/steps.png",
-                                "width": "20px",
-                                "height": "20px"
-                            }
-                        }, {
-                            value: "Entrance Gate Pillars on Garden Road",  
-                            symbol: {
-                                "type": "picture-marker",
-                                "url": "https://jusphonia1224.github.io/GEOG777Project2/logo/entrance-gate.png",
-                                "width": "20px",
-                                "height": "20px"
-                            }
-                        }
-                    ]
-                },  
-                outFields: ["HeritageCode", "HeritageType", "Remarks"],
-                popupTemplate: heritagePopupTemplate,
-                visible: false
-            });
-
-            heritageLayer_titleForLegend = heritageLayer.title = heritageLayer.name = 'Heritage';
-
-            map.add(heritageLayer);    
-
-            // Defining popup properties for facilities
-            const faciltiesPopupTemplate = {
-                "title": "{FacilitiesType}",
-                "content": "<b>Code:</b> {FacilitiesCode}<br> \
-                            <b>Remarks:</b> {Remarks}<br> "
-            }
-
-            // ----- Settings for layer - Facilities -----
-            const facilitiesLayer = new FeatureLayer({
-                url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/Garden_Facilities/FeatureServer",
-                renderer: {
-                    type: "unique-value",  // autocasts as new UniqueValueRenderer()
-                    field: "FacilitiesType",  // contains values referenced in uniqueValueInfos
-                    uniqueValueInfos: [
-                        {
-                            value: "Children's Playground", 
-                            symbol: {
-                                "type": "picture-marker",
-                                "url": "https://jusphonia1224.github.io/GEOG777Project2/logo/playground.png",
-                                "width": "20px",
-                                "height": "20px"
-                            }
-                        }, {
-                            value: "Refreshment Kiosk",  
-                            symbol: {
-                                "type": "picture-marker",
-                                "url": "https://jusphonia1224.github.io/GEOG777Project2/logo/drinks-cart.png",
-                                "width": "20px",
-                                "height": "20px"
-                            } 
-                        }, {
-                            value: "Park Office",  
-                            symbol: {
-                                "type": "picture-marker",
-                                "url": "https://jusphonia1224.github.io/GEOG777Project2/logo/ticket-office.png",
-                                "width": "20px",
-                                "height": "20px"
-                            }
-                        }, {
-                            value: "Education and Exhibition Centre",  
-                            symbol: {
-                                "type": "picture-marker",
-                                "url": "https://jusphonia1224.github.io/GEOG777Project2/logo/education-center-location.png",
-                                "width": "20px",
-                                "height": "20px"
-                            }
-                        }, {
-                            value: "Rain Shelter",  
-                            symbol: {
-                                "type": "picture-marker",
-                                "url": "https://jusphonia1224.github.io/GEOG777Project2/logo/umbrella.png",
-                                "width": "20px",
-                                "height": "20px"
-                            }
-                        }, {
-                            value: "Car Parking",  
-                            symbol: {
-                                "type": "picture-marker",
-                                "url": "https://jusphonia1224.github.io/GEOG777Project2/logo/car-parking.png",
-                                "width": "20px",
-                                "height": "20px"
-                            }
-                        }, {
-                            value: "Visitor Center",  
-                            symbol: {
-                                "type": "picture-marker",
-                                "url": "https://jusphonia1224.github.io/GEOG777Project2/logo/visitor.png",
-                                "width": "20px",
-                                "height": "20px"
-                            }
-                        }, {
-                            value: "Toilet",  
-                            symbol: {
-                                "type": "picture-marker",
-                                "url": "https://jusphonia1224.github.io/GEOG777Project2/logo/toilet.png",
-                                "width": "20px",
-                                "height": "20px"
-                            }
-                        }, {
-                            value: "Accessible Toilet",  
-                            symbol: {
-                                "type": "picture-marker",
-                                "url": "https://jusphonia1224.github.io/GEOG777Project2/logo/accessible-toilet.png",
-                                "width": "25px",
-                                "height": "25px"
-                            }
-                        }
-                    ]
-                },  
-                outFields: ["FacilitiesCode", "FacilitiesType", "Remarks"],
-                popupTemplate: faciltiesPopupTemplate,
-                visible: false
-            });
-
-            facilitiesLayer_titleForLegend = facilitiesLayer.title = facilitiesLayer.name = 'Facilities';
-
-            map.add(facilitiesLayer);               
-
-            // Defining popup properties for zones
-            const zonepopupTemplate = {
-                "title": "{ZoneType}",
-                "content": "<b>Zone Code:</b> {ZoneCode}<br> \
-                            <b>Remarks:</b> {Remarks}<br> "
-            }
-
-            // ----- Settings for layer - Gardens zones -----
-            const gardensLayer = new FeatureLayer({
-                url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/Gardens/FeatureServer",
-                outFields: ["ZoneCode", "ZoneType", "Remarks"],
-                popupTemplate: zonepopupTemplate
-            });
-
-            gardensLayer_titleForLegend = gardensLayer.title = gardensLayer.name = 'Zone - Gardens';
-
-            map.add(gardensLayer);
-
-            // ----- Settings for layer - Animals zones -----
-            const animalsLayer = new FeatureLayer({
-                url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/Animals/FeatureServer",
-                outFields: ["ZoneCode", "ZoneType", "Remarks"],
-                popupTemplate: zonepopupTemplate
-            });
-
-            animalsLayer_titleForLegend = animalsLayer.title = animalsLayer.name = 'Zone - Animals';
-
-            map.add(animalsLayer);
-
-            // Defining popup properties for species
-            const speciespopupTemplate = {
-                "title": "{species_birds}{species_mammals}{species_reptiles}{plants}",
-                "content": "<b>Type:</b> {species_birds}{species_mammals}{species_reptiles}{plants}<br> \
-                            <b>Zone:</b> {animals_type}{gardens_type} {zone_birds}{zone_mammals}{zone_reptiles}{zone_green_house}{zone_thematic_garden}<br>"
-            }
-            
-            // ----- Settings for layer - Plants Species -----
-            const gardensSpeciesLayer = new FeatureLayer({
-                url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/survey123_cec36c129bc0459bb346ef38828664d3_results/FeatureServer",
-                renderer: {
-                    type: "simple",  // autocasts as new UniqueValueRenderer()
-                    symbol: {
-                        type: "picture-marker",
-                        url: "https://jusphonia1224.github.io/GEOG777Project2/logo/plants.png",
-                        width: "20px",
-                        height: "20px",
+                const view = new MapView({
+                    container: "viewDiv", 
+                    center: [114.155700, 22.277778], // Longitude, latitude of Hong Kong Zoological and Botanical Gardens
+                    zoom: 18, // Zoom level
+                    map: map, // References the map object
+                    constraints: {
+                        minZoom: 18 //Minimum Zoom Level
                     }
-                },  
-                definitionExpression: "animals_or_gardens = 'Gardens'",
-                outFields: ["species_birds","species_mammals","species_reptiles","plants","plants","animals_type","gardens_type","zone_birds","zone_mammals","zone_reptiles","zone_green_house","zone_thematic_garden"],
-                popupTemplate: speciespopupTemplate
-            });
+                });
 
-            gardensSpeciesLayer_titleForLegend = gardensSpeciesLayer.title = gardensSpeciesLayer.name = 'Plants';
+                const locateBtn = new Locate({
+                    view: view
+                });
 
-            map.add(gardensSpeciesLayer);  
-            
-            // ----- Settings for layer - Animals Species -----
-            const animalsSpeciesLayer = new FeatureLayer({
-                url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/survey123_cec36c129bc0459bb346ef38828664d3_results/FeatureServer",
-                renderer: {
-                    type: "unique-value",  // autocasts as new UniqueValueRenderer()
-                    field: "animals_type",  // contains values referenced in uniqueValueInfos
-                    uniqueValueInfos: [
-                        {
-                            value: "Birds", 
-                            symbol: {
-                                "type": "picture-marker",
-                                "url": "https://jusphonia1224.github.io/GEOG777Project2/logo/birds.png",
-                                "width": "20px",
-                                "height": "20px"
+                //const graphicsLayer = new GraphicsLayer();
+                //map.add(graphicsLayer);  
+
+                // Defining popup properties for heritage
+                const heritagePopupTemplate = {
+                    "title": "{HeritageType}",
+                    "content": "<b>Code:</b> {HeritageCode}<br> \
+                                <b>Remarks:</b> {Remarks}<br> "
+                }
+
+                // ----- Settings for layer - Heritage -----
+                const heritageLayer = new FeatureLayer({
+                    url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/Gardens_Heritage/FeatureServer",
+                    renderer: {
+                        type: "unique-value",  // autocasts as new UniqueValueRenderer()
+                        field: "HeritageType",  // contains values referenced in uniqueValueInfos
+                        uniqueValueInfos: [
+                            {
+                                value: "Fountain Terrace Garden", 
+                                symbol: {
+                                    "type": "picture-marker",
+                                    "url": "https://jusphonia1224.github.io/GEOG777Project2/logo/fountain.png",
+                                    "width": "20px",
+                                    "height": "20px"
+                                }
+                            }, {
+                                value: "Flight of Steps Leading to Fountain Terrace",  
+                                symbol: {
+                                    "type": "picture-marker",
+                                    "url": "https://jusphonia1224.github.io/GEOG777Project2/logo/steps_fountain.png",
+                                    "width": "20px",
+                                    "height": "20px"
+                                } 
+                            }, {
+                                value: "Chinese War Memorial",  
+                                symbol: {
+                                    "type": "picture-marker",
+                                    "url": "https://jusphonia1224.github.io/GEOG777Project2/logo/memorial.png",
+                                    "width": "20px",
+                                    "height": "20px"
+                                }
+                            }, {
+                                value: "Pavilion",  
+                                symbol: {
+                                    "type": "picture-marker",
+                                    "url": "https://jusphonia1224.github.io/GEOG777Project2/logo/pavilion.png",
+                                    "width": "20px",
+                                    "height": "20px"
+                                }
+                            }, {
+                                value: "Bronze Statue of King George VI",  
+                                symbol: {
+                                    "type": "picture-marker",
+                                    "url": "https://jusphonia1224.github.io/GEOG777Project2/logo/bronze-horseman.png",
+                                    "width": "20px",
+                                    "height": "20px"
+                                }
+                            }, {
+                                value: "Stone Pillars and Flight of Steps at the Former Main Entrance",  
+                                symbol: {
+                                    "type": "picture-marker",
+                                    "url": "https://jusphonia1224.github.io/GEOG777Project2/logo/steps.png",
+                                    "width": "20px",
+                                    "height": "20px"
+                                }
+                            }, {
+                                value: "Entrance Gate Pillars on Garden Road",  
+                                symbol: {
+                                    "type": "picture-marker",
+                                    "url": "https://jusphonia1224.github.io/GEOG777Project2/logo/entrance-gate.png",
+                                    "width": "20px",
+                                    "height": "20px"
+                                }
                             }
-                        }, {
-                            value: "Mammals",  
-                            symbol: {
-                                "type": "picture-marker",
-                                "url": "https://jusphonia1224.github.io/GEOG777Project2/logo/mammals.png",
-                                "width": "20px",
-                                "height": "20px"
-                            } 
-                        }, {
-                            value: "Reptiles",  
-                            symbol: {
-                                "type": "picture-marker",
-                                "url": "https://jusphonia1224.github.io/GEOG777Project2/logo/reptiles.png",
-                                "width": "20px",
-                                "height": "20px"
+                        ]
+                    },  
+                    outFields: ["HeritageCode", "HeritageType", "Remarks"],
+                    popupTemplate: heritagePopupTemplate,
+                    visible: false
+                });
+
+                heritageLayer_titleForLegend = heritageLayer.title = heritageLayer.name = 'Heritage';
+
+                map.add(heritageLayer);    
+
+                // Defining popup properties for facilities
+                const faciltiesPopupTemplate = {
+                    "title": "{FacilitiesType}",
+                    "content": "<b>Code:</b> {FacilitiesCode}<br> \
+                                <b>Remarks:</b> {Remarks}<br> "
+                }
+
+                // ----- Settings for layer - Facilities -----
+                const facilitiesLayer = new FeatureLayer({
+                    url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/Garden_Facilities/FeatureServer",
+                    renderer: {
+                        type: "unique-value",  // autocasts as new UniqueValueRenderer()
+                        field: "FacilitiesType",  // contains values referenced in uniqueValueInfos
+                        uniqueValueInfos: [
+                            {
+                                value: "Children's Playground", 
+                                symbol: {
+                                    "type": "picture-marker",
+                                    "url": "https://jusphonia1224.github.io/GEOG777Project2/logo/playground.png",
+                                    "width": "20px",
+                                    "height": "20px"
+                                }
+                            }, {
+                                value: "Refreshment Kiosk",  
+                                symbol: {
+                                    "type": "picture-marker",
+                                    "url": "https://jusphonia1224.github.io/GEOG777Project2/logo/drinks-cart.png",
+                                    "width": "20px",
+                                    "height": "20px"
+                                } 
+                            }, {
+                                value: "Park Office",  
+                                symbol: {
+                                    "type": "picture-marker",
+                                    "url": "https://jusphonia1224.github.io/GEOG777Project2/logo/ticket-office.png",
+                                    "width": "20px",
+                                    "height": "20px"
+                                }
+                            }, {
+                                value: "Education and Exhibition Centre",  
+                                symbol: {
+                                    "type": "picture-marker",
+                                    "url": "https://jusphonia1224.github.io/GEOG777Project2/logo/education-center-location.png",
+                                    "width": "20px",
+                                    "height": "20px"
+                                }
+                            }, {
+                                value: "Rain Shelter",  
+                                symbol: {
+                                    "type": "picture-marker",
+                                    "url": "https://jusphonia1224.github.io/GEOG777Project2/logo/umbrella.png",
+                                    "width": "20px",
+                                    "height": "20px"
+                                }
+                            }, {
+                                value: "Car Parking",  
+                                symbol: {
+                                    "type": "picture-marker",
+                                    "url": "https://jusphonia1224.github.io/GEOG777Project2/logo/car-parking.png",
+                                    "width": "20px",
+                                    "height": "20px"
+                                }
+                            }, {
+                                value: "Visitor Center",  
+                                symbol: {
+                                    "type": "picture-marker",
+                                    "url": "https://jusphonia1224.github.io/GEOG777Project2/logo/visitor.png",
+                                    "width": "20px",
+                                    "height": "20px"
+                                }
+                            }, {
+                                value: "Toilet",  
+                                symbol: {
+                                    "type": "picture-marker",
+                                    "url": "https://jusphonia1224.github.io/GEOG777Project2/logo/toilet.png",
+                                    "width": "20px",
+                                    "height": "20px"
+                                }
+                            }, {
+                                value: "Accessible Toilet",  
+                                symbol: {
+                                    "type": "picture-marker",
+                                    "url": "https://jusphonia1224.github.io/GEOG777Project2/logo/accessible-toilet.png",
+                                    "width": "25px",
+                                    "height": "25px"
+                                }
                             }
-                        }
-                    ]
-                },  
-                definitionExpression: "animals_or_gardens = 'Animals'",
-                outFields: ["species_birds","species_mammals","species_reptiles","plants","plants","animals_type","gardens_type","zone_birds","zone_mammals","zone_reptiles","zone_green_house","zone_thematic_garden"],
-                popupTemplate: speciespopupTemplate
-            });
+                        ]
+                    },  
+                    outFields: ["FacilitiesCode", "FacilitiesType", "Remarks"],
+                    popupTemplate: faciltiesPopupTemplate,
+                    visible: false
+                });
 
-            animalsSpeciesLayer_titleForLegend = animalsSpeciesLayer.title = animalsSpeciesLayer.name = 'Animals';
+                facilitiesLayer_titleForLegend = facilitiesLayer.title = facilitiesLayer.name = 'Facilities';
 
-            map.add(animalsSpeciesLayer);  
+                map.add(facilitiesLayer);               
 
-            // Add the locate widget to the top left corner of the view
-            view.ui.add(locateBtn, {
-                position: "top-left"
-            });
+                // Defining popup properties for zones
+                const zonepopupTemplate = {
+                    "title": "{ZoneType}",
+                    "content": "<b>Zone Code:</b> {ZoneCode}<br> \
+                                <b>Remarks:</b> {Remarks}<br> "
+                }
 
-            const searchWidget = new Search({
-                view: view,                
-                includeDefaultSources: false,
-                sources: [
-                    {
-                        layer: animalsSpeciesLayer,
-                        searchFields: ["animals_type", "zone_birds", "zone_mammals", "zone_reptiles", "species_birds", "species_mammals", "species_reptiles"],
-                        suggestionTemplate: "{animals_type} - {zone_birds}{zone_mammals}{zone_reptiles}: {species_birds}{species_mammals}{species_reptiles}",
-                        exactMatch: false,
-                        outFields: ["*"],
-                        placeholder: "example: Radiated",
-                        name: "Animals"
-                    },
-                    {
-                        layer: gardensSpeciesLayer,
-                        searchFields: ["zone_green_house", "zone_thematic_garden", "species_plants"],
-                        suggestionTemplate: "{gardens_type} - {zone_green_house}{zone_thematic_garden}: {species_plants}",
-                        exactMatch: false,
-                        outFields: ["*"],
-                        placeholder: "example: Bamboo",
-                        name: "Plants"
-                    },
-                    {
-                        layer: animalsLayer,
-                        searchFields: ["ZoneCode", "ZoneType", "Remarks"],
-                        suggestionTemplate: "{ZoneType} - {ZoneCode}",
-                        exactMatch: false,
-                        outFields: ["*"],
-                        name: "Zone - Animals",
-                        placeholder: "example: Mammals"
-                    },
-                    {
-                        layer: gardensLayer,
-                        searchFields: ["ZoneCode", "ZoneType", "Remarks"],
-                        suggestionTemplate: "{ZoneType} - {ZoneCode}: {Remarks}",
-                        exactMatch: false,
-                        outFields: ["*"],
-                        placeholder: "example: Bamboo",
-                        name: "Zone - Gardens"
-                    }                    
-                ]
-            });
+                // ----- Settings for layer - Gardens zones -----
+                const gardensLayer = new FeatureLayer({
+                    url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/Gardens/FeatureServer",
+                    outFields: ["ZoneCode", "ZoneType", "Remarks"],
+                    popupTemplate: zonepopupTemplate
+                });
 
-            // Adds the search widget below other elements in the top left corner of the view
-            view.ui.add(searchWidget, {
-                position: "top-right",
-                index: 2
-            });
+                gardensLayer_titleForLegend = gardensLayer.title = gardensLayer.name = 'Zone - Gardens';
 
-            // Add Legend Widget
-            let legend = new Legend({
-                view: view,
-                container: document.createElement("div")
-            });
+                map.add(gardensLayer);
 
-            const legendExpand = new Expand({
-                view: view,
-                content: legend,
-                expanded: true
-            });
+                // ----- Settings for layer - Animals zones -----
+                const animalsLayer = new FeatureLayer({
+                    url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/Animals/FeatureServer",
+                    outFields: ["ZoneCode", "ZoneType", "Remarks"],
+                    popupTemplate: zonepopupTemplate
+                });
 
-            view.ui.add(legendExpand, "bottom-right");
+                animalsLayer_titleForLegend = animalsLayer.title = animalsLayer.name = 'Zone - Animals';
 
-            // Add Layer List Widget
-            let layerList = new LayerList({
-                view: view,
-                container: document.createElement("div")
-            });
+                map.add(animalsLayer);
 
-            const layerListExpand = new Expand({
-                view: view,
-                content: layerList
-            });
-                        
-            view.ui.add(layerListExpand, "bottom-left");
-
-            // Filter
-        });
-    </script>
-
-  </head>
-  <body>
-    <header id="header" class="fixed-top d-flex justify-content-center align-items-center header-transparent">
-        <nav id="navbar" class="navbar">
-            <ul>
-                <li><a class="nav-link scrollto" href="#about">About</a></li>
-                <li><a class="nav-link scrollto" href="#hours">Opening Hours</a></li>
-                <li><a class="nav-link scrollto" href="#home"><img src="logo/logo.jpg" width="220" height="70"></a></li>
-                <li><a class="nav-link scrollto" href="#transportation">Transportation</a></li>
-                <li><a class="nav-link scrollto" href="#mapSection">Map</a></li>
-            </ul>
-            <i class="bi bi-list mobile-nav-toggle"></i>
-        </nav>
-    </header>
-    
-    <!-- Home Section -->
-    <section id="home">
-        <div class="home-container">
-            <h1>Hong Kong Zoological and Botanical Gardens</h1>
-            <a href="#about" class="btn-scroll scrollto" title="Scroll Down"><i class="bi bi-chevron-down"></i></a>
-        </div>
-    </section>    
-
-    <!-- About Section -->
-    <section id="about" class="about">
-        <div class="container">
-            <div class="section-title">
-                <h2> About Hong Kong Zoological and Botanical Gardens </h2>
-            </div>
-            
-        <div class="row">	
-            <span>
-                The Hong Kong Zoological and Botanical Gardens is the oldest park in the territory. Built in 1860 and partially opened in 1864, the Gardens was fully completed and opened to the public in 1871, with Mr Charles Ford appointed as its first Superintendent in the same year. Used to house an assemblage of native plants for collection and research in its early years, it had been known as the Botanic Gardens. Since 1876, the Gardens has been building its zoological collection comprising birds and mammals. In 1975, it was officially renamed as the Hong Kong Zoological and Botanical Gardens. The Gardens is also nicknamed by locals as “Bing Tau Fa Yuen” (“Bing Tau” means the head of soldiers and “Fa Yuen” means garden) because it was the site of the Government House from 1841 to 1842 and the Governor also served as the Commander-in-Chief of Hong Kong.           
-                <br>
-                <br>
-                The Gardens, with an area of 5.6 hectares, is surrounded by Garden Road, Robinson Road, Glenealy and Upper Albert Road, and divided into the eastern and western parts by Albany Road. The two parts are connected by a pedestrian subway. The eastern part, known as the Old Garden, provides children’s playground, aviaries, a green house and the fountain terrace garden, whereas the western part, or the New Garden, is mainly home to mammals and reptiles.
-                <br>
-                <br>
-                On top of the zoological and botanical attractions, visitors may also enjoy a stroll down the heritage trail to explore seven special features of historical importance, namely the Stone Pillars & Flight of Steps at the Former Main Entrance, the Memorial Arch (Chinese War Memorial), the Bronze Statue of King George VI, the Pavilion (Former Band Stand), the Entrance Gate Pillars on Garden Road, the Flight of Steps leading to Fountain Terrace and the Fountain, and savour the stories of the Gardens.
-                <br>
-                <br>
-            </span>
-        </div>
-    </section>       
-
-    <!-- Opening Hours Section -->
-    <section id="hours" class="about">
-        <div class="container">
-            <div class="section-title">
-                <h2> Opening Hours and Admission </h2>
-            </div>
-            
-        <div class="row">            
-            <div class="col-lg-6 d-flex flex-column align-items-stretch"> 
-                <span style="text-align:center">  
-                    <h4>Admission</h4>
-                    <br>
-                    Free
-                    <br>
-                    <br>
-                </span>
-            </div>	
-
-            <div class="col-lg-6 d-flex flex-column align-items-stretch">
-                <span style="text-align:center">
-                    <h4>Opening Hours</h4>
-                    <br>
-                    Fountain Terrace Garden: 5am - 10pm
-                    <br>
-                    Mammals Section: 6am - 7pm
-                    <br>
-                    Green House / Education & Exhibition Centre: 9am - 4:30pm
-                    <br>
-                    Other Areas: 6am - 7pm
-                    <br>
-                    <br>
-                </span>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Transportation Section -->
-    <section id="transportation" class="about">
-        <div class="container">
-            <div class="section-title">
-                <h2> Transportation / Getting Here </h2>
-            </div>
-            
-            <div class="row">	
-                <span>
-                    <h3 style="text-align:center">Address: Albany Road, Central, Hong Kong</h3>
-                </span>		
-            </div>
-
-            <br>
-            <br>
-            
-            <div class="row">
-                <div class="col-lg-3 d-flex flex-column align-items-stretch">
-                    <h4 style="text-align:center">Bus</h4>
-                    <br>
-                    <span style="text-align:center">
-                        12, 12A, 12M, 13, 23, 23B, 40, 40M, 103
-                    </span>
-                    <br>
-                    <br>
-                </div>
-
-                <div class="col-lg-3 d-flex flex-column align-items-stretch">
-                    <h4 style="text-align:center">Minibus</h4>
-                    <br>
-                    <span style="text-align:center">
-                        1A, 22, 22S, 28
-                    </span>
-                    <br>
-                    <br>
-                </div>
-
-                <div class="col-lg-3 d-flex flex-column align-items-stretch">
-                    <h4 style="text-align:center">MTR</h4>
-                    <br>
-                    <span style="text-align:center">
-                        Exit B of Admiralty Station
-                        <br>
-                        or
-                        <br>
-                        Exit D2 of Central Station
-                    </span>
-                    <br>
-                    <br>
-                </div>
-
-                <div class="col-lg-3 d-flex flex-column align-items-stretch">
-                    <h4 style="text-align:center">Peak Tram</h4>
-                    <br>
-                    <span style="text-align:center">
-                        Kennedy Road Station / 
-                        <br>
-                        Macdonnell Road Station
-                    </span>
-                    <br>
-                    <br>
-                </div>
-            </div>
-
-            <br>
-            <br>
-
-            <div class="row">
-                <div class="col-lg-6 d-flex flex-column align-items-stretch">                    
-                    <a href="https://www.map.gov.hk/mapviewer/map.do?gmid=aCyRzlBluT&lg=en" target="_blank" style="text-align:center">GeoInfo Map - Location Map</a>
-                </div>		
+                // Defining popup properties for species
+                const speciespopupTemplate = {
+                    "title": "{species_birds}{species_mammals}{species_reptiles}{plants}",
+                    "content": "<b>Type:</b> {species_birds}{species_mammals}{species_reptiles}{plants}<br> \
+                                <b>Zone:</b> {animals_type}{gardens_type} {zone_birds}{zone_mammals}{zone_reptiles}{zone_green_house}{zone_thematic_garden}<br>"
+                }
                 
-                <div class="col-lg-6 d-flex flex-column align-items-stretch">                    
-                    <a href="https://www.map.gov.hk/gm/gmid/aCyRzlBluT?lg=en" target="_blank" style="text-align:center">GeoInfo Map - Information</a>
-                </div>			
-            </div>
-        </div>
-    </section>
+                // ----- Settings for layer - Plants Species -----
+                const gardensSpeciesLayer = new FeatureLayer({
+                    url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/survey123_cec36c129bc0459bb346ef38828664d3_results/FeatureServer",
+                    renderer: {
+                        type: "simple",  // autocasts as new UniqueValueRenderer()
+                        symbol: {
+                            type: "picture-marker",
+                            url: "https://jusphonia1224.github.io/GEOG777Project2/logo/plants.png",
+                            width: "20px",
+                            height: "20px",
+                        }
+                    },  
+                    definitionExpression: "animals_or_gardens = 'Gardens'",
+                    outFields: ["species_birds","species_mammals","species_reptiles","plants","plants","animals_type","gardens_type","zone_birds","zone_mammals","zone_reptiles","zone_green_house","zone_thematic_garden"],
+                    popupTemplate: speciespopupTemplate
+                });
 
-    
-    <!-- Map Section -->
-    <section id="mapSection" class="about">
-        <div class="container">
-            <div class="section-title">
-                <h2> Garden Map </h2>
-            </div>	
-                        
-            <div class="row">
-                <div class="col-lg-6 d-flex flex-column align-items-stretch">                    
-                    <a href="https://arcg.is/19meqy"target="_blank" class="addRecordBtn">Report Species Location</a>                    
-                    <br>
-                    <br>
+                gardensSpeciesLayer_titleForLegend = gardensSpeciesLayer.title = gardensSpeciesLayer.name = 'Plants';
+
+                map.add(gardensSpeciesLayer);  
+                
+                // ----- Settings for layer - Animals Species -----
+                const animalsSpeciesLayer = new FeatureLayer({
+                    url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/survey123_cec36c129bc0459bb346ef38828664d3_results/FeatureServer",
+                    renderer: {
+                        type: "unique-value",  // autocasts as new UniqueValueRenderer()
+                        field: "animals_type",  // contains values referenced in uniqueValueInfos
+                        uniqueValueInfos: [
+                            {
+                                value: "Birds", 
+                                symbol: {
+                                    "type": "picture-marker",
+                                    "url": "https://jusphonia1224.github.io/GEOG777Project2/logo/birds.png",
+                                    "width": "20px",
+                                    "height": "20px"
+                                }
+                            }, {
+                                value: "Mammals",  
+                                symbol: {
+                                    "type": "picture-marker",
+                                    "url": "https://jusphonia1224.github.io/GEOG777Project2/logo/mammals.png",
+                                    "width": "20px",
+                                    "height": "20px"
+                                } 
+                            }, {
+                                value: "Reptiles",  
+                                symbol: {
+                                    "type": "picture-marker",
+                                    "url": "https://jusphonia1224.github.io/GEOG777Project2/logo/reptiles.png",
+                                    "width": "20px",
+                                    "height": "20px"
+                                }
+                            }
+                        ]
+                    },  
+                    definitionExpression: "animals_or_gardens = 'Animals'",
+                    outFields: ["species_birds","species_mammals","species_reptiles","plants","plants","animals_type","gardens_type","zone_birds","zone_mammals","zone_reptiles","zone_green_house","zone_thematic_garden"],
+                    popupTemplate: speciespopupTemplate
+                });
+
+                animalsSpeciesLayer_titleForLegend = animalsSpeciesLayer.title = animalsSpeciesLayer.name = 'Animals';
+
+                map.add(animalsSpeciesLayer);  
+
+                // Add the locate widget to the top left corner of the view
+                view.ui.add(locateBtn, {
+                    position: "top-left"
+                });
+
+                const searchWidget = new Search({
+                    view: view,                
+                    includeDefaultSources: false,
+                    sources: [
+                        {
+                            layer: animalsSpeciesLayer,
+                            searchFields: ["animals_type", "zone_birds", "zone_mammals", "zone_reptiles", "species_birds", "species_mammals", "species_reptiles"],
+                            suggestionTemplate: "{animals_type} - {zone_birds}{zone_mammals}{zone_reptiles}: {species_birds}{species_mammals}{species_reptiles}",
+                            exactMatch: false,
+                            outFields: ["*"],
+                            placeholder: "example: Radiated",
+                            name: "Animals"
+                        },
+                        {
+                            layer: gardensSpeciesLayer,
+                            searchFields: ["zone_green_house", "zone_thematic_garden", "species_plants"],
+                            suggestionTemplate: "{gardens_type} - {zone_green_house}{zone_thematic_garden}: {species_plants}",
+                            exactMatch: false,
+                            outFields: ["*"],
+                            placeholder: "example: Bamboo",
+                            name: "Plants"
+                        },
+                        {
+                            layer: animalsLayer,
+                            searchFields: ["ZoneCode", "ZoneType", "Remarks"],
+                            suggestionTemplate: "{ZoneType} - {ZoneCode}",
+                            exactMatch: false,
+                            outFields: ["*"],
+                            name: "Zone - Animals",
+                            placeholder: "example: Mammals"
+                        },
+                        {
+                            layer: gardensLayer,
+                            searchFields: ["ZoneCode", "ZoneType", "Remarks"],
+                            suggestionTemplate: "{ZoneType} - {ZoneCode}: {Remarks}",
+                            exactMatch: false,
+                            outFields: ["*"],
+                            placeholder: "example: Bamboo",
+                            name: "Zone - Gardens"
+                        }                    
+                    ]
+                });
+
+                // Adds the search widget below other elements in the top left corner of the view
+                view.ui.add(searchWidget, {
+                    position: "top-right",
+                    index: 2
+                });
+
+                // Add Legend Widget
+                let legend = new Legend({
+                    view: view,
+                    container: document.createElement("div")
+                });
+
+                const legendExpand = new Expand({
+                    view: view,
+                    content: legend,
+                    expanded: true
+                });
+
+                view.ui.add(legendExpand, "bottom-right");
+
+                // Add Layer List Widget
+                let layerList = new LayerList({
+                    view: view,
+                    container: document.createElement("div")
+                });
+
+                const layerListExpand = new Expand({
+                    view: view,
+                    content: layerList
+                });
+                            
+                view.ui.add(layerListExpand, "bottom-left");
+
+                // Filter
+                const seasonsNodes = document.querySelectorAll(`.season-item`);
+                const seasonsElement = document.getElementById("seasons-filter");
+
+                // click event handler for seasons choices
+                seasonsElement.addEventListener("click", filterBySeason);
+
+                // User clicked on Winter, Spring, Summer or Fall
+                // set an attribute filter on flood warnings layer view
+                // to display the warnings issued in that season
+                function filterBySeason(event) {
+                const selectedSeason = event.target.getAttribute("data-season");
+                floodLayerView.filter = {
+                    where: "Season = '" + selectedSeason + "'"
+                };
+                }
+
+                view.whenLayerView(layer).then((layerView) => {
+                // flash flood warnings layer loaded
+                // get a reference to the flood warnings layerview
+                floodLayerView = layerView;
+
+                // set up UI items
+                seasonsElement.style.visibility = "visible";
+                const seasonsExpand = new Expand({
+                    view: view,
+                    content: seasonsElement,
+                    expandIcon: "filter",
+                    group: "top-left"
+                });
+                //clear the filters when user closes the expand widget
+                reactiveUtils.when(
+                    () => !seasonsExpand.expanded,
+                    () => {
+                    floodLayerView.filter = null;
+                    }
+                );
+                view.ui.add(seasonsExpand, "top-left");
+                view.ui.add("titleDiv", "top-right");
+            });
+        </script>
+    </head>
+    <body>
+        <header id="header" class="fixed-top d-flex justify-content-center align-items-center header-transparent">
+            <nav id="navbar" class="navbar">
+                <ul>
+                    <li><a class="nav-link scrollto" href="#about">About</a></li>
+                    <li><a class="nav-link scrollto" href="#hours">Opening Hours</a></li>
+                    <li><a class="nav-link scrollto" href="#home"><img src="logo/logo.jpg" width="220" height="70"></a></li>
+                    <li><a class="nav-link scrollto" href="#transportation">Transportation</a></li>
+                    <li><a class="nav-link scrollto" href="#mapSection">Map</a></li>
+                </ul>
+                <i class="bi bi-list mobile-nav-toggle"></i>
+            </nav>
+        </header>
+        
+        <!-- Home Section -->
+        <section id="home">
+            <div class="home-container">
+                <h1>Hong Kong Zoological and Botanical Gardens</h1>
+                <a href="#about" class="btn-scroll scrollto" title="Scroll Down"><i class="bi bi-chevron-down"></i></a>
+            </div>
+        </section>    
+
+        <!-- About Section -->
+        <section id="about" class="about">
+            <div class="container">
+                <div class="section-title">
+                    <h2> About Hong Kong Zoological and Botanical Gardens </h2>
                 </div>
-                <div class="col-lg-6 d-flex flex-column align-items-stretch">                    
-                    <a href="https://arcg.is/19meqy"target="_blank" class="addRecordBtn">Report Flowering Plant of the Month</a>
-                    <br>
-                    <br>
-                </div>					
-            </div>		
-        </div>
-    </section>
-   
-    <div id="viewDiv"></div>   
-   
-    <footer id="footer">
-        <div class="container">
-            <div class="social-links">
-                <a href="https://www.instagram.com/lcsdplusss?igshid=MzRlODBiNWFlZA%3D%3D" target="_blank" class="linkedin"><i class="bi bi-instagram"></i></a>
+                
+                <div class="row">	
+                    <span>
+                        The Hong Kong Zoological and Botanical Gardens is the oldest park in the territory. Built in 1860 and partially opened in 1864, the Gardens was fully completed and opened to the public in 1871, with Mr Charles Ford appointed as its first Superintendent in the same year. Used to house an assemblage of native plants for collection and research in its early years, it had been known as the Botanic Gardens. Since 1876, the Gardens has been building its zoological collection comprising birds and mammals. In 1975, it was officially renamed as the Hong Kong Zoological and Botanical Gardens. The Gardens is also nicknamed by locals as “Bing Tau Fa Yuen” (“Bing Tau” means the head of soldiers and “Fa Yuen” means garden) because it was the site of the Government House from 1841 to 1842 and the Governor also served as the Commander-in-Chief of Hong Kong.           
+                        <br>
+                        <br>
+                        The Gardens, with an area of 5.6 hectares, is surrounded by Garden Road, Robinson Road, Glenealy and Upper Albert Road, and divided into the eastern and western parts by Albany Road. The two parts are connected by a pedestrian subway. The eastern part, known as the Old Garden, provides children’s playground, aviaries, a green house and the fountain terrace garden, whereas the western part, or the New Garden, is mainly home to mammals and reptiles.
+                        <br>
+                        <br>
+                        On top of the zoological and botanical attractions, visitors may also enjoy a stroll down the heritage trail to explore seven special features of historical importance, namely the Stone Pillars & Flight of Steps at the Former Main Entrance, the Memorial Arch (Chinese War Memorial), the Bronze Statue of King George VI, the Pavilion (Former Band Stand), the Entrance Gate Pillars on Garden Road, the Flight of Steps leading to Fountain Terrace and the Fountain, and savour the stories of the Gardens.
+                        <br>
+                        <br>
+                    </span>
+                </div>                    
             </div>
-            
-            <div class="copyright">
-                University of Wisconsin - Madison - GEOG777 Project 2 - &copy; Copyright <strong><span> Jusphonia Ho</span></strong>. All Rights Reserved
+        </section>       
+
+        <!-- Opening Hours Section -->
+        <section id="hours" class="about">
+            <div class="container">
+                <div class="section-title">
+                    <h2> Opening Hours and Admission </h2>
+                </div>
+                
+                <div class="row">            
+                    <div class="col-lg-6 d-flex flex-column align-items-stretch"> 
+                        <span style="text-align:center">  
+                            <h4>Admission</h4>
+                            <br>
+                            Free
+                            <br>
+                            <br>
+                        </span>
+                    </div>	
+
+                    <div class="col-lg-6 d-flex flex-column align-items-stretch">
+                        <span style="text-align:center">
+                            <h4>Opening Hours</h4>
+                            <br>
+                            Fountain Terrace Garden: 5am - 10pm
+                            <br>
+                            Mammals Section: 6am - 7pm
+                            <br>
+                            Green House / Education & Exhibition Centre: 9am - 4:30pm
+                            <br>
+                            Other Areas: 6am - 7pm
+                            <br>
+                            <br>
+                        </span>
+                    </div>
+                </div>
             </div>
-        </div>
-    </footer>
+        </section>
+        
+        <!-- Transportation Section -->
+        <section id="transportation" class="about">
+            <div class="container">
+                <div class="section-title">
+                    <h2> Transportation / Getting Here </h2>
+                </div>
+                
+                <div class="row">	
+                    <span>
+                        <h3 style="text-align:center">Address: Albany Road, Central, Hong Kong</h3>
+                    </span>		
+                </div>
+
+                <br>
+                <br>
+                
+                <div class="row">
+                    <div class="col-lg-3 d-flex flex-column align-items-stretch">
+                        <h4 style="text-align:center">Bus</h4>
+                        <br>
+                        <span style="text-align:center">
+                            12, 12A, 12M, 13, 23, 23B, 40, 40M, 103
+                        </span>
+                        <br>
+                        <br>
+                    </div>
+
+                    <div class="col-lg-3 d-flex flex-column align-items-stretch">
+                        <h4 style="text-align:center">Minibus</h4>
+                        <br>
+                        <span style="text-align:center">
+                            1A, 22, 22S, 28
+                        </span>
+                        <br>
+                        <br>
+                    </div>
+
+                    <div class="col-lg-3 d-flex flex-column align-items-stretch">
+                        <h4 style="text-align:center">MTR</h4>
+                        <br>
+                        <span style="text-align:center">
+                            Exit B of Admiralty Station
+                            <br>
+                            or
+                            <br>
+                            Exit D2 of Central Station
+                        </span>
+                        <br>
+                        <br>
+                    </div>
+
+                    <div class="col-lg-3 d-flex flex-column align-items-stretch">
+                        <h4 style="text-align:center">Peak Tram</h4>
+                        <br>
+                        <span style="text-align:center">
+                            Kennedy Road Station / 
+                            <br>
+                            Macdonnell Road Station
+                        </span>
+                        <br>
+                        <br>
+                    </div>
+                </div>
+
+                <br>
+                <br>
+
+                <div class="row">
+                    <div class="col-lg-6 d-flex flex-column align-items-stretch">                    
+                        <a href="https://www.map.gov.hk/mapviewer/map.do?gmid=aCyRzlBluT&lg=en" target="_blank" style="text-align:center">GeoInfo Map - Location Map</a>
+                    </div>		
+                    
+                    <div class="col-lg-6 d-flex flex-column align-items-stretch">                    
+                        <a href="https://www.map.gov.hk/gm/gmid/aCyRzlBluT?lg=en" target="_blank" style="text-align:center">GeoInfo Map - Information</a>
+                    </div>			
+                </div>
+            </div>
+        </section>
+
+        
+        <!-- Map Section -->
+        <section id="mapSection" class="about">
+            <div class="container">
+                <div class="section-title">
+                    <h2> Garden Map </h2>
+                </div>	
+                            
+                <div class="row">
+                    <div class="col-lg-6 d-flex flex-column align-items-stretch">                    
+                        <a href="https://arcg.is/19meqy"target="_blank" class="addRecordBtn">Report Species Location</a>                    
+                        <br>
+                        <br>
+                    </div>
+                    <div class="col-lg-6 d-flex flex-column align-items-stretch">                    
+                        <a href="https://arcg.is/19meqy"target="_blank" class="addRecordBtn">Report Flowering Plant of the Month</a>
+                        <br>
+                        <br>
+                    </div>					
+                </div>		
+            </div>
+        </section>
     
-    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+        <div id="viewDiv"></div>   
     
-    <!--external script-->
-    <script src="https://code.jquery.com/jquery-3.6.1.min.js" type="text/javascript"></script>
-    <script src="js/main.js"></script>	
+        <footer id="footer">
+            <div class="container">
+                <div class="social-links">
+                    <a href="https://www.instagram.com/lcsdplusss?igshid=MzRlODBiNWFlZA%3D%3D" target="_blank" class="linkedin"><i class="bi bi-instagram"></i></a>
+                </div>
+                
+                <div class="copyright">
+                    University of Wisconsin - Madison - GEOG777 Project 2 - &copy; Copyright <strong><span> Jusphonia Ho</span></strong>. All Rights Reserved
+                </div>
+            </div>
+        </footer>
+        
+        <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+        
+        <!--external script-->
+        <script src="https://code.jquery.com/jquery-3.6.1.min.js" type="text/javascript"></script>
+        <script src="js/main.js"></script>	
     </body>
 </html>
