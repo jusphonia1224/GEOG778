@@ -244,6 +244,17 @@
                             <b>Remarks:</b> {Remarks}<br> "
             }
 
+            // ----- Settings for layer - Gardens zones -----
+            const gardensLayer = new FeatureLayer({
+                url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/Gardens/FeatureServer",
+                outFields: ["ZoneCode", "ZoneType", "Remarks"],
+                popupTemplate: zonepopupTemplate
+            });
+
+            gardensLayer_titleForLegend = gardensLayer.title = gardensLayer.name = 'Zone - Gardens';
+
+            map.add(gardensLayer);
+
             // ----- Settings for layer - Animals zones -----
             const animalsLayer = new FeatureLayer({
                 url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/Animals/FeatureServer",
@@ -254,17 +265,6 @@
             animalsLayer_titleForLegend = animalsLayer.title = animalsLayer.name = 'Zone - Animals';
 
             map.add(animalsLayer);
-
-            // ----- Settings for layer - Gardens zones -----
-            const gardensLayer = new FeatureLayer({
-                url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/Gardens/FeatureServer",
-                outFields: ["ZoneCode", "ZoneType", "Remarks"],
-                popupTemplate: zonepopupTemplate
-            });
-
-            gardensLayer_titleForLegend = gardensLayer.title = gardensLayer.name = 'Zone - Gardens';
-
-            map.add(gardensLayer);   
 
             // Defining popup properties for species
             const speciespopupTemplate = {
@@ -290,7 +290,7 @@
                 popupTemplate: speciespopupTemplate
             });
 
-            gardensSpeciesLayer_titleForLegend = gardensSpeciesLayer.title = gardensSpeciesLayer.name = 'Species - Plants';
+            gardensSpeciesLayer_titleForLegend = gardensSpeciesLayer.title = gardensSpeciesLayer.name = 'Plants';
 
             map.add(gardensSpeciesLayer);  
             
@@ -333,7 +333,7 @@
                 popupTemplate: speciespopupTemplate
             });
 
-            animalsSpeciesLayer_titleForLegend = animalsSpeciesLayer.title = animalsSpeciesLayer.name = 'Species - Animals';
+            animalsSpeciesLayer_titleForLegend = animalsSpeciesLayer.title = animalsSpeciesLayer.name = 'Animals';
 
             map.add(animalsSpeciesLayer);  
 
@@ -346,6 +346,24 @@
                 view: view,                
                 includeDefaultSources: false,
                 sources: [
+                    {
+                        layer: animalsSpeciesLayer,
+                        searchFields: ["animals_type", "zone_birds", "zone_mammals", "zone_reptiles", "species_birds", "species_mammals", "species_reptiles"],
+                        suggestionTemplate: "{animals_type} - {zone_birds}{zone_mammals}{zone_reptiles}: {species_birds}{species_mammals}{species_reptiles}",
+                        exactMatch: false,
+                        outFields: ["*"],
+                        placeholder: "example: Radiated",
+                        name: "Animals"
+                    },
+                    {
+                        layer: gardensSpeciesLayer,
+                        searchFields: ["zone_green_house", "zone_thematic_garden", "species_plants"],
+                        suggestionTemplate: "{gardens_type} - {zone_green_house}{zone_thematic_garden}: {species_plants}",
+                        exactMatch: false,
+                        outFields: ["*"],
+                        placeholder: "example: Bamboo",
+                        name: "Plants"
+                    },
                     {
                         layer: animalsLayer,
                         searchFields: ["ZoneCode", "ZoneType", "Remarks"],
@@ -363,25 +381,7 @@
                         outFields: ["*"],
                         placeholder: "example: Bamboo",
                         name: "Zone - Gardens"
-                    },
-                    {
-                        layer: animalsSpeciesLayer,
-                        searchFields: ["animals_type", "zone_birds", "zone_mammals", "zone_reptiles", "species_birds", "species_mammals", "species_reptiles"],
-                        suggestionTemplate: "{animals_type} - {zone_birds}{zone_mammals}{zone_reptiles}: {species_birds}{species_mammals}{species_reptiles}",
-                        exactMatch: false,
-                        outFields: ["*"],
-                        placeholder: "example: Radiated",
-                        name: "Species - Animals"
-                    },
-                    {
-                        layer: gardensSpeciesLayer,
-                        searchFields: ["zone_green_house", "zone_thematic_garden", "species_plants"],
-                        suggestionTemplate: "{gardens_type} - {zone_green_house}{zone_thematic_garden}: {species_plants}",
-                        exactMatch: false,
-                        outFields: ["*"],
-                        placeholder: "example: Bamboo",
-                        name: "Species - Plants"
-                    }
+                    }                    
                 ]
             });
 
@@ -481,12 +481,12 @@
                     <br>
                     Free
                     <br>
-                    <h4></h4>
+                    <br>
                 </span>
             </div>	
 
             <div class="col-lg-6 d-flex flex-column align-items-stretch">
-                <span>
+                <span style="text-align:center">
                     <h4>Opening Hours</h4>
                     <br>
                     Fountain Terrace Garden: 5am - 10pm
@@ -497,7 +497,7 @@
                     <br>
                     Other Areas: 6am - 7pm
                     <br>
-                    <h4></h4>
+                    <br>
                 </span>
             </div>
         </div>
@@ -526,7 +526,8 @@
                     <span style="text-align:center">
                         12, 12A, 12M, 13, 23, 23B, 40, 40M, 103
                     </span>
-                    <h4></h4>
+                    <br>
+                    <br>
                 </div>
 
                 <div class="col-lg-3 d-flex flex-column align-items-stretch">
@@ -535,7 +536,8 @@
                     <span style="text-align:center">
                         1A, 22, 22S, 28
                     </span>
-                    <h4></h4>
+                    <br>
+                    <br>
                 </div>
 
                 <div class="col-lg-3 d-flex flex-column align-items-stretch">
@@ -548,7 +550,8 @@
                         <br>
                         Exit D2 of Central Station
                     </span>
-                    <h4></h4>
+                    <br>
+                    <br>
                 </div>
 
                 <div class="col-lg-3 d-flex flex-column align-items-stretch">
@@ -559,7 +562,8 @@
                         <br>
                         Macdonnell Road Station
                     </span>
-                    <h4></h4>
+                    <br>
+                    <br>
                 </div>
             </div>
 
@@ -588,10 +592,14 @@
                         
             <div class="row">
                 <div class="col-lg-6 d-flex flex-column align-items-stretch">                    
-                    <a href="https://arcg.is/19meqy"target="_blank" class="addRecordBtn">Report Species Location</a>
+                    <a href="https://arcg.is/19meqy"target="_blank" class="addRecordBtn">Report Species Location</a>                    
+                    <br>
+                    <br>
                 </div>
                 <div class="col-lg-6 d-flex flex-column align-items-stretch">                    
                     <a href="https://arcg.is/19meqy"target="_blank" class="addRecordBtn">Report Flowering Plant of the Month</a>
+                    <br>
+                    <br>
                 </div>					
             </div>		
         </div>
