@@ -57,79 +57,6 @@
             //const graphicsLayer = new GraphicsLayer();
             //map.add(graphicsLayer);  
 
-            // Defining popup properties for species
-            const speciespopupTemplate = {
-                "title": "{species_birds}{species_mammals}{species_reptiles}{plants}",
-                "content": "<b>Type:</b> {species_birds}{species_mammals}{species_reptiles}{plants}<br> \
-                            <b>Zone:</b> {animals_type}{gardens_type} {zone_birds}{zone_mammals}{zone_reptiles}{zone_green_house}{zone_thematic_garden}<br>"
-            }
-            
-            // ----- Settings for layer - Plants Species -----
-            const gardensSpeciesLayer = new FeatureLayer({
-                url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/survey123_cec36c129bc0459bb346ef38828664d3_results/FeatureServer",
-                renderer: {
-                    type: "simple",  // autocasts as new UniqueValueRenderer()
-                    symbol: {
-                        type: "picture-marker",
-                        url: "https://jusphonia1224.github.io/GEOG777Project2/logo/plants.png",
-                        width: "20px",
-                        height: "20px",
-                    }
-                },  
-                definitionExpression: "animals_or_gardens = 'Gardens'",
-                outFields: ["species_birds","species_mammals","species_reptiles","plants","plants","animals_type","gardens_type","zone_birds","zone_mammals","zone_reptiles","zone_green_house","zone_thematic_garden"],
-                popupTemplate: speciespopupTemplate,
-                visible: false
-            });
-
-            gardensSpeciesLayer_titleForLegend = gardensSpeciesLayer.title = gardensSpeciesLayer.name = 'Species - Plants';
-
-            map.add(gardensSpeciesLayer);  
-            
-            // ----- Settings for layer - Animals Species -----
-            const animalsSpeciesLayer = new FeatureLayer({
-                url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/survey123_cec36c129bc0459bb346ef38828664d3_results/FeatureServer",
-                renderer: {
-                    type: "unique-value",  // autocasts as new UniqueValueRenderer()
-                    field: "animals_type",  // contains values referenced in uniqueValueInfos
-                    uniqueValueInfos: [
-                        {
-                            value: "Birds", 
-                            symbol: {
-                                "type": "picture-marker",
-                                "url": "https://jusphonia1224.github.io/GEOG777Project2/logo/birds.png",
-                                "width": "20px",
-                                "height": "20px"
-                            }
-                        }, {
-                            value: "Mammals",  
-                            symbol: {
-                                "type": "picture-marker",
-                                "url": "https://jusphonia1224.github.io/GEOG777Project2/logo/mammals.png",
-                                "width": "20px",
-                                "height": "20px"
-                            } 
-                        }, {
-                            value: "Reptiles",  
-                            symbol: {
-                                "type": "picture-marker",
-                                "url": "https://jusphonia1224.github.io/GEOG777Project2/logo/reptiles.png",
-                                "width": "20px",
-                                "height": "20px"
-                            }
-                        }
-                    ]
-                },  
-                definitionExpression: "animals_or_gardens = 'Animals'",
-                outFields: ["species_birds","species_mammals","species_reptiles","plants","plants","animals_type","gardens_type","zone_birds","zone_mammals","zone_reptiles","zone_green_house","zone_thematic_garden"],
-                popupTemplate: speciespopupTemplate,
-                visible: false
-            });
-
-            animalsSpeciesLayer_titleForLegend = animalsSpeciesLayer.title = animalsSpeciesLayer.name = 'Species - Animals';
-
-            map.add(animalsSpeciesLayer);  
-
             // Defining popup properties for heritage
             const heritagePopupTemplate = {
                 "title": "{HeritageType}",
@@ -336,6 +263,79 @@
             gardensLayer_titleForLegend = gardensLayer.title = gardensLayer.name = 'Zone - Gardens';
 
             map.add(gardensLayer);   
+
+            // Defining popup properties for species
+            const speciespopupTemplate = {
+                "title": "{species_birds}{species_mammals}{species_reptiles}{plants}",
+                "content": "<b>Type:</b> {species_birds}{species_mammals}{species_reptiles}{plants}<br> \
+                            <b>Zone:</b> {animals_type}{gardens_type} {zone_birds}{zone_mammals}{zone_reptiles}{zone_green_house}{zone_thematic_garden}<br>"
+            }
+            
+            // ----- Settings for layer - Plants Species -----
+            const gardensSpeciesLayer = new FeatureLayer({
+                url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/survey123_cec36c129bc0459bb346ef38828664d3_results/FeatureServer",
+                renderer: {
+                    type: "simple",  // autocasts as new UniqueValueRenderer()
+                    symbol: {
+                        type: "picture-marker",
+                        url: "https://jusphonia1224.github.io/GEOG777Project2/logo/plants.png",
+                        width: "20px",
+                        height: "20px",
+                    }
+                },  
+                definitionExpression: "animals_or_gardens = 'Gardens'",
+                outFields: ["species_birds","species_mammals","species_reptiles","plants","plants","animals_type","gardens_type","zone_birds","zone_mammals","zone_reptiles","zone_green_house","zone_thematic_garden"],
+                popupTemplate: speciespopupTemplate,
+                visible: false
+            });
+
+            gardensSpeciesLayer_titleForLegend = gardensSpeciesLayer.title = gardensSpeciesLayer.name = 'Species - Plants';
+
+            map.add(gardensSpeciesLayer);  
+            
+            // ----- Settings for layer - Animals Species -----
+            const animalsSpeciesLayer = new FeatureLayer({
+                url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/survey123_cec36c129bc0459bb346ef38828664d3_results/FeatureServer",
+                renderer: {
+                    type: "unique-value",  // autocasts as new UniqueValueRenderer()
+                    field: "animals_type",  // contains values referenced in uniqueValueInfos
+                    uniqueValueInfos: [
+                        {
+                            value: "Birds", 
+                            symbol: {
+                                "type": "picture-marker",
+                                "url": "https://jusphonia1224.github.io/GEOG777Project2/logo/birds.png",
+                                "width": "20px",
+                                "height": "20px"
+                            }
+                        }, {
+                            value: "Mammals",  
+                            symbol: {
+                                "type": "picture-marker",
+                                "url": "https://jusphonia1224.github.io/GEOG777Project2/logo/mammals.png",
+                                "width": "20px",
+                                "height": "20px"
+                            } 
+                        }, {
+                            value: "Reptiles",  
+                            symbol: {
+                                "type": "picture-marker",
+                                "url": "https://jusphonia1224.github.io/GEOG777Project2/logo/reptiles.png",
+                                "width": "20px",
+                                "height": "20px"
+                            }
+                        }
+                    ]
+                },  
+                definitionExpression: "animals_or_gardens = 'Animals'",
+                outFields: ["species_birds","species_mammals","species_reptiles","plants","plants","animals_type","gardens_type","zone_birds","zone_mammals","zone_reptiles","zone_green_house","zone_thematic_garden"],
+                popupTemplate: speciespopupTemplate,
+                visible: false
+            });
+
+            animalsSpeciesLayer_titleForLegend = animalsSpeciesLayer.title = animalsSpeciesLayer.name = 'Species - Animals';
+
+            map.add(animalsSpeciesLayer);  
 
             // Add the locate widget to the top left corner of the view
             view.ui.add(locateBtn, {
