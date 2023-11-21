@@ -343,7 +343,7 @@
                 const floweringPlantsPopupTemplate = {
                     "title": " {species_flowering_plants} ",
                     "content": "<b>Date Captured:</b> {report_date}<br> \
-                                <b> {photo} </b> \
+                                <b>{ObjectID}<br> \
                                 <b>Photo:</b><img src=\"{photo}\" alt=\"{species_flowering_plants}\" />"
                 }
                 
@@ -360,7 +360,7 @@
                         }
                     },  
                     definitionExpression: "EXTRACT(MONTH from report_date) = EXTRACT(MONTH FROM CURRENT_DATE())",
-                    outFields: ["species_flowering_plants", "report_date", "photo"],
+                    outFields: ["species_flowering_plants", "report_date", "photo", "ObjectID"],
                     popupTemplate: floweringPlantsPopupTemplate
                 });
 
