@@ -55,10 +55,91 @@
             });
 
             //const graphicsLayer = new GraphicsLayer();
-            //map.add(graphicsLayer);     
-            
+            //map.add(graphicsLayer);  
+
+            // Defining popup properties for heritage
+            const heritagePopupTemplate = {
+                "title": "{HeritageType}",
+                "content": "<b>Code:</b> {HeritageCode}<br> \
+                            <b>Remarks:</b> {Remarks}<br> "
+            }
+
+            // ----- Settings for layer - Heritage -----
+            const heritageLayer = new FeatureLayer({
+                url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/Gardens_Heritage/FeatureServer",
+                renderer: {
+                    type: "unique-value",  // autocasts as new UniqueValueRenderer()
+                    field: "HeritageType",  // contains values referenced in uniqueValueInfos
+                    uniqueValueInfos: [
+                        {
+                            value: "Fountain Terrace Garden", 
+                            symbol: {
+                                "type": "picture-marker",
+                                "url": "https://jusphonia1224.github.io/GEOG777Project2/logo/fountain.png",
+                                "width": "20px",
+                                "height": "20px"
+                            }
+                        }, {
+                            value: "Flight of Steps Leading to Fountain Terrace",  
+                            symbol: {
+                                "type": "picture-marker",
+                                "url": "https://jusphonia1224.github.io/GEOG777Project2/logo/steps_fountain.png",
+                                "width": "20px",
+                                "height": "20px"
+                            } 
+                        }, {
+                            value: "Chinese War Memorial",  
+                            symbol: {
+                                "type": "picture-marker",
+                                "url": "https://jusphonia1224.github.io/GEOG777Project2/logo/memorial.png",
+                                "width": "20px",
+                                "height": "20px"
+                            }
+                        }, {
+                            value: "Pavilion",  
+                            symbol: {
+                                "type": "picture-marker",
+                                "url": "https://jusphonia1224.github.io/GEOG777Project2/logo/pavilion.png",
+                                "width": "20px",
+                                "height": "20px"
+                            }
+                        }, {
+                            value: "Bronze Statue of King George VI",  
+                            symbol: {
+                                "type": "picture-marker",
+                                "url": "https://jusphonia1224.github.io/GEOG777Project2/logo/bronze-horseman.png",
+                                "width": "20px",
+                                "height": "20px"
+                            }
+                        }, {
+                            value: "Stone Pillars and Flight of Steps at the Former Main Entrance",  
+                            symbol: {
+                                "type": "picture-marker",
+                                "url": "https://jusphonia1224.github.io/GEOG777Project2/logo/steps.png",
+                                "width": "20px",
+                                "height": "20px"
+                            }
+                        }, {
+                            value: "Entrance Gate Pillars on Garden Road",  
+                            symbol: {
+                                "type": "picture-marker",
+                                "url": "https://jusphonia1224.github.io/GEOG777Project2/logo/entrance-gate.png",
+                                "width": "20px",
+                                "height": "20px"
+                            }
+                        }
+                    ]
+                },  
+                outFields: ["HeritageCode", "HeritageType", "Remarks"],
+                popupTemplate: heritagePopupTemplate
+            });
+
+            heritageLayer_titleForLegend = heritageLayer.title = heritageLayer.name = 'Heritage';
+
+            map.add(heritageLayer);    
+
             // Defining popup properties for facilities
-            const faciltiespopupTemplate = {
+            const faciltiesPopupTemplate = {
                 "title": "{FacilitiesType}",
                 "content": "<b>Code:</b> {FacilitiesCode}<br> \
                             <b>Remarks:</b> {Remarks}<br> "
@@ -140,14 +221,14 @@
                             symbol: {
                                 "type": "picture-marker",
                                 "url": "https://jusphonia1224.github.io/GEOG777Project2/logo/accessible-toilet.png",
-                                "width": "20px",
-                                "height": "20px"
+                                "width": "25px",
+                                "height": "25px"
                             }
                         }
                     ]
                 },  
                 outFields: ["FacilitiesCode", "FacilitiesType", "Remarks"],
-                popupTemplate: faciltiespopupTemplate
+                popupTemplate: faciltiesPopupTemplate
             });
 
             facilitiesLayer_titleForLegend = facilitiesLayer.title = facilitiesLayer.name = 'Facilities';
@@ -211,7 +292,7 @@
             gardensLayer_titleForLegend = gardensLayer.title = gardensLayer.name = 'Zone - Gardens';
 
             map.add(gardensLayer);   
-            
+
             // Add the locate widget to the top left corner of the view
             view.ui.add(locateBtn, {
                 position: "top-left"
