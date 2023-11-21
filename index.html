@@ -398,6 +398,15 @@
                             name: "Plants"
                         },
                         {
+                            layer: floweringPlantsLayer,
+                            searchFields: ["species_flowering_plants"],
+                            suggestionTemplate: "{species_flowering_plants}",
+                            exactMatch: false,
+                            outFields: ["*"],
+                            placeholder: "example: Hibiscus",
+                            name: "Flowering Plants of the Month"
+                        },
+                        {
                             layer: animalsLayer,
                             searchFields: ["ZoneCode", "ZoneType", "Remarks"],
                             suggestionTemplate: "{ZoneType} - {ZoneCode}",
