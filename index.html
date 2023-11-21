@@ -339,6 +339,36 @@
 
                 map.add(animalsSpeciesLayer);  
 
+                // Defining popup properties for species
+                const floweringPlantsPopupTemplate = {
+                    "title": "{species_flowering_plants}",
+                    "content": "<b>Date Captured:</b> {report_date}<br> \
+                                <b>Photo:</b><img src=\"{photo}\" alt=\"{species_flowering_plants}\" />"
+                }
+                
+                // ----- Settings for layer - Flowering Plants of the Month -----
+                const floweringPlantsLayer = new FeatureLayer({
+                    url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/survey123_999c3daaeeb54d7492476d002ef8ef39_results/FeatureServer",
+                    renderer: {
+                        type: "simple",  // autocasts as new UniqueValueRenderer()
+                        symbol: {
+                            type: "picture-marker",
+                            url: "https://jusphonia1224.github.io/GEOG777Project2/logo/plants.png",
+                            width: "20px",
+                            height: "20px",
+                        }
+                    },  
+                    definitionExpression: "EXTRACT(YEAR from report_date) = EXTRACT(MONTH FROM CURRENT_DATE())",
+                    outFields: ["species_flowering_plants", "report_date", "photo"],
+                    popupTemplate: floweringPlantsPopupTemplate
+                });
+
+                floweringPlantsLayer_titleForLegend = floweringPlantsLayer.title = floweringPlantsLayer.name = 'Flowering Plants of the Month';
+
+                map.add(floweringPlantsLayer);  
+
+                // --- functions ---
+
                 // Add the locate widget to the top left corner of the view
                 view.ui.add(locateBtn, {
                     position: "top-left"
@@ -600,7 +630,7 @@
                         <br>
                     </div>
                     <div class="col-lg-6 d-flex flex-column align-items-stretch">                    
-                        <a href="https://arcg.is/19meqy"target="_blank" class="addRecordBtn">Report Flowering Plant of the Month</a>
+                        <a href="https://arcg.is/1vOXOS"target="_blank" class="addRecordBtn">Report current status - Flowering Plant of the Month</a>
                         <br>
                         <br>
                     </div>					
