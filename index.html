@@ -352,7 +352,7 @@
                         suggestionTemplate: "{ZoneType} - {ZoneCode}",
                         exactMatch: false,
                         outFields: ["*"],
-                        name: "Animals",
+                        name: "Zone - Animals",
                         placeholder: "example: Mammals"
                     },
                     {
@@ -362,7 +362,25 @@
                         exactMatch: false,
                         outFields: ["*"],
                         placeholder: "example: Bamboo",
-                        name: "Gardens"
+                        name: "Zone - Gardens"
+                    },
+                    {
+                        layer: animalsSpeciesLayer,
+                        searchFields: ["animals_type", "zone_birds", "zone_mammals", "zone_reptiles", "species_birds", "species_mammals", "species_reptiles"],
+                        suggestionTemplate: "{animals_type} - {zone_birds}{zone_mammals}{zone_reptiles}: {species_birds}{species_mammals}{species_reptiles}",
+                        exactMatch: false,
+                        outFields: ["*"],
+                        placeholder: "example: Tortoise",
+                        name: "Species - Animals"
+                    },
+                    {
+                        layer: gardensSpeciesLayer,
+                        searchFields: ["zone_green_house", "zone_thematic_garden", "species_plants"],
+                        suggestionTemplate: "{gardens_type} - {zone_green_house}{zone_thematic_garden}: {species_plants}",
+                        exactMatch: false,
+                        outFields: ["*"],
+                        placeholder: "example: Bamboo",
+                        name: "Species - Plants"
                     }
                 ]
             });
