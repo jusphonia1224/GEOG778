@@ -5,7 +5,7 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
         
-        <title>Hong Kong Zoological and Botanical Gardens</title>
+        <title>Hong Kong Solar Radiation Map</title>
 
         <!-- import style for bootstrap, google font, leaflet -->
         <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -42,11 +42,12 @@
 
                 const view = new MapView({
                     container: "viewDiv", 
-                    center: [114.155700, 22.277778], // Longitude, latitude of Hong Kong Zoological and Botanical Gardens
-                    zoom: 18, // Zoom level
+                    center: [114.1086767, 22.3715628], // Longitude, latitude of Hong Kong
+                    zoom: 11, // Zoom level
                     map: map, // References the map object
                     constraints: {
-                        minZoom: 18 //Minimum Zoom Level
+                        minZoom: 11, //Minimum Zoom Level
+                        maxZoom: 20 //Maximum Zoom Level
                     }
                 });
 
@@ -485,7 +486,31 @@
                 <a href="#about" class="btn-scroll scrollto" title="Scroll Down"><i class="bi bi-chevron-down"></i></a>
             </div>
         </section>    
+        
+        <!-- Map Section -->
+        <section id="mapSection" class="about">
+            <div class="container">
+                <div class="section-title">
+                    <h2> Garden Map </h2>
+                </div>	
+                            
+                <div class="row">
+                    <div class="col-lg-6 d-flex flex-column align-items-stretch">                    
+                        <a href="https://arcg.is/19meqy"target="_blank" class="addRecordBtn">Report Species Location</a>                    
+                        <br>
+                        <br>
+                    </div>
+                    <div class="col-lg-6 d-flex flex-column align-items-stretch">                    
+                        <a href="https://arcg.is/1vOXOS"target="_blank" class="addRecordBtn">Report Current Status - Flowering Plant of the Month</a>
+                        <br>
+                        <br>
+                    </div>					
+                </div>		
+            </div>
+        </section>
 
+        <div id="viewDiv"></div>   
+        
         <!-- About Section -->
         <section id="about" class="about">
             <div class="container">
@@ -624,31 +649,6 @@
                 </div>
             </div>
         </section>
-
-        
-        <!-- Map Section -->
-        <section id="mapSection" class="about">
-            <div class="container">
-                <div class="section-title">
-                    <h2> Garden Map </h2>
-                </div>	
-                            
-                <div class="row">
-                    <div class="col-lg-6 d-flex flex-column align-items-stretch">                    
-                        <a href="https://arcg.is/19meqy"target="_blank" class="addRecordBtn">Report Species Location</a>                    
-                        <br>
-                        <br>
-                    </div>
-                    <div class="col-lg-6 d-flex flex-column align-items-stretch">                    
-                        <a href="https://arcg.is/1vOXOS"target="_blank" class="addRecordBtn">Report Current Status - Flowering Plant of the Month</a>
-                        <br>
-                        <br>
-                    </div>					
-                </div>		
-            </div>
-        </section>
-
-        <div id="viewDiv"></div>   
     
         <footer id="footer">
             <div class="container">
@@ -657,7 +657,7 @@
                 </div>
                 
                 <div class="copyright">
-                    University of Wisconsin - Madison - GEOG777 Project 2 - &copy; Copyright <strong><span> Jusphonia Ho</span></strong>. All Rights Reserved
+                    University of Wisconsin - Madison - GEOG778 - &copy; Copyright <strong><span> Jusphonia Ho</span></strong>. All Rights Reserved
                 </div>
             </div>
         </footer>
