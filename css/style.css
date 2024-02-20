@@ -330,7 +330,7 @@ table, th, tr, td {
 #home {
   width: 100%;
   height: 100vh;
-  background: url("../logo/bg1.jpg") top right;
+  background: url("../logo/bg1.jpeg") top right;
   background-size: cover;
   position: relative;
 }
