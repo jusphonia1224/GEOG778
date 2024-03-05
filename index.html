@@ -58,6 +58,16 @@
                 //const graphicsLayer = new GraphicsLayer();
                 //map.add(graphicsLayer);  
 
+                // ----- Settings for layer - Solar Radiation (General) -----
+                const generalLayer = new FeatureLayer({
+                    url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/Gardens_Heritage/FeatureServer",
+                    visible: true
+                });
+
+                generalLayer_titleForLegend = generalLayer.title = generalLayer.name = 'Solar Radiation (General in 24H)';
+
+                map.add(generalLayer);    
+
                 /*
                 // Defining popup properties for heritage
                 const heritagePopupTemplate = {
@@ -297,79 +307,7 @@
 
                 map.add(gardensSpeciesLayer);  
                 
-                // ----- Settings for layer - Animals Species -----
-                const animalsSpeciesLayer = new FeatureLayer({
-                    url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/survey123_cec36c129bc0459bb346ef38828664d3_results/FeatureServer",
-                    renderer: {
-                        type: "unique-value",  // autocasts as new UniqueValueRenderer()
-                        field: "animals_type",  // contains values referenced in uniqueValueInfos
-                        uniqueValueInfos: [
-                            {
-                                value: "Birds", 
-                                symbol: {
-                                    "type": "picture-marker",
-                                    "url": "https://jusphonia1224.github.io/GEOG777Project2/logo/birds.png",
-                                    "width": "20px",
-                                    "height": "20px"
-                                }
-                            }, {
-                                value: "Mammals",  
-                                symbol: {
-                                    "type": "picture-marker",
-                                    "url": "https://jusphonia1224.github.io/GEOG777Project2/logo/mammals.png",
-                                    "width": "20px",
-                                    "height": "20px"
-                                } 
-                            }, {
-                                value: "Reptiles",  
-                                symbol: {
-                                    "type": "picture-marker",
-                                    "url": "https://jusphonia1224.github.io/GEOG777Project2/logo/reptiles.png",
-                                    "width": "20px",
-                                    "height": "20px"
-                                }
-                            }
-                        ]
-                    },  
-                    definitionExpression: "animals_or_gardens = 'Animals'",
-                    outFields: ["species_birds","species_mammals","species_reptiles","plants","plants","animals_type","gardens_type","zone_birds","zone_mammals","zone_reptiles","zone_green_house","zone_thematic_garden"],
-                    popupTemplate: speciesPopupTemplate,
-                    visible: false
-                });
-
-                animalsSpeciesLayer_titleForLegend = animalsSpeciesLayer.title = animalsSpeciesLayer.name = 'Animals';
-
-                map.add(animalsSpeciesLayer);  
-
-                // Defining popup properties for species
-                const floweringPlantsPopupTemplate = {
-                    "title": " {species_flowering_plants} ",
-                    "content": "<b>Date Captured:</b> {report_date}<br> \
-                                <b>{ObjectID}<br> \
-                                <b>Photo:</b><img src=\"https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/survey123_999c3daaeeb54d7492476d002ef8ef39/FeatureServer/0/{ObjectID}/attachments/{ObjectID}?token={photo}&w=400\" alt=\"{species_flowering_plants}\" />"
-                }
-                
-                // ----- Settings for layer - Flowering Plants of the Month -----
-                const floweringPlantsLayer = new FeatureLayer({
-                    url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/survey123_999c3daaeeb54d7492476d002ef8ef39_results/FeatureServer",
-                    renderer: {
-                        type: "simple",  // autocasts as new UniqueValueRenderer()
-                        symbol: {
-                            type: "picture-marker",
-                            url: "https://jusphonia1224.github.io/GEOG777Project2/logo/plants.png",
-                            width: "20px",
-                            height: "20px",
-                        }
-                    },  
-                    definitionExpression: "EXTRACT(MONTH from report_date) = EXTRACT(MONTH FROM CURRENT_DATE()) AND EXTRACT(YEAR from report_date) = EXTRACT(YEAR FROM CURRENT_DATE())",
-                    outFields: ["species_flowering_plants", "report_date", "photo", "ObjectID"],
-                    popupTemplate: floweringPlantsPopupTemplate
-                });
-
-                floweringPlantsLayer_titleForLegend = floweringPlantsLayer.title = floweringPlantsLayer.name = 'Flowering Plants of the Month';
-
-                map.add(floweringPlantsLayer);  
-*/
+                */
 
                 // --- functions ---
 
@@ -380,7 +318,7 @@
 
                 const searchWidget = new Search({
                     view: view,                
-                    includeDefaultSources: false,
+                    includeDefaultSources: false/*,
                     sources: [
                         {
                             layer: animalsSpeciesLayer,
@@ -427,12 +365,12 @@
                             placeholder: "example: Bamboo",
                             name: "Zone - Gardens"
                         }                    
-                    ]
+                    ]*/
                 });
 
                 // Adds the search widget below other elements in the top left corner of the view
                 view.ui.add(searchWidget, {
-                    position: "top-right",
+                    position: "top-left",
                     index: 2
                 });
 
