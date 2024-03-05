@@ -368,13 +368,6 @@
                     ]*/
                 });
 
-                // Adds the search widget below other elements in the top left corner of the view
-                /*view.ui.add(searchWidget, {
-                    position: "top-left",
-                    index: 2
-                });*/
-
-
                 // Add Legend Widget
                 let legend = new Legend({
                     view: view,
@@ -387,10 +380,7 @@
                     expanded: true
                 });
 
-                //view.ui.add(legendExpand, "bottom-right");
-
-                
-                view.ui.add([searchWidget, legendExpand], "top-leading");
+                view.ui.add(legendExpand, "bottom-right");
 
                 // Add Layer List Widget
                 let layerList = new LayerList({
@@ -405,6 +395,14 @@
                             
                 view.ui.add(layerListExpand, "bottom-left");
 
+ 
+                // Adds the search widget below other elements in the top left corner of the view
+                /*view.ui.add(searchWidget, {
+                    position: "top-left",
+                    index: 2
+                });*/
+               
+                view.ui.add([searchWidget, layerListExpand], "top-right");
                 // Filter
             });
         </script>
