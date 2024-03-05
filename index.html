@@ -369,10 +369,11 @@
                 });
 
                 // Adds the search widget below other elements in the top left corner of the view
-                view.ui.add(searchWidget, {
+                /*view.ui.add(searchWidget, {
                     position: "top-left",
                     index: 2
-                });
+                });*/
+
 
                 // Add Legend Widget
                 let legend = new Legend({
@@ -386,7 +387,10 @@
                     expanded: true
                 });
 
-                view.ui.add(legendExpand, "bottom-right");
+                //view.ui.add(legendExpand, "bottom-right");
+
+                
+                view.ui.add([searchWidget, legendExpand], "top-leading");
 
                 // Add Layer List Widget
                 let layerList = new LayerList({
