@@ -387,22 +387,24 @@
                     view: view,
                     container: document.createElement("div")
                 });
+ 
+                // Adds the search widget below other elements in the top left corner of the view
+                view.ui.add(searchWidget, {
+                    position: "top-right",
+                    index: 2
+                });
 
+                // Add layer control widget
                 const layerListExpand = new Expand({
                     view: view,
                     content: layerList
                 });
                             
-                //view.ui.add(layerListExpand, "bottom-left");
+                view.ui.add(layerListExpand, "top-right");
 
- 
-                // Adds the search widget below other elements in the top left corner of the view
-                /*view.ui.add(searchWidget, {
-                    position: "top-left",
-                    index: 2
-                });*/
+
                
-                view.ui.add([searchWidget, layerListExpand], "top-right");
+                //view.ui.add([searchWidget, layerListExpand], "top-right");
                 // Filter
             });
         </script>
