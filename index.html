@@ -60,11 +60,11 @@
 
                 // ----- Settings for layer - Solar Radiation (General) -----
                 const generalLayer = new FeatureLayer({
-                    url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/Gardens_Heritage/FeatureServer",
+                    url: "https://tiles.arcgis.com/tiles/HRPe58bUyBqyyiCt/arcgis/rest/services/DSM_2020/MapServer",
                     visible: true
                 });
 
-                generalLayer_titleForLegend = generalLayer.title = generalLayer.name = 'Solar Radiation (General in 24H)';
+                generalLayer_titleForLegend = generalLayer.title = generalLayer.name = 'DSM 2020';
 
                 map.add(generalLayer);    
 
