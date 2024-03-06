@@ -317,8 +317,8 @@
                 });
 
                 const searchWidget = new Search({
-                    view: view,                
-                    includeDefaultSources: false/*,
+                    view: view/*,                
+                    includeDefaultSources: false,
                     sources: [
                         {
                             layer: animalsSpeciesLayer,
@@ -367,6 +367,12 @@
                         }                    
                     ]*/
                 });
+ 
+                // Adds the search widget below other elements in the top left corner of the view
+                view.ui.add(searchWidget, {
+                    position: "top-right",
+                    index: 2
+                });
 
                 // Add Legend Widget
                 let legend = new Legend({
@@ -386,12 +392,6 @@
                 let layerList = new LayerList({
                     view: view,
                     container: document.createElement("div")
-                });
- 
-                // Adds the search widget below other elements in the top left corner of the view
-                view.ui.add(searchWidget, {
-                    position: "top-right",
-                    index: 2
                 });
 
                 // Add layer control widget
