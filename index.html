@@ -71,11 +71,11 @@
 
                 // ----- Settings for layer - Solar Radiation (General) -----
                 const dsmLayer = new TileLayer({
-                    url: "https://tiles.arcgis.com/tiles/HRPe58bUyBqyyiCt/arcgis/rest/services/HKDSM1/MapServer",
+                    url: "https://tiles.arcgis.com/tiles/HRPe58bUyBqyyiCt/arcgis/rest/services/DSM1/MapServer",
                     visible: true
                 });
 
-                dsmLayer_titleForLegend = dsmLayer.title = dsmLayer.name = 'DSM 2020 - 1';
+                dsmLayer_titleForLegend = dsmLayer.title = dsmLayer.name = 'DSM 2020';
 
                 map.add(dsmLayer);   
                 /*
