@@ -59,6 +59,7 @@
                 //const graphicsLayer = new GraphicsLayer();
                 //map.add(graphicsLayer);  
 
+                /*
                 // ----- Settings for layer - Solar Radiation (General) -----
                 const generalLayer = new FeatureLayer({
                     url: "https://tiles.arcgis.com/tiles/HRPe58bUyBqyyiCt/arcgis/rest/services/DSM_2020/MapServer",
@@ -69,6 +70,8 @@
 
                 map.add(generalLayer);    
 
+                */
+               
                 // ----- Settings for layer - DSM -----
                 const dsmLayer = new TileLayer({
                     url: "https://tiles.arcgis.com/tiles/HRPe58bUyBqyyiCt/arcgis/rest/services/DSM1/MapServer",
@@ -117,7 +120,8 @@
 
                 diffusionLayer_titleForLegend = diffusionLayer.title = diffusionLayer.name = 'Diffusion (All Direction)';
 
-                map.add(diffusionLayer);                  
+                map.add(diffusionLayer);  
+
                 /*
                 // Defining popup properties for heritage
                 const heritagePopupTemplate = {
