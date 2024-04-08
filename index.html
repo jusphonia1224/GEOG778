@@ -71,7 +71,7 @@
                 map.add(generalLayer);    
 
                 */
-               
+
                 // ----- Settings for layer - DSM -----
                 const dsmLayer = new TileLayer({
                     url: "https://tiles.arcgis.com/tiles/HRPe58bUyBqyyiCt/arcgis/rest/services/DSM1/MapServer",
@@ -88,9 +88,9 @@
                     visible: true
                 });
 
-                srLayer_titleForLegend = srLayer.title = srLayer.name = 'Solar Rediation (All Direction)';
+                srAllLayer_titleForLegend = srAllLayer.title = srAllLayer.name = 'Solar Rediation (All Direction)';
 
-                map.add(srLayer);    
+                map.add(srAllLayer);    
 
                 // ----- Settings for layer - Direct Duration (General / All Direction) -----
                 const directDurationLayer = new TileLayer({
