@@ -69,15 +69,55 @@
 
                 map.add(generalLayer);    
 
-                // ----- Settings for layer - Solar Radiation (General) -----
+                // ----- Settings for layer - DSM -----
                 const dsmLayer = new TileLayer({
                     url: "https://tiles.arcgis.com/tiles/HRPe58bUyBqyyiCt/arcgis/rest/services/DSM1/MapServer",
-                    visible: true
+                    visible: false
                 });
 
                 dsmLayer_titleForLegend = dsmLayer.title = dsmLayer.name = 'DSM 2020';
 
                 map.add(dsmLayer);   
+
+                 // ----- Settings for layer - Solar Radiation (General / All Direction) -----
+                 const srAllLayer = new TileLayer({
+                    url: "https://tiles.arcgis.com/tiles/HRPe58bUyBqyyiCt/arcgis/rest/services/Solar_Radiation_All/MapServer",
+                    visible: true
+                });
+
+                srLayer_titleForLegend = srLayer.title = srLayer.name = 'Solar Rediation (All Direction)';
+
+                map.add(srLayer);    
+
+                // ----- Settings for layer - Direct Duration (General / All Direction) -----
+                const directDurationLayer = new TileLayer({
+                    url: "https://tiles.arcgis.com/tiles/HRPe58bUyBqyyiCt/arcgis/rest/services/Direct_Duration/MapServer",
+                    visible: false
+                });
+
+                directDurationLayer_titleForLegend = directDurationLayer.title = directDurationLayer.name = 'Direct Duration (Hours per Day)';
+
+                map.add(directDurationLayer);   
+                 
+                // ----- Settings for layer - Direct Radiation (General / All Direction) -----
+                const directRadiationLayer = new TileLayer({
+                    url: "https://tiles.arcgis.com/tiles/HRPe58bUyBqyyiCt/arcgis/rest/services/Direct_Radiation/MapServer",
+                    visible: false
+                });
+
+                directRadiationLayer_titleForLegend = directRadiationLayer.title = directRadiationLayer.name = 'Direct Rediation (All Direction)';
+
+                map.add(directDurationLayer);               
+                
+                // ----- Settings for layer - Diffusion (General / All Direction) -----
+                const diffusionLayer = new TileLayer({
+                    url: "https://tiles.arcgis.com/tiles/HRPe58bUyBqyyiCt/arcgis/rest/services/Diffusion/MapServer",
+                    visible: false
+                });
+
+                diffusionLayer_titleForLegend = diffusionLayer.title = diffusionLayer.name = 'Diffusion (All Direction)';
+
+                map.add(diffusionLayer);                  
                 /*
                 // Defining popup properties for heritage
                 const heritagePopupTemplate = {
