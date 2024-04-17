@@ -320,7 +320,9 @@
                         layer.visible = false;
                     });
 
-                    dsmLayer.visible = true;              
+                    var selectedLayer = layerName;
+
+                    selectedLayer.visible = true;              
                 };
 
                 const switchLayer = document.getElementById("layerOnDisplay");
@@ -374,7 +376,7 @@
         <div id="layerOnDisplay" class="esri-widget">
             <calcite-label>Layer to Display</calcite-label>
             <calcite-combobox id="layerCombobox" selection-mode="single" clear-disabled="true">
-                <calcite-combobox-item value="srAllLayer" text-label="Solar Radiation (kW)"></calcite-combobox-item>
+                <calcite-combobox-item value="srAllLayer" text-label="Solar Radiation (kW)" selected></calcite-combobox-item>
                 <calcite-combobox-item value="directRadiationLayer" text-label="Direct Radiation (kW)"></calcite-combobox-item>
                 <calcite-combobox-item value="diffusionLayer" text-label="Diffuse (kW)"></calcite-combobox-item>
                 <calcite-combobox-item value="directDurationLayer" text-label="Direct Duration (Hours per Day)"></calcite-combobox-item>
