@@ -348,7 +348,6 @@
 
                 // Update the layer transparency when the slider value changes
                 transparencyWidget.on("thumb-drag", function(event) {
-                    featureLayer.opacity = event.value[0];
                     layers.forEach(function(layer) {
                         if (layer.name == layerCombobox.value)
                             layer.opacity = event.value[0];
@@ -356,7 +355,7 @@
                 });
 
                 // Synchronize the slider value with the current layer opacity
-                watchUtils.watch(featureLayer, "opacity", function(opacity) {
+                watchUtils.watch(graphic.layer, "opacity", function(opacity) {
                     transparencyWidget.values = [opacity];
                 });
                 
