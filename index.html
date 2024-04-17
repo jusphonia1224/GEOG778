@@ -311,39 +311,7 @@
                             
                 view.ui.add(layerListExpand, "top-right");
 
-                // Add combo box function for switch layer   
-                // Create a ComboBox
-                const layerComboBoxW = new ComboBoxInput({
-                    label: "Select a layer:",
-                    options: [
-                        { label: "Solar Radiation", value: "srAllLayer" },
-                        { label: "DSM", value: "dsmLayer" }
-                    ],
-                    onChange: function(event) {
-                        var layers = map.layers;
-
-                        // Iterate through all the layers and set their visibility to false
-                        layers.forEach(function(layer) {
-                            layer.visible = false;
-                        });
-
-                        // Get the selected value of the ComboBox
-                        var selectedValue = event.target.value;
-                        console.log("Selected value:", selectedValue);
-
-                        // Adjust the visibility of the layers based on the selected value
-                        if (selectedValue === "srAllLayer") {
-                            srAllLayer.visible = true;
-                        } else if (selectedValue === "dsmLayer") {
-                            dsmLayer.visible = true;
-                        } 
-                    }
-                });
-
-                // Add the ComboBox to the map
-                map.ui.add(layerComboBoxW, "top-right");
-                
-
+                // Add combo box function for switch layer        
                 const switchLayer = document.getElementById("layerOnDisplay");
                 
                 view.ui.add(switchLayer, "top-right");
