@@ -91,7 +91,7 @@
                     visible: true
                 });
 
-                srAllLayer_titleForLegend = srAllLayer.title = srAllLayer.name = 'Solar Rediation';
+                srAllLayer_titleForLegend = srAllLayer.title = srAllLayer.name = 'Solar Radiation (kW)';
 
                 map.add(srAllLayer);    
 
@@ -102,7 +102,7 @@
                     visible: false
                 });
 
-                directDurationLayer_titleForLegend = directDurationLayer.title = directDurationLayer.name = 'Direct Duration';
+                directDurationLayer_titleForLegend = directDurationLayer.title = directDurationLayer.name = 'Direct Duration (Hours per Day)';
 
                 map.add(directDurationLayer);   
                  
@@ -112,7 +112,7 @@
                     visible: false
                 });
 
-                directRadiationLayer_titleForLegend = directRadiationLayer.title = directRadiationLayer.name = 'Direct Rediation';
+                directRadiationLayer_titleForLegend = directRadiationLayer.title = directRadiationLayer.name = 'Direct Rediation (kW)';
 
                 map.add(directRadiationLayer);               
                 
@@ -122,7 +122,7 @@
                     visible: false
                 });
 
-                diffusionLayer_titleForLegend = diffusionLayer.title = diffusionLayer.name = 'Diffusion';
+                diffusionLayer_titleForLegend = diffusionLayer.title = diffusionLayer.name = 'Diffuse (kW)';
 
                 map.add(diffusionLayer);  
 */
@@ -324,7 +324,7 @@
 
                     // Iterate through all the layers and set their visibility to false
                     layers.forEach(function(layer) {
-                        if (layer.index == event.target.value)
+                        if (layer.name == event.target.value)
                             layer.visible = true;
                         else
                             layer.visible = false;
@@ -371,11 +371,11 @@
         <div id="layerOnDisplay" class="esri-widget">
             <calcite-label>Layer to Display</calcite-label>
             <calcite-combobox id="layerCombobox" selection-mode="single" clear-disabled="true">
-                <calcite-combobox-item value="srAllLayer" text-label="Solar Radiation (kW)" selected></calcite-combobox-item>
-                <calcite-combobox-item value="directRadiationLayer" text-label="Direct Radiation (kW)"></calcite-combobox-item>
-                <calcite-combobox-item value="diffusionLayer" text-label="Diffuse (kW)"></calcite-combobox-item>
-                <calcite-combobox-item value="directDurationLayer" text-label="Direct Duration (Hours per Day)"></calcite-combobox-item>
-                <calcite-combobox-item value="dsmLayer" text-label="DSM"></calcite-combobox-item>
+                <calcite-combobox-item value="Solar Radiation (kW)" text-label="Solar Radiation (kW)" selected></calcite-combobox-item>
+                <calcite-combobox-item value="Direct Radiation (kW)" text-label="Direct Radiation (kW)"></calcite-combobox-item>
+                <calcite-combobox-item value="Diffuse (kW)" text-label="Diffuse (kW)"></calcite-combobox-item>
+                <calcite-combobox-item value="Direct Duration (Hours per Day)" text-label="Direct Duration (Hours per Day)"></calcite-combobox-item>
+                <calcite-combobox-item value="DSM 2020" text-label="DSM"></calcite-combobox-item>
             </calcite-combobox>
         </div>
 
