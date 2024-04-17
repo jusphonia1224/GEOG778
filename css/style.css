@@ -554,3 +554,8 @@ h2:after {
   color: #fff;
   text-decoration: none;
 }
+
+#basemapLanguage {
+  width: 200px;
+  padding: 10px;
+}
