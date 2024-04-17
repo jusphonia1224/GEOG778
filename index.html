@@ -310,21 +310,7 @@
                             
                 view.ui.add(layerListExpand, "top-right");
 
-                // Add combo box function for switch layer
-                const updateLayer = (layerName) => {
-                    // Assuming you have an ArcGIS map object called 'map'
-                    var layers = map.layers;
-
-                    // Iterate through all the layers and set their visibility to false
-                    layers.forEach(function(layer) {
-                        layer.visible = false;
-                    });
-
-                    var selectedLayer = layerName;
-
-                    selectedLayer.visible = true;              
-                };
-
+                // Add combo box function for switch layer                
                 const switchLayer = document.getElementById("layerOnDisplay");
                 
                 view.ui.add(switchLayer, "top-right");
@@ -333,7 +319,16 @@
                 
                 // when the combobox value changes, update the combo box value
                 layerCombobox.addEventListener("calciteComboboxChange", (event) => {
-                    updateLayer(event.target.value);
+                    var layers = map.layers;
+
+                    // Iterate through all the layers and set their visibility to false
+                    layers.forEach(function(layer) {
+                        layer.visible = false;
+                    });
+
+                    var selectedLayer = event.target.value;
+
+                    selectedLayer.visible = true;        
                 });
                
                 //view.ui.add([searchWidget, layerListExpand], "top-right");
