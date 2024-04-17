@@ -95,7 +95,6 @@
 
                 map.add(srAllLayer);    
 
-                /*
                 // ----- Settings for layer - Direct Duration (General / All Direction) -----
                 const directDurationLayer = new TileLayer({
                     url: "https://tiles.arcgis.com/tiles/HRPe58bUyBqyyiCt/arcgis/rest/services/Direct_Duration/MapServer",
@@ -125,7 +124,7 @@
                 diffusionLayer_titleForLegend = diffusionLayer.title = diffusionLayer.name = 'Diffuse (kW)';
 
                 map.add(diffusionLayer);  
-*/
+
                 /*
                 // Defining popup properties for heritage
                 const heritagePopupTemplate = {
@@ -297,6 +296,7 @@
 
                 view.ui.add(legendExpand, "bottom-left");
 
+                /*
                 // Add Layer List Widget
                 let layerList = new LayerList({
                     view: view,
@@ -307,7 +307,7 @@
                 const layerListExpand = new Expand({
                     view: view,
                     content: layerList
-                });
+                });*/
                             
                 view.ui.add(layerListExpand, "top-right");
 
