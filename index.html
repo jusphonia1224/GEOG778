@@ -35,9 +35,9 @@
                 "esri/widgets/Legend",
                 "esri/widgets/LayerList",
                 "esri/widgets/Expand", 
-                "esri/core/reactiveUtils",
-                "esri/form/elements/inputs/ComboBoxInput"
-            ], (esriConfig, Map, MapView, Locate, Search, FeatureLayer, TileLayer, Graphic, GraphicsLayer, Legend, LayerList, Expand, reactiveUtils, ComboBoxInput) => {
+                "esri/core/reactiveUtils",,
+                "esri/core/watchUtils"
+            ], (esriConfig, Map, MapView, Locate, Search, FeatureLayer, TileLayer, Graphic, GraphicsLayer, Legend, LayerList, Expand, reactiveUtils, watchUtils) => {
                 esriConfig.apiKey = "AAPK1bafb1fd1b984000a2a5ab965ed0cf111GDugMmnipDNIQH9yaN93addT3iTZzAKwGLSLBZvZJBkFTaRPkJjvEi2gCoqyJml";
 
                 const map = new Map({
@@ -318,7 +318,6 @@
 
                 const layerCombobox = document.getElementById("layerCombobox");
                 
-                // when the combobox value changes, update the combo box value
                 layerCombobox.addEventListener("calciteComboboxChange", (event) => {
                     var layers = map.layers;
 
@@ -331,8 +330,34 @@
                     });
                 });
                
-                //view.ui.add([searchWidget, layerListExpand], "top-right");
-                // Filter
+                // For adjust transparency
+                // Create the transparency adjustment widget
+                const transparencyWidget = new Slider({
+                    container: "transparencyWidget",
+                    min: 0,
+                    max: 1,
+                    values: [1],
+                    step: 0.01,
+                    visibleElements: {
+                    labels: true,
+                    rangeLabels: true
+                    },
+                    labelFormatFunction: function(value) {
+                    return (value * 100).toFixed(0) + "%";
+                    }
+                });
+
+                // Update the layer transparency when the slider value changes
+                transparencyWidget.on("thumb-drag", function(event) {
+                    featureLayer.opacity = event.value[0];
+                });
+
+                // Synchronize the slider value with the current layer opacity
+                watchUtils.watch(featureLayer, "opacity", function(opacity) {
+                    transparencyWidget.values = [opacity];
+                });
+                
+                view.ui.add(transparencyWidget, "top-right");
             });
         </script>
     </head>
