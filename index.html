@@ -331,8 +331,8 @@
                     console.log("Selected value:", selectedLayerValue);
 
                     var selectedLayer = map.layers.find(layer => layer.id === selectedLayerValue);
-                    if (selectedLayer) {
-                        console.log("Selected value:", selectedLayer)
+                    console.log("Selected value:", selectedLayer)
+                    if (selectedLayer) {                        
                         selectedLayer.visible = true;
                     }   
                 });
