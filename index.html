@@ -330,7 +330,6 @@
                     });
                 });
                
-                // For adjust transparency
                 // Create the transparency adjustment widget
                 const transparencyWidget = new Slider({
                     container: "transparencyWidget",
@@ -350,6 +349,10 @@
                 // Update the layer transparency when the slider value changes
                 transparencyWidget.on("thumb-drag", function(event) {
                     featureLayer.opacity = event.value[0];
+                    layers.forEach(function(layer) {
+                        if (layer.name == layerCombobox.value)
+                            layer.opacity = event.value[0];
+                    });
                 });
 
                 // Synchronize the slider value with the current layer opacity
