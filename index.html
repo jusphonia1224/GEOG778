@@ -17,6 +17,8 @@
         <!-- import css and esri.js lib -->
         <link rel="stylesheet" href="https://js.arcgis.com/4.26/esri/themes/light/main.css" />
         <script src="https://js.arcgis.com/4.28/"></script>
+        <script type="module" src="https://js.arcgis.com/calcite-components/2.5.1/calcite.esm.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://js.arcgis.com/calcite-components/2.5.1/calcite.css" />
         
         <!-- loading modules -->
         <script>
@@ -33,8 +35,9 @@
                 "esri/widgets/Legend",
                 "esri/widgets/LayerList",
                 "esri/widgets/Expand", 
-                "esri/core/reactiveUtils"
-            ], (esriConfig, Map, MapView, Locate, Search, FeatureLayer, TileLayer, Graphic, GraphicsLayer, Legend, LayerList, Expand, reactiveUtils) => {
+                "esri/core/reactiveUtils",
+                "esri/intl"
+            ], (esriConfig, Map, MapView, Locate, Search, FeatureLayer, TileLayer, Graphic, GraphicsLayer, Legend, LayerList, Expand, reactiveUtils, intl) => {
                 esriConfig.apiKey = "AAPK1bafb1fd1b984000a2a5ab965ed0cf111GDugMmnipDNIQH9yaN93addT3iTZzAKwGLSLBZvZJBkFTaRPkJjvEi2gCoqyJml";
 
                 const map = new Map({
@@ -346,6 +349,50 @@
         </section>
             
         <div id="viewDiv"></div>  
+        <div id="basemapLanguage" class="esri-widget">
+            <calcite-label>Basemap language</calcite-label>
+            <calcite-combobox id="languageCombobox" selection-mode="single" clear-disabled="true">
+                <calcite-combobox-item value="global" text-label="Global"></calcite-combobox-item>
+                <calcite-combobox-item value="local" text-label="Local"></calcite-combobox-item>
+                <calcite-combobox-item value="ar" text-label="Arabic"></calcite-combobox-item>
+                <calcite-combobox-item value="bs" text-label="Bosnian"></calcite-combobox-item>
+                <calcite-combobox-item value="ca" text-label="Catalan"></calcite-combobox-item>
+                <calcite-combobox-item value="zh-HK" text-label="Chinese (Hong Kong)"></calcite-combobox-item>
+                <calcite-combobox-item value="zh-CN" text-label="Chinese (Simplified)"></calcite-combobox-item>
+                <calcite-combobox-item value="zh-TW" text-label="Chinese (Taiwan)"></calcite-combobox-item>
+                <calcite-combobox-item value="hr" text-label="Croatian"></calcite-combobox-item>
+                <calcite-combobox-item value="cs" text-label="Czech"></calcite-combobox-item>
+                <calcite-combobox-item value="da" text-label="Danish"></calcite-combobox-item>
+                <calcite-combobox-item value="nl" text-label="Dutch"></calcite-combobox-item>
+                <calcite-combobox-item value="en" text-label="English"></calcite-combobox-item>
+                <calcite-combobox-item value="et" text-label="Estonian"></calcite-combobox-item>
+                <calcite-combobox-item value="fi" text-label="Finnish"></calcite-combobox-item>
+                <calcite-combobox-item value="fr" text-label="French"></calcite-combobox-item>
+                <calcite-combobox-item value="de" text-label="German"></calcite-combobox-item>
+                <calcite-combobox-item value="el" text-label="Greek"></calcite-combobox-item>
+                <calcite-combobox-item value="he" text-label="Hebrew"></calcite-combobox-item>
+                <calcite-combobox-item value="hu" text-label="Hungarian"></calcite-combobox-item>
+                <calcite-combobox-item value="id" text-label="Indonesian"></calcite-combobox-item>
+                <calcite-combobox-item value="it" text-label="Italian"></calcite-combobox-item>
+                <calcite-combobox-item value="ja" text-label="Japanese"></calcite-combobox-item>
+                <calcite-combobox-item value="ko" text-label="Korean"></calcite-combobox-item>
+                <calcite-combobox-item value="lv" text-label="Latvian"></calcite-combobox-item>
+                <calcite-combobox-item value="lt" text-label="Lithuanian"></calcite-combobox-item>
+                <calcite-combobox-item value="nb" text-label="Norwegian"></calcite-combobox-item>
+                <calcite-combobox-item value="pl" text-label="Polish"></calcite-combobox-item>
+                <calcite-combobox-item value="pt-BR" text-label="Portuguese (Brazil)"></calcite-combobox-item>
+                <calcite-combobox-item value="pt-PT" text-label="Portuguese (Portugal)"></calcite-combobox-item>
+                <calcite-combobox-item value="ro" text-label="Romanian"></calcite-combobox-item>
+                <calcite-combobox-item value="ru" text-label="Russian"></calcite-combobox-item>
+                <calcite-combobox-item value="sr" text-label="Serbian"></calcite-combobox-item>
+                <calcite-combobox-item value="es" text-label="Spanish" selected></calcite-combobox-item>
+                <calcite-combobox-item value="sv" text-label="Swedish"></calcite-combobox-item>
+                <calcite-combobox-item value="th" text-label="Thai"></calcite-combobox-item>
+                <calcite-combobox-item value="tr" text-label="Turkish"></calcite-combobox-item>
+                <calcite-combobox-item value="uk" text-label="Ukrainian"></calcite-combobox-item>
+                <calcite-combobox-item value="vi" text-label="Vietnamese"></calcite-combobox-item>
+            </calcite-combobox>
+        </div>
 
         <!-- About Section -->
         <section id="about" class="about">
