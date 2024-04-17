@@ -332,6 +332,7 @@
 
                     var selectedLayer = map.layers.find(layer => layer.id === selectedLayerValue);
                     if (selectedLayer) {
+                        console.log("Selected value:", selectedLayer)
                         selectedLayer.visible = true;
                     }   
                 });
