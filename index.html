@@ -324,17 +324,11 @@
 
                     // Iterate through all the layers and set their visibility to false
                     layers.forEach(function(layer) {
-                        layer.visible = false;
+                        if (layer.index == event.target.value)
+                            layer.visible = true;
+                        else
+                            layer.visible = false;
                     });
-
-                    var selectedLayerValue = event.target.value;
-                    console.log("Selected value:", selectedLayerValue);
-
-                    var selectedLayer = map.layers.find(layer => layer.id === selectedLayerValue);
-                    console.log("Selected value:", selectedLayer)
-                    if (selectedLayer) {                        
-                        selectedLayer.visible = true;
-                    }   
                 });
                
                 //view.ui.add([searchWidget, layerListExpand], "top-right");
