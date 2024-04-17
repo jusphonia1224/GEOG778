@@ -310,11 +310,29 @@
                             
                 view.ui.add(layerListExpand, "top-right");
 
-                // Add combo box
-                const basemapLanguage = document.getElementById("basemapLanguage");
-                
-                view.ui.add(basemapLanguage, "top-right");
+                // Add combo box function for switch layer
+                const updateLayer = (layerName) => {
+                    // Assuming you have an ArcGIS map object called 'map'
+                    var layers = map.layers;
 
+                    // Iterate through all the layers and set their visibility to false
+                    layers.forEach(function(layer) {
+                        layer.visible = false;
+                    });
+
+                    layerName.visible = true;              
+                };
+
+                const switchLayer = document.getElementById("layerOnDisplay");
+                
+                view.ui.add(switchLayer, "top-right");
+
+                const layerCombobox = document.getElementById("layerCombobox");
+                
+                // when the combobox value changes, update the combo box value
+                layerCombobox.addEventListener("calciteComboboxChange", (event) => {
+                    updateLayer(event.target.value);
+                });
                
                 //view.ui.add([searchWidget, layerListExpand], "top-right");
                 // Filter
@@ -353,48 +371,14 @@
         </section>
             
         <div id="viewDiv"></div>  
-        <div id="basemapLanguage" class="esri-widget">
-            <calcite-label>Basemap language</calcite-label>
-            <calcite-combobox id="languageCombobox" selection-mode="single" clear-disabled="true">
-                <calcite-combobox-item value="global" text-label="Global"></calcite-combobox-item>
-                <calcite-combobox-item value="local" text-label="Local"></calcite-combobox-item>
-                <calcite-combobox-item value="ar" text-label="Arabic"></calcite-combobox-item>
-                <calcite-combobox-item value="bs" text-label="Bosnian"></calcite-combobox-item>
-                <calcite-combobox-item value="ca" text-label="Catalan"></calcite-combobox-item>
-                <calcite-combobox-item value="zh-HK" text-label="Chinese (Hong Kong)"></calcite-combobox-item>
-                <calcite-combobox-item value="zh-CN" text-label="Chinese (Simplified)"></calcite-combobox-item>
-                <calcite-combobox-item value="zh-TW" text-label="Chinese (Taiwan)"></calcite-combobox-item>
-                <calcite-combobox-item value="hr" text-label="Croatian"></calcite-combobox-item>
-                <calcite-combobox-item value="cs" text-label="Czech"></calcite-combobox-item>
-                <calcite-combobox-item value="da" text-label="Danish"></calcite-combobox-item>
-                <calcite-combobox-item value="nl" text-label="Dutch"></calcite-combobox-item>
-                <calcite-combobox-item value="en" text-label="English"></calcite-combobox-item>
-                <calcite-combobox-item value="et" text-label="Estonian"></calcite-combobox-item>
-                <calcite-combobox-item value="fi" text-label="Finnish"></calcite-combobox-item>
-                <calcite-combobox-item value="fr" text-label="French"></calcite-combobox-item>
-                <calcite-combobox-item value="de" text-label="German"></calcite-combobox-item>
-                <calcite-combobox-item value="el" text-label="Greek"></calcite-combobox-item>
-                <calcite-combobox-item value="he" text-label="Hebrew"></calcite-combobox-item>
-                <calcite-combobox-item value="hu" text-label="Hungarian"></calcite-combobox-item>
-                <calcite-combobox-item value="id" text-label="Indonesian"></calcite-combobox-item>
-                <calcite-combobox-item value="it" text-label="Italian"></calcite-combobox-item>
-                <calcite-combobox-item value="ja" text-label="Japanese"></calcite-combobox-item>
-                <calcite-combobox-item value="ko" text-label="Korean"></calcite-combobox-item>
-                <calcite-combobox-item value="lv" text-label="Latvian"></calcite-combobox-item>
-                <calcite-combobox-item value="lt" text-label="Lithuanian"></calcite-combobox-item>
-                <calcite-combobox-item value="nb" text-label="Norwegian"></calcite-combobox-item>
-                <calcite-combobox-item value="pl" text-label="Polish"></calcite-combobox-item>
-                <calcite-combobox-item value="pt-BR" text-label="Portuguese (Brazil)"></calcite-combobox-item>
-                <calcite-combobox-item value="pt-PT" text-label="Portuguese (Portugal)"></calcite-combobox-item>
-                <calcite-combobox-item value="ro" text-label="Romanian"></calcite-combobox-item>
-                <calcite-combobox-item value="ru" text-label="Russian"></calcite-combobox-item>
-                <calcite-combobox-item value="sr" text-label="Serbian"></calcite-combobox-item>
-                <calcite-combobox-item value="es" text-label="Spanish" selected></calcite-combobox-item>
-                <calcite-combobox-item value="sv" text-label="Swedish"></calcite-combobox-item>
-                <calcite-combobox-item value="th" text-label="Thai"></calcite-combobox-item>
-                <calcite-combobox-item value="tr" text-label="Turkish"></calcite-combobox-item>
-                <calcite-combobox-item value="uk" text-label="Ukrainian"></calcite-combobox-item>
-                <calcite-combobox-item value="vi" text-label="Vietnamese"></calcite-combobox-item>
+        <div id="layerOnDisplay" class="esri-widget">
+            <calcite-label>Layer to Display</calcite-label>
+            <calcite-combobox id="layerCombobox" selection-mode="single" clear-disabled="true">
+                <calcite-combobox-item value="srAllLayer" text-label="Solar Radiation (kW)"></calcite-combobox-item>
+                <calcite-combobox-item value="directRadiationLayer" text-label="Direct Radiation (kW)"></calcite-combobox-item>
+                <calcite-combobox-item value="diffusionLayer" text-label="Diffuse (kW)"></calcite-combobox-item>
+                <calcite-combobox-item value="directDurationLayer" text-label="Direct Duration (Hours per Day)"></calcite-combobox-item>
+                <calcite-combobox-item value="dsmLayer" text-label="DSM"></calcite-combobox-item>
             </calcite-combobox>
         </div>
 
