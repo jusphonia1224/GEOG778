@@ -35,9 +35,8 @@
                 "esri/widgets/Legend",
                 "esri/widgets/LayerList",
                 "esri/widgets/Expand", 
-                "esri/core/reactiveUtils",,
-                "esri/widgets/smartMapping/OpacitySlider"
-            ], (esriConfig, Map, MapView, Locate, Search, FeatureLayer, TileLayer, Graphic, GraphicsLayer, Legend, LayerList, Expand, reactiveUtils, OpacitySlider) => {
+                "esri/core/reactiveUtils"
+            ], (esriConfig, Map, MapView, Locate, Search, FeatureLayer, TileLayer, Graphic, GraphicsLayer, Legend, LayerList, Expand, reactiveUtils) => {
                 esriConfig.apiKey = "AAPK1bafb1fd1b984000a2a5ab965ed0cf111GDugMmnipDNIQH9yaN93addT3iTZzAKwGLSLBZvZJBkFTaRPkJjvEi2gCoqyJml";
 
                 const map = new Map({
@@ -329,57 +328,7 @@
                             layer.visible = false;
                     });
                 });
-               
-                // OpacitySlider Widget
-                const params = {
-                    layer: layer,
-                    basemap: map.basemap,
-                    valueExpression: "( $feature.POP_POVERTY / $feature.TOTPOP_CY ) * 100",
-                    view: view
-                };
 
-                let variableResult = null;
-
-                opacityVariableCreator
-                .createVisualVariable(params)
-                .then(function(response) {
-                    variableResult = response;
-                    layer.renderer.visualVariables = [ response.visualVariable ];
-
-                    return histogram({
-                    layer: layer,
-                    valueExpression: params.valueExpression,
-                    view: view,
-                    numBins: 70
-                    });
-                })
-                .then(function(histogramResult) {
-                    const slider = OpacitySlider.fromVisualVariableResult(variableResult, histogramResult);
-                    slider.container = "slider";
-                })
-                .catch(function(error) {
-                    console.log("there was an error: ", error);
-                });
-                
-                    // when the user slides the handle(s), update the renderer
-                // with the updated opacity stops
-
-                slider.on(["thumb-change", "thumb-drag"], function() {
-                const renderer = layer.renderer.clone();
-                const opacityVariable = renderer.visualVariables[0].clone();
-                opacityVariable.stops = slider.stops;
-                renderer.visualVariables = [ opacityVariable ];
-                layer.renderer = renderer;
-                });
-
-                // Typical usage
-                const slider = new OpacitySlider({
-                    container: "sliderDiv",
-                    statistics: stats,  // object generated from summaryStatistics()
-                    stops: response.visualVariable.stops,  // opacity visual variable generated from the opacityVariableCreator
-                });
-                
-                view.ui.add(slider, "bottom-right");
             });
         </script>
     </head>
