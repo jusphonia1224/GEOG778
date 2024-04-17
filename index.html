@@ -36,8 +36,8 @@
                 "esri/widgets/LayerList",
                 "esri/widgets/Expand", 
                 "esri/core/reactiveUtils",,
-                "esri/core/watchUtils"
-            ], (esriConfig, Map, MapView, Locate, Search, FeatureLayer, TileLayer, Graphic, GraphicsLayer, Legend, LayerList, Expand, reactiveUtils, watchUtils) => {
+                "esri/widgets/smartMapping/OpacitySlider"
+            ], (esriConfig, Map, MapView, Locate, Search, FeatureLayer, TileLayer, Graphic, GraphicsLayer, Legend, LayerList, Expand, reactiveUtils, OpacitySlider) => {
                 esriConfig.apiKey = "AAPK1bafb1fd1b984000a2a5ab965ed0cf111GDugMmnipDNIQH9yaN93addT3iTZzAKwGLSLBZvZJBkFTaRPkJjvEi2gCoqyJml";
 
                 const map = new Map({
@@ -330,36 +330,56 @@
                     });
                 });
                
-                // Create the transparency adjustment widget
-                const transparencyWidget = new Slider({
-                    container: "transparencyWidget",
-                    min: 0,
-                    max: 1,
-                    values: [1],
-                    step: 0.01,
-                    visibleElements: {
-                    labels: true,
-                    rangeLabels: true
-                    },
-                    labelFormatFunction: function(value) {
-                    return (value * 100).toFixed(0) + "%";
-                    }
-                });
+                // OpacitySlider Widget
+                const params = {
+                    layer: layer,
+                    basemap: map.basemap,
+                    valueExpression: "( $feature.POP_POVERTY / $feature.TOTPOP_CY ) * 100",
+                    view: view
+                };
 
-                // Update the layer transparency when the slider value changes
-                transparencyWidget.on("thumb-drag", function(event) {
-                    layers.forEach(function(layer) {
-                        if (layer.name == layerCombobox.value)
-                            layer.opacity = event.value[0];
+                let variableResult = null;
+
+                opacityVariableCreator
+                .createVisualVariable(params)
+                .then(function(response) {
+                    variableResult = response;
+                    layer.renderer.visualVariables = [ response.visualVariable ];
+
+                    return histogram({
+                    layer: layer,
+                    valueExpression: params.valueExpression,
+                    view: view,
+                    numBins: 70
                     });
-                });
-
-                // Synchronize the slider value with the current layer opacity
-                watchUtils.watch(graphic.layer, "opacity", function(opacity) {
-                    transparencyWidget.values = [opacity];
+                })
+                .then(function(histogramResult) {
+                    const slider = OpacitySlider.fromVisualVariableResult(variableResult, histogramResult);
+                    slider.container = "slider";
+                })
+                .catch(function(error) {
+                    console.log("there was an error: ", error);
                 });
                 
-                view.ui.add(transparencyWidget, "bottom-right");
+                    // when the user slides the handle(s), update the renderer
+                // with the updated opacity stops
+
+                slider.on(["thumb-change", "thumb-drag"], function() {
+                const renderer = layer.renderer.clone();
+                const opacityVariable = renderer.visualVariables[0].clone();
+                opacityVariable.stops = slider.stops;
+                renderer.visualVariables = [ opacityVariable ];
+                layer.renderer = renderer;
+                });
+
+                // Typical usage
+                const slider = new OpacitySlider({
+                    container: "sliderDiv",
+                    statistics: stats,  // object generated from summaryStatistics()
+                    stops: response.visualVariable.stops,  // opacity visual variable generated from the opacityVariableCreator
+                });
+                
+                view.ui.add(slider, "bottom-right");
             });
         </script>
     </head>
