@@ -333,37 +333,17 @@
                             layer.visible = false;
                     });
                 });
-                
-                /*
-                // Create the slider widget
-                const slider = new Slider({
-                    container: "sliderDiv",
-                    min: 0,
-                    max: 100,
-                    values: [100],
-                    snapOnClickEnabled: false,
-                    visibleElements: {
-                        labels: true,
-                        rangeLabels: true,
-                    }
-                });
-           
-                // Add the slider to the view
-                //view.ui.add(slider, "bottom-right");
-                
-                // Update the layer's opacity when the slider value changes
-                slider.on("thumb-drag", function(event) {
-                    // Iterate through all the layers and set their visibility to false
-                    layers.forEach(function(layer) {
-                        if (layer.name == currentLayer) {
-                            layer.opacity = event.value;
-                        }
-                    });
-                });*/
-                        
+                                        
                 // listen to altitude slider's value change event and update renderer
                 const transparencySlider = document.getElementById("transparencySlider");
-                transparencySlider.addEventListener("calciteSliderInput", updateRenderer);
+                transparencySlider.addEventListener("calciteSliderInput", (event) => {
+                    var layers = map.layers;
+
+                    // Iterate through all the layers and set their visibility to false
+                    layers.forEach(function(layer) {
+                        layer.opacity = event.value/100;
+                    });
+                });
             });
         </script>
     </head>
@@ -398,7 +378,6 @@
             </div>
         </section>
             
-        <div id="sliderDiv"></div>
         <div id="viewDiv"></div>  
         <div id="paremPanel" class="esri-widget">
             <calcite-label>Radiation Layer to Display</calcite-label>
@@ -409,6 +388,10 @@
                 <calcite-combobox-item value="Duration of Direct Solar Radiation" text-label="Duration of Direct Solar Radiation"></calcite-combobox-item>
                 <!-- <calcite-combobox-item value="DSM 2020" text-label="DSM"></calcite-combobox-item> -->
             </calcite-combobox>
+            
+            <calcite-label></calcite-label>
+            <calcite-label></calcite-label>
+
             <calcite-label> Transparency:
                 <calcite-slider id="transparencySlider" value="100" label-handles label-ticks max="100" min="0" max-label="100" min-label="0" ticks="100"></calcite-slider>
             </calcite-label>
