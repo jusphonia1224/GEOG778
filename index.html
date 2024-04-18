@@ -337,22 +337,17 @@
                 
                 // Create the slider widget
                 const slider = new Slider({
-                    labelsVisible: true,
-                    labelInputsEnabled: true,
-                    rangeLabelsVisible: true,
-                    rangeLabelInputsEnabled: true,
-                    layout: "horizontal",  // vertical
+                    container: "sliderDiv",
                     min: 0,
-                    max: 10,
-                    values: [3, 5],
-                    precision: 1,
-                    tickConfigs: [{
-                        mode: "count",
-                        values: 11,
-                        labelsVisible: true
-                    }],
-                    // steps: 1,
-                    container: "sliderDiv"
+                    max: 100,
+                    values: [100],
+                    snapOnClickEnabled: false,
+                    visibleElements: {
+                        labels: true,
+                        rangeLabels: true,
+                    },
+                    labelInputsEnabled: true,
+                    precision: 10
                 });
            
                 // Add the slider to the view
