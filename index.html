@@ -346,6 +346,16 @@
               // Add the slider to the view
               view.ui.add(slider, "bottom-right");
 
+                
+              // Update the layer's opacity when the slider value changes
+              slider.on("thumb-drag", function(event) {
+                  // Iterate through all the layers and set their visibility to false
+                    layers.forEach(function(layer) {
+                        if (layer.name == currentLayer) {
+                            layer.opacity = event.value;
+                    }
+                    });
+              });
                         
 
             });
