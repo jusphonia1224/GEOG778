@@ -90,7 +90,7 @@
                     visible: true
                 });
 
-                srAllLayer_titleForLegend = srAllLayer.title = srAllLayer.name = 'Solar Radiation (kW)';
+                srAllLayer_titleForLegend = srAllLayer.title = srAllLayer.name = 'Solar Radiation';
 
                 map.add(srAllLayer);    
 
@@ -100,7 +100,7 @@
                     visible: false
                 });
 
-                directDurationLayer_titleForLegend = directDurationLayer.title = directDurationLayer.name = 'Duration of Direct Solar Radiation (Hours per Year)';
+                directDurationLayer_titleForLegend = directDurationLayer.title = directDurationLayer.name = 'Duration of Direct Solar Radiation';
 
                 map.add(directDurationLayer);   
                  
@@ -110,7 +110,7 @@
                     visible: false
                 });
 
-                directRadiationLayer_titleForLegend = directRadiationLayer.title = directRadiationLayer.name = 'Direct Rediation (kW)';
+                directRadiationLayer_titleForLegend = directRadiationLayer.title = directRadiationLayer.name = 'Direct Rediation';
 
                 map.add(directRadiationLayer);               
                 
@@ -120,7 +120,7 @@
                     visible: false
                 });
 
-                diffusionLayer_titleForLegend = diffusionLayer.title = diffusionLayer.name = 'Diffuse (kW)';
+                diffusionLayer_titleForLegend = diffusionLayer.title = diffusionLayer.name = 'Diffuse Radiation';
 
                 map.add(diffusionLayer);  
 
@@ -367,10 +367,10 @@
         <div id="layerOnDisplay" class="esri-widget">
             <calcite-label>Layer to Display</calcite-label>
             <calcite-combobox id="layerCombobox" selection-mode="single" clear-disabled="true">
-                <calcite-combobox-item value="Solar Radiation (kW)" text-label="Solar Radiation (kW)" selected></calcite-combobox-item>
-                <calcite-combobox-item value="Direct Radiation (kW)" text-label="Direct Radiation (kW)"></calcite-combobox-item>
-                <calcite-combobox-item value="Diffuse (kW)" text-label="Diffuse (kW)"></calcite-combobox-item>
-                <calcite-combobox-item value="Duration of Direct Solar Radiation (Hours per Year)" text-label="Duration of Direct Solar Radiation (Hours per Year)"></calcite-combobox-item>
+                <calcite-combobox-item value="Solar Radiation" text-label="Solar Radiation" selected></calcite-combobox-item>
+                <calcite-combobox-item value="Direct Radiation" text-label="Direct Radiation"></calcite-combobox-item>
+                <calcite-combobox-item value="Diffuse Radiation" text-label="Diffuse Radiation"></calcite-combobox-item>
+                <calcite-combobox-item value="Duration of Direct Solar Radiation" text-label="Duration of Direct Solar Radiation"></calcite-combobox-item>
                 <calcite-combobox-item value="DSM 2020" text-label="DSM"></calcite-combobox-item>
             </calcite-combobox>
         </div>
@@ -404,7 +404,7 @@
                             *2 Energy Consumption Mix (Hong Kong Energy End-Use Data 2023)
                             <br>
                         </span>
-                    </div>
+                    </div>                    
                 </div>
                 
                 <br>
@@ -467,6 +467,30 @@
                         </span>
                     </div>	
 
+                    <div class="row">
+                        <div class="col-lg-6 d-flex flex-column align-items-stretch">
+                            <span>
+                                <h4>How to Measure Solar Radiation Potential to be Consumed</h4>
+                                <br>
+                                Incoming solar radiation is modified during travelling through the atmosphere and is further modified by topography and surface features. <br>
+                                Solar radiation is intercepted at the earth's surface as direct, diffuse, and reflected components. <br>
+                                <br>
+                                <b>Direct radiation</b> is intercepted unimpeded in a direct line from the sun. <br>
+                                <b>Diffuse radiation</b> is scattered by atmospheric constituents, such as clouds and dust.<br>
+                                <b>Reflected radiation</b> is reflected from surface features. <br>
+                                <br>
+                                The sum of the direct, diffuse, and reflected radiation is called total or global solar radiation.<br>
+
+                            </span>
+                        </div>
+
+                        <div class="col-lg-6 d-flex flex-column align-items-stretch"> 
+                            <span style="text-align:center">  
+                                <img src="logo/Direct-diffuse-and-reflected-radiations-of-Solar-irradiation.png" width="500" height="500"> <br>
+                                *3 Energy Flow Diagram (Hong Kong Energy End-Use Data 2023) <br>
+                            </span>
+                            <br>
+                        </div>	
                     
                 </div>
             </div>
@@ -562,7 +586,10 @@
                         6. Delphine Khanna, Estimate solar power potential, https://learn.arcgis.com/en/projects/estimate-solar-power-potential/#map-solar-energy <br>
                         7. CEDD, Spatial Data Portal, https://sdportal.cedd.gov.hk/#/en <br>
                         8. ESRI, Area Solar Radiation, https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-analyst/area-solar-radiation.htm <br>
-                        
+                        9. ESRI, How solar radiation is calculated, https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-analyst/how-solar-radiation-is-calculated.htm <br>
+                        10. Imane Ourraoui, Ali Ahaitouf, Investigation of the feasibility and potential use of sun tracking solutions for concentrated photovoltaic Case study Fez Morocco,
+                        Energy Reports, Volume 8, Supplement 9, 2022, Pages 1412-1425, ISSN 2352-4847, https://doi.org/10.1016/j.egyr.2022.08.071. <br>
+                        11. ESRI, Modeling solar radiation, https://desktop.arcgis.com/en/arcmap/latest/tools/spatial-analyst-toolbox/modeling-solar-radiation.htm <br>
                     </span>		
                 </div>
             </div>
