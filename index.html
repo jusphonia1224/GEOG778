@@ -117,7 +117,7 @@
                 
                 // Defining popup properties for heritage
                 const heritagePopupTemplate = {
-                    "title": "{Usable_SR_MWh}",
+                    "title": "{ENGLISHBUILDINGNAME}{CHINESEBUILDINGNAME}",
                     "content": "<b>Usable Solar Radiation (MWh):</b> {Usable_SR_MWh}<br>"
                 }
 
@@ -125,7 +125,7 @@
                 // ----- Settings for layer - Solar Radiation (Building) -----
                 const srBuildingLayer = new FeatureLayer({
                     url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/Solar_Radiation_Building/FeatureServer",
-                    outFields: ["Usable_SR_MWh"],
+                    outFields: ["Usable_SR_MWh","ENGLISHBUILDINGNAME","CHINESEBUILDINGNAME"],
                     popupTemplate: heritagePopupTemplate,
                     visible: false
                 });
@@ -232,11 +232,11 @@
                     sources: [
                         {
                             layer: srBuildingLayer,
-                            searchFields: ["animals_type", "zone_birds", "zone_mammals", "zone_reptiles", "species_birds", "species_mammals", "species_reptiles"],
-                            suggestionTemplate: "{animals_type} - {zone_birds}{zone_mammals}{zone_reptiles}: {species_birds}{species_mammals}{species_reptiles}",
+                            searchFields: ["ENGLISHBUILDINGNAME","CHINESEBUILDINGNAME"],
+                            suggestionTemplate: "{ENGLISHBUILDINGNAME}{CHINESEBUILDINGNAME}",
                             exactMatch: false,
                             outFields: ["*"],
-                            placeholder: "example: Radiated",
+                            placeholder: "example: Skyline 2000",
                             name: "Buildings"
                         } 
                     ]
