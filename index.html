@@ -107,7 +107,8 @@
                 // ----- Settings for layer - Direct Radiation (General / All Direction) -----
                 const directRadiationLayer = new TileLayer({
                     url: "https://tiles.arcgis.com/tiles/HRPe58bUyBqyyiCt/arcgis/rest/services/Direct_Radiation/MapServer",
-                    visible: false
+                    visible: false,
+                    opacity: 10/100
                 });
 
                 directRadiationLayer_titleForLegend = directRadiationLayer.title = directRadiationLayer.name = 'Direct Radiation';
