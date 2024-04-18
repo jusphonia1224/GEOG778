@@ -334,28 +334,27 @@
                             layer.visible = false;
                     });
                 });
-
-                  // Create the slider widget
-              const slider = new Slider({
-                  container: view,
-                  min: 0,
-                  max: 100,
-                  values: [ 50 ]
+                
+                // Create the slider widget
+                const slider = new Slider({
+                    //view: view,
+                    min: 0,
+                    max: 100,
+                    values: [ 50 ]
                 });
            
-              // Add the slider to the view
-              //view.ui.add(slider, "bottom-right");
-
+                // Add the slider to the view
+                view.ui.add(slider, "bottom-right");
                 
-              // Update the layer's opacity when the slider value changes
-              slider.on("thumb-drag", function(event) {
-                  // Iterate through all the layers and set their visibility to false
+                // Update the layer's opacity when the slider value changes
+                slider.on("thumb-drag", function(event) {
+                    // Iterate through all the layers and set their visibility to false
                     layers.forEach(function(layer) {
                         if (layer.name == currentLayer) {
                             layer.opacity = event.value;
-                    }
+                        }
                     });
-              });
+                });
                         
 
             });
