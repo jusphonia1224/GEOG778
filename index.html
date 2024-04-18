@@ -64,18 +64,6 @@
                 //map.add(graphicsLayer);  
 
                 /*
-                // ----- Settings for layer - Solar Radiation (General) -----
-                const generalLayer = new FeatureLayer({
-                    url: "https://tiles.arcgis.com/tiles/HRPe58bUyBqyyiCt/arcgis/rest/services/DSM_2020/MapServer",
-                    visible: true
-                });
-
-                generalLayer_titleForLegend = generalLayer.title = generalLayer.name = 'Solar Radiation (General in 24H)';
-
-                map.add(generalLayer);    
-
-                */
-
                 // ----- Settings for layer - DSM -----
                 const dsmLayer = new TileLayer({
                     url: "https://tiles.arcgis.com/tiles/HRPe58bUyBqyyiCt/arcgis/rest/services/DSM1/MapServer",
@@ -84,7 +72,7 @@
 
                 dsmLayer_titleForLegend = dsmLayer.title = dsmLayer.name = 'DSM 2020';
 
-                map.add(dsmLayer);   
+                map.add(dsmLayer);  */ 
 
                  // ----- Settings for layer - Solar Radiation (General / All Direction) -----
                  const srAllLayer = new TileLayer({
@@ -125,6 +113,27 @@
                 diffusionLayer_titleForLegend = diffusionLayer.title = diffusionLayer.name = 'Diffuse Radiation';
 
                 map.add(diffusionLayer);  
+
+                
+                // Defining popup properties for heritage
+                const heritagePopupTemplate = {
+                    "title": "{Usable_SR_MWh}",
+                    "content": "<b>Usable Solar Radiation (MWh):</b> {Usable_SR_MWh}<br>"
+                }
+
+
+                // ----- Settings for layer - Solar Radiation (Building) -----
+                const srBuildingLayer = new FeatureLayer({
+                    url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/Solar_Radiation_Building/FeatureServer",
+                    outFields: ["Usable_SR_MWh"],
+                    popupTemplate: heritagePopupTemplate,
+                    visible: false
+                });
+
+                srBuildingLayer_titleForLegend = srBuildingLayer.title = srBuildingLayer.name = 'Solar Radiation (Buildings Only)';
+
+                map.add(srBuildingLayer); 
+
 
                 /*
                 // Defining popup properties for heritage
@@ -207,15 +216,7 @@
 
                 heritageLayer_titleForLegend = heritageLayer.title = heritageLayer.name = 'Heritage';
 
-                map.add(heritageLayer);    
-
-                // Defining popup properties for facilities
-                const faciltiesPopupTemplate = {
-                    "title": "{FacilitiesType}",
-                    "content": "<b>Code:</b> {FacilitiesCode}<br> \
-                                <b>Remarks:</b> {Remarks}<br> "
-                }
-                
+                map.add(heritageLayer);                   
                 */
 
                 // --- functions ---
@@ -226,55 +227,19 @@
                 });
 
                 const searchWidget = new Search({
-                    view: view/*,                
-                    includeDefaultSources: false,
+                    view: view,                
+                    includeDefaultSources: true,
                     sources: [
                         {
-                            layer: animalsSpeciesLayer,
+                            layer: srBuildingLayer,
                             searchFields: ["animals_type", "zone_birds", "zone_mammals", "zone_reptiles", "species_birds", "species_mammals", "species_reptiles"],
                             suggestionTemplate: "{animals_type} - {zone_birds}{zone_mammals}{zone_reptiles}: {species_birds}{species_mammals}{species_reptiles}",
                             exactMatch: false,
                             outFields: ["*"],
                             placeholder: "example: Radiated",
-                            name: "Animals"
-                        },
-                        {
-                            layer: gardensSpeciesLayer,
-                            searchFields: ["zone_green_house", "zone_thematic_garden", "species_plants"],
-                            suggestionTemplate: "{gardens_type} - {zone_green_house}{zone_thematic_garden}: {species_plants}",
-                            exactMatch: false,
-                            outFields: ["*"],
-                            placeholder: "example: Bamboo",
-                            name: "Plants"
-                        },
-                        {
-                            layer: floweringPlantsLayer,
-                            searchFields: ["species_flowering_plants"],
-                            suggestionTemplate: "{species_flowering_plants}",
-                            exactMatch: false,
-                            outFields: ["*"],
-                            placeholder: "example: Hibiscus",
-                            name: "Flowering Plants of the Month"
-                        },
-                        {
-                            layer: animalsLayer,
-                            searchFields: ["ZoneCode", "ZoneType", "Remarks"],
-                            suggestionTemplate: "{ZoneType} - {ZoneCode}",
-                            exactMatch: false,
-                            outFields: ["*"],
-                            name: "Zone - Animals",
-                            placeholder: "example: Mammals"
-                        },
-                        {
-                            layer: gardensLayer,
-                            searchFields: ["ZoneCode", "ZoneType", "Remarks"],
-                            suggestionTemplate: "{ZoneType} - {ZoneCode}: {Remarks}",
-                            exactMatch: false,
-                            outFields: ["*"],
-                            placeholder: "example: Bamboo",
-                            name: "Zone - Gardens"
-                        }                    
-                    ]*/
+                            name: "Buildings"
+                        } 
+                    ]
                 });
  
                 // Adds the search widget below other elements in the top left corner of the view
@@ -396,7 +361,7 @@
                         <calcite-combobox-item value="Direct Radiation" text-label="Direct Radiation"></calcite-combobox-item>
                         <calcite-combobox-item value="Diffuse Radiation" text-label="Diffuse Radiation"></calcite-combobox-item>
                         <calcite-combobox-item value="Duration of Direct Solar Radiation" text-label="Duration of Direct Solar Radiation"></calcite-combobox-item>
-                        <!-- <calcite-combobox-item value="DSM 2020" text-label="DSM"></calcite-combobox-item> -->
+                        <calcite-combobox-item value="Solar Radiation (Buildings Only)" text-label="Solar Radiation (Buildings Only)"></calcite-combobox-item> 
                     </calcite-combobox>
                     
                     <calcite-label></calcite-label>
