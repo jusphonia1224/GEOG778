@@ -341,7 +341,7 @@
 
                     // Iterate through all the layers and set their visibility to false
                     layers.forEach(function(layer) {
-                        layer.opacity = transparencySlider.value/100;
+                        layer.opacity = (100-transparencySlider.value)/100;
                     });
                 });
             });
@@ -393,7 +393,7 @@
             <calcite-label></calcite-label>
 
             <calcite-label> Transparency:
-                <calcite-slider id="transparencySlider" value="100" label-handles label-ticks max="100" min="0" max-label="100%" min-label="0%" ticks="0"></calcite-slider>
+                <calcite-slider id="transparencySlider" value="0" label-handles label-ticks max="100" min="0" max-label="100%" min-label="0%" ticks="0"></calcite-slider>
             </calcite-label>
         </div>
 
