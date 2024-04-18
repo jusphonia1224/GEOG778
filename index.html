@@ -388,21 +388,25 @@
             
         <div id="viewDiv"></div>  
         <div id="paramPanel" class="esri-widget">
-            <calcite-label>Radiation Layer: </calcite-label>
-            <calcite-combobox id="layerCombobox" selection-mode="single" clear-disabled="true">
-                <calcite-combobox-item value="Solar Radiation" text-label="Solar Radiation" selected></calcite-combobox-item>
-                <calcite-combobox-item value="Direct Radiation" text-label="Direct Radiation"></calcite-combobox-item>
-                <calcite-combobox-item value="Diffuse Radiation" text-label="Diffuse Radiation"></calcite-combobox-item>
-                <calcite-combobox-item value="Duration of Direct Solar Radiation" text-label="Duration of Direct Solar Radiation"></calcite-combobox-item>
-                <!-- <calcite-combobox-item value="DSM 2020" text-label="DSM"></calcite-combobox-item> -->
-            </calcite-combobox>
-            
-            <calcite-label></calcite-label>
-            <calcite-label></calcite-label>
+            <calcite-shell-panel slot="panel-end" display-mode="float">
+                <calcite-panel id="rendererPanel" heading="Parameters">
+                    <calcite-label>Radiation Layer: </calcite-label>
+                    <calcite-combobox id="layerCombobox" selection-mode="single" clear-disabled="true">
+                        <calcite-combobox-item value="Solar Radiation" text-label="Solar Radiation" selected></calcite-combobox-item>
+                        <calcite-combobox-item value="Direct Radiation" text-label="Direct Radiation"></calcite-combobox-item>
+                        <calcite-combobox-item value="Diffuse Radiation" text-label="Diffuse Radiation"></calcite-combobox-item>
+                        <calcite-combobox-item value="Duration of Direct Solar Radiation" text-label="Duration of Direct Solar Radiation"></calcite-combobox-item>
+                        <!-- <calcite-combobox-item value="DSM 2020" text-label="DSM"></calcite-combobox-item> -->
+                    </calcite-combobox>
+                    
+                    <calcite-label></calcite-label>
+                    <calcite-label></calcite-label>
 
-            <calcite-label> Transparency (%):
-                <calcite-slider id="transparencySlider" value="0" label-handles label-ticks max="100" min="0" max-label="100%" min-label="0%" ticks="0"></calcite-slider>
-            </calcite-label>
+                    <calcite-label> Transparency (%):
+                        <calcite-slider id="transparencySlider" value="0" label-handles label-ticks max="100" min="0" max-label="100%" min-label="0%" ticks="0"></calcite-slider>
+                    </calcite-label>                    
+                </calcite-panel>
+            </calcite-shell-panel>
         </div>
 
         <!-- About Section -->
