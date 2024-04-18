@@ -35,9 +35,8 @@
                 "esri/widgets/Legend",
                 "esri/widgets/LayerList",
                 "esri/widgets/Expand", 
-                "esri/core/reactiveUtils",
-                "esri/widgets/Slider"
-            ], (esriConfig, Map, MapView, Locate, Search, FeatureLayer, TileLayer, Graphic, GraphicsLayer, Legend, LayerList, Expand, reactiveUtils, Slider) => {
+                "esri/core/reactiveUtils"
+            ], (esriConfig, Map, MapView, Locate, Search, FeatureLayer, TileLayer, Graphic, GraphicsLayer, Legend, LayerList, Expand, reactiveUtils) => {
                 esriConfig.apiKey = "AAPK1bafb1fd1b984000a2a5ab965ed0cf111GDugMmnipDNIQH9yaN93addT3iTZzAKwGLSLBZvZJBkFTaRPkJjvEi2gCoqyJml";
 
                 const map = new Map({
@@ -314,9 +313,9 @@
                 view.ui.add(layerListExpand, "top-right");*/
 
                 // Add combo box function for switch layer        
-                const switchLayer = document.getElementById("layerOnDisplay");
+                const paremPanel = document.getElementById("paremPanel");
                 
-                view.ui.add(switchLayer, "top-right");
+                view.ui.add(paremPanel, "top-right");
 
                 const layerCombobox = document.getElementById("layerCombobox");
                 
@@ -335,6 +334,7 @@
                     });
                 });
                 
+                /*
                 // Create the slider widget
                 const slider = new Slider({
                     container: "sliderDiv",
@@ -345,9 +345,7 @@
                     visibleElements: {
                         labels: true,
                         rangeLabels: true,
-                    },
-                    labelInputsEnabled: true,
-                    precision: 10
+                    }
                 });
            
                 // Add the slider to the view
@@ -361,9 +359,11 @@
                             layer.opacity = event.value;
                         }
                     });
-                });
+                });*/
                         
-
+                // listen to altitude slider's value change event and update renderer
+                const altitudeSlider = document.getElementById("altitudeSlider");
+                altitudeSlider.addEventListener("calciteSliderInput", updateRenderer);
             });
         </script>
     </head>
@@ -398,9 +398,9 @@
             </div>
         </section>
             
-        <div id="viewDiv"></div>  
         <div id="sliderDiv"></div>
-        <div id="layerOnDisplay" class="esri-widget">
+        <div id="viewDiv"></div>  
+        <div id="paremPanel" class="esri-widget">
             <calcite-label>Radiation Layer to Display</calcite-label>
             <calcite-combobox id="layerCombobox" selection-mode="single" clear-disabled="true">
                 <calcite-combobox-item value="Solar Radiation" text-label="Solar Radiation" selected></calcite-combobox-item>
@@ -409,6 +409,9 @@
                 <calcite-combobox-item value="Duration of Direct Solar Radiation" text-label="Duration of Direct Solar Radiation"></calcite-combobox-item>
                 <!-- <calcite-combobox-item value="DSM 2020" text-label="DSM"></calcite-combobox-item> -->
             </calcite-combobox>
+            <calcite-label> Transparency:
+                <calcite-slider id="Transparency" value="100" label-handles label-ticks max="100" min="0" max-label="100" min-label="0" ticks="100"></calcite-slider>
+            </calcite-label>
         </div>
 
         <!-- About Section -->
