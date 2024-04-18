@@ -97,8 +97,7 @@
                 // ----- Settings for layer - Direct Duration (General / All Direction) -----
                 const directDurationLayer = new TileLayer({
                     url: "https://tiles.arcgis.com/tiles/HRPe58bUyBqyyiCt/arcgis/rest/services/Direct_Duration/MapServer",
-                    visible: false,
-                    transparency: 90
+                    visible: false
                 });
 
                 directDurationLayer_titleForLegend = directDurationLayer.title = directDurationLayer.name = 'Duration of Direct Solar Radiation';
@@ -324,10 +323,7 @@
                     // Iterate through all the layers and set their visibility to false
                     layers.forEach(function(layer) {
                         if (layer.name == event.target.value)
-                        {
                             layer.visible = true;
-                            layer.transparency = 50;
-                        }
                         else
                             layer.visible = false;
                     });
