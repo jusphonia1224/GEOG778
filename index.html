@@ -324,6 +324,7 @@
                     layers.forEach(function(layer) {
                         if (layer.name == event.target.value)
                             layer.visible = true;
+                            layer.transparency = 50;
                         else
                             layer.visible = false;
                     });
