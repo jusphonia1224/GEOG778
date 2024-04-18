@@ -97,7 +97,8 @@
                 // ----- Settings for layer - Direct Duration (General / All Direction) -----
                 const directDurationLayer = new TileLayer({
                     url: "https://tiles.arcgis.com/tiles/HRPe58bUyBqyyiCt/arcgis/rest/services/Direct_Duration/MapServer",
-                    visible: false
+                    visible: false,
+                    transparency: 90
                 });
 
                 directDurationLayer_titleForLegend = directDurationLayer.title = directDurationLayer.name = 'Duration of Direct Solar Radiation';
