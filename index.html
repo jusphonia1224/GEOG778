@@ -336,26 +336,13 @@
                 });
 
                   // Create the slider widget
-              var slider = new Slider({
-                container: "sliderDiv",
-                min: 0,
-                max: 1,
-                values: [0.5], // Set the initial value
-                precision: 2,
-                visibleElements: {
-                  rangeLabels: true
-                }
-              });
-            
-              // Update the layer's opacity when the slider value changes
-              slider.on("thumb-drag", function(event) {
-                  // Iterate through all the layers and set their visibility to false
-                    layers.forEach(function(layer) {
-                        if (layer.name == currentLayer)                        {
-                            layer.opacity = event.value;
-                    });
-              });
-            
+              const slider = new Slider({
+                  container: "sliderDiv",
+                  min: 0,
+                  max: 100,
+                  values: [ 50 ]
+                });
+           
               // Add the slider to the view
               view.ui.add(slider, "bottom-right");
             });
