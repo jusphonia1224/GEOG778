@@ -313,9 +313,9 @@
                 view.ui.add(layerListExpand, "top-right");*/
 
                 // Add combo box function for switch layer        
-                const paremPanel = document.getElementById("paremPanel");
+                const paramPanel = document.getElementById("paramPanel");
                 
-                view.ui.add(paremPanel, "top-right");
+                //view.ui.add(paremPanel, "top-right");
 
                 const layerCombobox = document.getElementById("layerCombobox");
                 
@@ -344,6 +344,14 @@
                         layer.opacity = (100-transparencySlider.value)/100;
                     });
                 });
+
+                const panelExpand = new Expand({
+                    view: view,
+                    content: paramPanel,
+                    expanded: true
+                });
+
+                view.ui.add(panelExpand, "top-right");
             });
         </script>
     </head>
@@ -379,7 +387,7 @@
         </section>
             
         <div id="viewDiv"></div>  
-        <div id="paremPanel" class="esri-widget">
+        <div id="paramPanel" class="esri-widget">
             <calcite-label>Radiation Layer: </calcite-label>
             <calcite-combobox id="layerCombobox" selection-mode="single" clear-disabled="true">
                 <calcite-combobox-item value="Solar Radiation" text-label="Solar Radiation" selected></calcite-combobox-item>
