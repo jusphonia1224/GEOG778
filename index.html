@@ -54,6 +54,8 @@
                     }
                 });
 
+                var currentLayer = "";
+
                 const locateBtn = new Locate({
                     view: view
                 });
@@ -107,8 +109,7 @@
                 // ----- Settings for layer - Direct Radiation (General / All Direction) -----
                 const directRadiationLayer = new TileLayer({
                     url: "https://tiles.arcgis.com/tiles/HRPe58bUyBqyyiCt/arcgis/rest/services/Direct_Radiation/MapServer",
-                    visible: false,
-                    opacity: 10/100
+                    visible: false
                 });
 
                 directRadiationLayer_titleForLegend = directRadiationLayer.title = directRadiationLayer.name = 'Direct Radiation';
@@ -324,11 +325,39 @@
                     // Iterate through all the layers and set their visibility to false
                     layers.forEach(function(layer) {
                         if (layer.name == event.target.value)
+                        {
                             layer.visible = true;
+                            currentLayer = layer.name;
+                        }
                         else
                             layer.visible = false;
                     });
                 });
+
+                  // Create the slider widget
+              var slider = new Slider({
+                container: "sliderDiv",
+                min: 0,
+                max: 1,
+                values: [0.5], // Set the initial value
+                precision: 2,
+                visibleElements: {
+                  rangeLabels: true
+                }
+              });
+            
+              // Update the layer's opacity when the slider value changes
+              slider.on("thumb-drag", function(event) {
+                  // Iterate through all the layers and set their visibility to false
+                    layers.forEach(function(layer) {
+                        if (layer.name == currentLayer)                        {
+                            layer.opacity = event.value;
+                    });
+              });
+            
+              // Add the slider to the view
+              view.ui.add(slider, "bottom-right");
+            });
 
             });
         </script>
