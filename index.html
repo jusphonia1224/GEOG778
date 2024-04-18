@@ -337,15 +337,18 @@
                 
                 // Create the slider widget
                 const slider = new Slider({
-                    container: "sliderDiv",
+                    labelsVisible: true,
+                    labelInputsEnabled: true,
+                    rangeLabelsVisible: true,
+                    rangeLabelInputsEnabled: false,
+                    layout: "horizontal",  
+                    // value is horizontal or 
+                    // vertical - to make taller, 
+                    // change the css of the container
                     min: 0,
                     max: 100,
-                    values: [ 50 ],
-                    snapOnClickEnabled: false,
-                    visibleElements: {
-                        labels: true,
-                        rangeLabels: true
-                    }
+                    values: [100],
+                    container: "sliderDiv"
                 });
            
                 // Add the slider to the view
