@@ -60,9 +60,6 @@
                     view: view
                 });
 
-                //const graphicsLayer = new GraphicsLayer();
-                //map.add(graphicsLayer);  
-
                 /*
                 // ----- Settings for layer - DSM -----
                 const dsmLayer = new TileLayer({
@@ -117,15 +114,14 @@
                 
                 // Defining popup properties for heritage
                 const heritagePopupTemplate = {
-                    "title": "{ENGLISHBUILDINGNAME}{CHINESEBUILDINGNAME}",
+                    "title": "{ENGLISHBUILDINGNAME_1}{CHINESEBUILDINGNAME_1}",
                     "content": "<b>Usable Solar Radiation (MWh):</b> {Usable_SR_MWh}<br>"
                 }
 
-
                 // ----- Settings for layer - Solar Radiation (Building) -----
                 const srBuildingLayer = new FeatureLayer({
-                    url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/Solar_Radiation_Building/FeatureServer",
-                    outFields: ["Usable_SR_MWh","ENGLISHBUILDINGNAME","CHINESEBUILDINGNAME"],
+                    url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/Solar_Radiation_Buildings/FeatureServer",
+                    outFields: ["Usable_SR_MWh","ENGLISHBUILDINGNAME_1","CHINESEBUILDINGNAME_1"],
                     popupTemplate: heritagePopupTemplate,
                     visible: false
                 });
@@ -133,91 +129,6 @@
                 srBuildingLayer_titleForLegend = srBuildingLayer.title = srBuildingLayer.name = 'Solar Radiation (Buildings Only)';
 
                 map.add(srBuildingLayer); 
-
-
-                /*
-                // Defining popup properties for heritage
-                const heritagePopupTemplate = {
-                    "title": "{HeritageType}",
-                    "content": "<b>Code:</b> {HeritageCode}<br> \
-                                <b>Remarks:</b> {Remarks}<br> "
-                }
-
-                // ----- Settings for layer - Heritage -----
-                const heritageLayer = new FeatureLayer({
-                    url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/Gardens_Heritage/FeatureServer",
-                    renderer: {
-                        type: "unique-value",  // autocasts as new UniqueValueRenderer()
-                        field: "HeritageType",  // contains values referenced in uniqueValueInfos
-                        uniqueValueInfos: [
-                            {
-                                value: "Fountain Terrace Garden", 
-                                symbol: {
-                                    "type": "picture-marker",
-                                    "url": "https://jusphonia1224.github.io/GEOG777Project2/logo/fountain.png",
-                                    "width": "20px",
-                                    "height": "20px"
-                                }
-                            }, {
-                                value: "Flight of Steps Leading to Fountain Terrace",  
-                                symbol: {
-                                    "type": "picture-marker",
-                                    "url": "https://jusphonia1224.github.io/GEOG777Project2/logo/steps_fountain.png",
-                                    "width": "20px",
-                                    "height": "20px"
-                                } 
-                            }, {
-                                value: "Chinese War Memorial",  
-                                symbol: {
-                                    "type": "picture-marker",
-                                    "url": "https://jusphonia1224.github.io/GEOG777Project2/logo/memorial.png",
-                                    "width": "20px",
-                                    "height": "20px"
-                                }
-                            }, {
-                                value: "Pavilion",  
-                                symbol: {
-                                    "type": "picture-marker",
-                                    "url": "https://jusphonia1224.github.io/GEOG777Project2/logo/pavilion.png",
-                                    "width": "20px",
-                                    "height": "20px"
-                                }
-                            }, {
-                                value: "Bronze Statue of King George VI",  
-                                symbol: {
-                                    "type": "picture-marker",
-                                    "url": "https://jusphonia1224.github.io/GEOG777Project2/logo/bronze-horseman.png",
-                                    "width": "20px",
-                                    "height": "20px"
-                                }
-                            }, {
-                                value: "Stone Pillars and Flight of Steps at the Former Main Entrance",  
-                                symbol: {
-                                    "type": "picture-marker",
-                                    "url": "https://jusphonia1224.github.io/GEOG777Project2/logo/steps.png",
-                                    "width": "20px",
-                                    "height": "20px"
-                                }
-                            }, {
-                                value: "Entrance Gate Pillars on Garden Road",  
-                                symbol: {
-                                    "type": "picture-marker",
-                                    "url": "https://jusphonia1224.github.io/GEOG777Project2/logo/entrance-gate.png",
-                                    "width": "20px",
-                                    "height": "20px"
-                                }
-                            }
-                        ]
-                    },  
-                    outFields: ["HeritageCode", "HeritageType", "Remarks"],
-                    popupTemplate: heritagePopupTemplate,
-                    visible: false
-                });
-
-                heritageLayer_titleForLegend = heritageLayer.title = heritageLayer.name = 'Heritage';
-
-                map.add(heritageLayer);                   
-                */
 
                 // --- functions ---
 
@@ -232,8 +143,8 @@
                     sources: [
                         {
                             layer: srBuildingLayer,
-                            searchFields: ["ENGLISHBUILDINGNAME","CHINESEBUILDINGNAME"],
-                            suggestionTemplate: "{ENGLISHBUILDINGNAME}{CHINESEBUILDINGNAME}",
+                            searchFields: ["ENGLISHBUILDINGNAME_1","CHINESEBUILDINGNAME_1"],
+                            suggestionTemplate: "{ENGLISHBUILDINGNAME_1}{CHINESEBUILDINGNAME_1}",
                             exactMatch: false,
                             outFields: ["*"],
                             placeholder: "example: Skyline 2000",
