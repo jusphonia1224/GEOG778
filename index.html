@@ -113,16 +113,18 @@
 
                 
                 // Defining popup properties for heritage
-                const heritagePopupTemplate = {
+                const srPopupTemplate = {
                     "title": "{ENGLISHBUILDINGNAME} {CHINESEBUILDINGNAME}",
-                    "content": "<b>Usable Solar Radiation (MWh):</b> {Usable_SR_MWh}<br>"
+                    "content": "<b>English Name:</b> {ENGLISHBUILDINGNAME}<br> \
+                    <b>中文名稱:</b> {CHINESEBUILDINGNAME}<br> \
+                    <b>Usable Solar Radiation (MWh):</b> {Usable_SR_MWh}<br>"
                 }
 
                 // ----- Settings for layer - Solar Radiation (Building) -----
                 const srBuildingLayer = new FeatureLayer({
                     url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/Solar_Radiation_Buildings/FeatureServer",
                     outFields: ["Usable_SR_MWh","ENGLISHBUILDINGNAME","CHINESEBUILDINGNAME"],
-                    popupTemplate: heritagePopupTemplate,
+                    popupTemplate: srPopupTemplate,
                     visible: false
                 });
 
