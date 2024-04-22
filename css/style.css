@@ -490,7 +490,7 @@ h2:after {
 # Footer
 ------*/
 #footer {
-  background: url("../assets/bg2.jpg") top center no-repeat;
+  background: rgba(0, 0, 0, 0.6);
   background-size: cover;
   color: #fff;
   font-size: 14px;
