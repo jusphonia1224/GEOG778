@@ -114,14 +114,14 @@
                 
                 // Defining popup properties for heritage
                 const heritagePopupTemplate = {
-                    "title": "{ENGLISHBUILDINGNAME_1}{CHINESEBUILDINGNAME_1}",
+                    "title": "{ENGLISHBUILDINGNAME} {CHINESEBUILDINGNAME}",
                     "content": "<b>Usable Solar Radiation (MWh):</b> {Usable_SR_MWh}<br>"
                 }
 
                 // ----- Settings for layer - Solar Radiation (Building) -----
                 const srBuildingLayer = new FeatureLayer({
                     url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/Solar_Radiation_Buildings/FeatureServer",
-                    outFields: ["Usable_SR_MWh","ENGLISHBUILDINGNAME_1","CHINESEBUILDINGNAME_1"],
+                    outFields: ["Usable_SR_MWh","ENGLISHBUILDINGNAME","CHINESEBUILDINGNAME"],
                     popupTemplate: heritagePopupTemplate,
                     visible: false
                 });
@@ -471,14 +471,14 @@
                     <h3 style="text-align:center">Project Flow</h3>	
                     <br>
 
-                    <span style="text-align:center">
+                    <span>
                         1. Download DSM data from CEDD Spatial Data Portal (3 batchs with 10GB each)<br>
                         2. Merge DSM data covering Hong Kong into single raster layer<br>
                         3. Build Slope and Aspect layer with merged DSM layer<br>
                         4. Export DSM data into cell with 10m x 10m. (Original is 0.5m x 0.5m) <br>
                         5. Apply Area Solar Radiation on DSM data. <br>
-                        6. Download iB1000 data from Lands Department. <br>
-                        7. Unzip and extract Building information from iB1000. <br>
+                        6. Download iBG1000 data from Lands Department. <br>
+                        7. Unzip and extract Building information from iBG1000. <br>
                         8. Apply Zonal Statistics as Table to calculate raster cell values within each building polygon.
                     </span>		
                 </div>
